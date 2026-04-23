@@ -1,319 +1,239 @@
 /* =============================================
-   configuracion.css — Estilos del panel de
-   configuración de myTeacher
+   configuracion.css — Igual al diseño de
+   la imagen de referencia (perfil de usuario)
    ============================================= */
 
-/* El main de config no necesita max-width restringido */
-.config-main {
-  max-width: 100%;
-}
-
-/* Layout principal: sub-sidebar + contenido */
-.config-layout {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-/* ── SUB-SIDEBAR DE CONFIGURACIÓN ── */
-.config-sidebar {
+.config-card {
   background: white;
-  border-radius: 20px;
-  padding: 20px 12px;
+  border-radius: 16px;
+  padding: 32px 36px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  position: sticky;
-  top: calc(var(--header-h) + 24px);
 }
 
-.config-sidebar-title {
+.config-titulo {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1rem;
-  padding: 8px 12px 16px;
-  border-bottom: 1px solid #f3f4f6;
-  margin-bottom: 8px;
-}
-
-/* Navegación del sub-sidebar */
-.config-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.config-nav-item {
-  width: 100%;
-  background: none;
-  border: none;
-  border-radius: 10px;
-  padding: 11px 14px;
-  text-align: left;
-  font-family: var(--font);
-  font-size: 0.88rem;
-  color: var(--muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 500;
-  transition: all 0.2s;
-  border-left: 3px solid transparent;
-}
-.config-nav-item:hover {
-  background: #f3f4f6;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 24px;
   color: var(--text);
 }
-.config-nav-item.active {
-  background: #f0f7eb;
-  color: var(--green);
-  font-weight: 700;
-  border-left-color: var(--green);
-}
-.config-nav-item i {
-  width: 18px;
-  text-align: center;
-  font-size: 0.9rem;
+
+/* ── FILA DE FOTO ── */
+.config-foto-fila {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
 }
 
-/* ── CONTENIDO DE CONFIGURACIÓN ── */
-.config-content {
-  min-height: 400px;
+.foto-circulo {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e2e8f0;
+  flex-shrink: 0;
 }
-
-/* Cada sección de configuración */
-.config-seccion {
-  animation: fadeInConfig 0.2s ease;
+.foto-circulo img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top;
+  display: block;
 }
-
-@keyframes fadeInConfig {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Título de la sección */
-.config-titulo {
+.foto-iniciales {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--font-display);
   font-size: 1.6rem;
   font-weight: 800;
-  margin-bottom: 4px;
-}
-.config-subtitulo {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-bottom: 24px;
+  color: white;
+  background: var(--green);
 }
 
-/* Card blanca de configuración */
-.config-card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  margin-bottom: 20px;
-}
-
-/* Cada item de configuración */
-.config-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px 24px;
-  border-bottom: 1px solid #f9fafb;
-  transition: background 0.15s;
-}
-.config-item:last-child { border-bottom: none; }
-.config-item:hover { background: #fafafa; }
-
-/* Item con layout vertical (ej: tema de color) */
-.config-item--vertical {
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.config-item-info { flex: 1; }
-.config-item-label {
-  font-weight: 600;
-  font-size: 0.92rem;
-  margin-bottom: 3px;
-}
-.config-item-desc {
-  font-size: 0.8rem;
-  color: var(--muted);
-}
-
-/* Input de texto de configuración */
-.config-input {
-  border: 1.5px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 9px 14px;
-  font-size: 0.88rem;
-  font-family: var(--font);
-  color: var(--text);
-  min-width: 200px;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.config-input:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(63,81,181,0.1);
-}
-
-/* Select de configuración */
-.config-select {
-  border: 1.5px solid #e5e7eb;
-  border-radius: 10px;
-  padding: 9px 14px;
-  font-size: 0.88rem;
-  font-family: var(--font);
-  color: var(--text);
-  min-width: 180px;
-  outline: none;
-  background: white;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-.config-select:focus {
-  border-color: var(--accent-blue);
-}
-
-/* ── TOGGLE SWITCH ── */
-.toggle-switch {
-  position: relative;
-  width: 46px;
-  height: 26px;
-  flex-shrink: 0;
-  cursor: pointer;
-}
-.toggle-switch input {
-  opacity: 0;
-  width: 0; height: 0;
-  position: absolute;
-}
-.toggle-track {
-  position: absolute;
-  inset: 0;
-  background: #d1d5db;
+.btn-foto-accion {
   border-radius: 100px;
-  transition: background 0.25s;
-}
-.toggle-track::before {
-  content: '';
-  position: absolute;
-  width: 20px; height: 20px;
-  left: 3px; top: 3px;
-  background: white;
-  border-radius: 50%;
-  transition: transform 0.25s;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
-}
-.toggle-switch input:checked + .toggle-track {
-  background: var(--green);
-}
-.toggle-switch input:checked + .toggle-track::before {
-  transform: translateX(20px);
-}
-
-/* ── OPCIONES DE TEMA ── */
-.theme-options {
-  display: flex;
-  gap: 12px;
-  margin-top: 14px;
-}
-.theme-btn {
-  background: none;
-  border: 2px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 12px 16px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.82rem;
+  padding: 9px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
   font-family: var(--font);
-  color: var(--muted);
-  transition: all 0.2s;
+  cursor: pointer;
+  transition: all 0.18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
 }
-.theme-btn:hover { border-color: var(--green); color: var(--text); }
-.theme-btn.active {
-  border-color: var(--green);
-  background: #f0f7eb;
-  color: var(--green);
-  font-weight: 700;
+.btn-subir {
+  background: white;
+  color: var(--text);
+  border: 1.5px solid #d1d5db;
 }
+.btn-subir:hover { border-color: var(--green); color: var(--green); }
+.btn-borrar {
+  background: white;
+  color: var(--text);
+  border: 1.5px solid #d1d5db;
+}
+.btn-borrar:hover { border-color: #ef4444; color: #ef4444; }
 
-/* Previews de temas */
-.theme-preview {
-  width: 64px; height: 40px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid #e5e7eb;
-}
-.light-preview { background: linear-gradient(135deg, #f0f2ee 50%, #fff 50%); }
-.dark-preview  { background: linear-gradient(135deg, #1a1a2e 50%, #16213e 50%); }
-.system-preview { background: linear-gradient(135deg, #f0f2ee 50%, #1a1a2e 50%); }
-
-/* ── BOTÓN GUARDAR CONFIGURACIÓN ── */
-.btn-guardar-config {
-  background: var(--green);
+.btn-editar-config {
+  margin-left: auto;
+  background: var(--accent-blue);
   color: white;
   border: none;
   border-radius: 100px;
-  padding: 12px 28px;
-  font-size: 0.9rem;
+  padding: 9px 22px;
+  font-size: 0.88rem;
   font-weight: 700;
+  font-family: var(--font);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  transition: background 0.2s;
-  font-family: var(--font);
+  gap: 7px;
+  transition: background 0.18s;
 }
-.btn-guardar-config:hover { background: #3a6025; }
+.btn-editar-config:hover { background: #3449a3; }
+.btn-editar-config.guardando { background: var(--green); }
 
-/* ── TOAST DE CONFIRMACIÓN ── */
-.config-toast {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  background: #1e4620;
-  color: white;
-  border-radius: 100px;
-  padding: 12px 24px;
+.config-hr {
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  margin: 0 0 28px 0;
+}
+
+.validacion-msg {
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+}
+.validacion-msg.error { background:#fee2e2; color:#dc2626; border:1px solid #fca5a5; }
+.validacion-msg.exito { background:#dcfce7; color:#16a34a; border:1px solid #86efac; }
+
+/* ── GRID DATOS ── */
+.config-datos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 320px;
+  gap: 0 40px;
+  align-items: start;
+}
+
+.separador-vertical {
+  width: 1px;
+  background: #f3f4f6;
+  min-height: 260px;
+  align-self: stretch;
+}
+
+.col-titulo {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+.campos-fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.campo-grupo--mitad { grid-column: 1; }
+
+.campo-grupo { display: flex; flex-direction: column; gap: 5px; }
+.campo-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; }
+
+.campo-input {
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 13px;
   font-size: 0.88rem;
+  font-family: var(--font);
+  color: var(--text);
+  background: white;
+  outline: none;
+  transition: border-color 0.18s;
+  width: 100%;
+}
+.campo-input:disabled { background: white; color: var(--text); border-color: #e5e7eb; cursor: default; }
+.campo-input:not(:disabled) { border-color: #d1d5db; cursor: text; }
+.campo-input:not(:disabled):focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(63,81,181,0.1); }
+
+.password-wrapper { position: relative; display: flex; align-items: center; }
+.password-wrapper .campo-input { padding-right: 42px; }
+.toggle-password {
+  position: absolute; right: 12px;
+  background: none; border: none; cursor: pointer;
+  color: var(--muted); font-size: 0.88rem; padding: 3px;
+  transition: color 0.18s;
+}
+.toggle-password:hover { color: var(--text); }
+
+.btn-cambiar-pass {
+  margin-top: 14px;
+  background: #f3f4f6;
+  color: #6b7280;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 0.85rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-  transform: translateY(80px);
-  opacity: 0;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 500;
-  pointer-events: none;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.18s;
 }
-.config-toast.visible {
-  transform: translateY(0);
-  opacity: 1;
+.btn-cambiar-pass:hover { background: #e5e7eb; color: var(--text); }
+
+.eliminar-zona { margin-top: 28px; }
+.btn-eliminar-cuenta {
+  background: white;
+  color: #e53e3e;
+  border: 1.5px solid #e53e3e;
+  border-radius: 100px;
+  padding: 9px 22px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.18s;
 }
+.btn-eliminar-cuenta:hover { background: #e53e3e; color: white; }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45);
+  display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.modal-box {
+  background: white; border-radius: 20px; padding: 40px 36px;
+  max-width: 400px; width: 90%; text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+.modal-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.modal-titulo { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; }
+.modal-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+.modal-btns { display: flex; gap: 12px; justify-content: center; }
+.btn-modal-cancel {
+  background: #f3f4f6; color: var(--text); border: none; border-radius: 100px;
+  padding: 10px 24px; font-size: 0.9rem; font-weight: 600; font-family: var(--font); cursor: pointer;
+}
+.btn-modal-cancel:hover { background: #e5e7eb; }
+.btn-modal-confirm {
+  background: #dc2626; color: white; border: none; border-radius: 100px;
+  padding: 10px 24px; font-size: 0.9rem; font-weight: 700; font-family: var(--font); cursor: pointer;
+}
+.btn-modal-confirm:hover { background: #b91c1c; }
 
 /* Responsive */
-@media (max-width: 760px) {
-  .config-layout {
-    grid-template-columns: 1fr;
-  }
-  .config-sidebar {
-    position: static;
-    display: flex;
-    overflow-x: auto;
-    border-radius: 14px;
-    padding: 10px 8px;
-  }
-  .config-sidebar-title { display: none; }
-  .config-nav { flex-direction: row; gap: 4px; white-space: nowrap; }
-  .config-nav-item { border-left: none; border-bottom: 3px solid transparent; border-radius: 8px; flex-shrink: 0; }
-  .config-nav-item.active { border-left: none; border-bottom-color: var(--green); }
-  .theme-options { flex-wrap: wrap; }
+@media (max-width: 860px) {
+  .config-datos-grid { grid-template-columns: 1fr; }
+  .separador-vertical { display: none; }
+  .col-seguridad { border-top: 1px solid #f3f4f6; padding-top: 24px; margin-top: 8px; }
+}
+@media (max-width: 560px) {
+  .campos-fila { grid-template-columns: 1fr; }
+  .config-card { padding: 24px 18px; }
+  .config-foto-fila { flex-wrap: wrap; }
+  .btn-editar-config { margin-left: 0; }
 }

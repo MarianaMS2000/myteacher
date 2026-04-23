@@ -1,201 +1,165 @@
 /* =============================================
    configuracion.js — Lógica del panel de
-   configuración. Maneja la navegación entre
-   secciones y el guardado de preferencias.
+   configuración (perfil del usuario).
+   Misma funcionalidad que perfil_estudiante.js
    ============================================= */
+
+var modoEdicion = false;
 
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ── NAVEGACIÓN ENTRE SECCIONES ──
-     Al hacer click en un item del sub-sidebar,
-     se muestra la sección correspondiente */
-  var navItems = document.querySelectorAll('.config-nav-item');
-  var secciones = document.querySelectorAll('.config-seccion');
+  cargarDatos();
 
-  navItems.forEach(function (item) {
-    item.addEventListener('click', function () {
-      var targetId = 'seccion-' + item.dataset.seccion;
-
-      /* Desactivar todos los items y ocultar todas las secciones */
-      navItems.forEach(function (n) { n.classList.remove('active'); });
-      secciones.forEach(function (s) { s.style.display = 'none'; });
-
-      /* Activar el item clickeado y mostrar su sección */
-      item.classList.add('active');
-      var targetSection = document.getElementById(targetId);
-      if (targetSection) targetSection.style.display = 'block';
+  /* Editar / Guardar */
+  var btnEditar = document.getElementById('btnEditar');
+  if (btnEditar) {
+    btnEditar.addEventListener('click', function () {
+      if (!modoEdicion) activarEdicion();
+      else guardarCambios();
     });
-  });
+  }
 
-  /* ── CARGAR PREFERENCIAS GUARDADAS ── */
-  cargarPreferencias();
-
-  /* ── BOTONES GUARDAR ── */
-  /* Guardamos al hacer click en cualquier btn-guardar-config */
-  document.querySelectorAll('.btn-guardar-config').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      guardarPreferencias();
-      mostrarToast();
+  /* Subir foto */
+  var fotoInput = document.getElementById('fotoInput');
+  if (fotoInput) {
+    fotoInput.addEventListener('change', function (e) {
+      var file = e.target.files[0];
+      if (!file || !file.type.startsWith('image/')) return;
+      var reader = new FileReader();
+      reader.onload = function (ev) {
+        var prev = document.getElementById('fotoPreview');
+        var inic = document.getElementById('fotoInicial');
+        var ha   = document.getElementById('headerAvatar');
+        if (prev) { prev.src = ev.target.result; prev.style.display = 'block'; }
+        if (inic) inic.style.display = 'none';
+        if (ha)   ha.src = ev.target.result;
+        try { localStorage.setItem('mt_foto_perfil', ev.target.result); } catch(e){}
+      };
+      reader.readAsDataURL(file);
     });
-  });
+  }
 
-  /* ── SELECCIÓN DE TEMA ── */
-  var themeBtns = document.querySelectorAll('.theme-btn');
-  themeBtns.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      themeBtns.forEach(function (b) { b.classList.remove('active'); });
-      btn.classList.add('active');
+  /* Borrar foto */
+  var btnBorrar = document.getElementById('btnBorrarFoto');
+  if (btnBorrar) {
+    btnBorrar.addEventListener('click', function () {
+      var prev = document.getElementById('fotoPreview');
+      var inic = document.getElementById('fotoInicial');
+      if (prev) { prev.src = ''; prev.style.display = 'none'; }
+      if (inic) inic.style.display = 'flex';
+      try { localStorage.removeItem('mt_foto_perfil'); } catch(e){}
+      var fi = document.getElementById('fotoInput');
+      if (fi) fi.value = '';
     });
-  });
+  }
+
+  /* Toggle contraseña */
+  var togglePass = document.getElementById('togglePassword');
+  if (togglePass) {
+    togglePass.addEventListener('click', function () {
+      var inp = document.getElementById('inputPassword');
+      if (!inp) return;
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        togglePass.innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
+      } else {
+        inp.type = 'password';
+        togglePass.innerHTML = '<i class="fa-regular fa-eye"></i>';
+      }
+    });
+  }
+
+  /* Modal eliminar cuenta */
+  var btnEl   = document.getElementById('btnEliminarCuenta');
+  var modal   = document.getElementById('modalEliminar');
+  var btnCan  = document.getElementById('btnCancelarEliminar');
+  var btnConf = document.getElementById('btnConfirmarEliminar');
+
+  if (btnEl  && modal) btnEl.addEventListener('click', function () { modal.style.display = 'flex'; });
+  if (btnCan && modal) btnCan.addEventListener('click', function () { modal.style.display = 'none'; });
+  if (modal) modal.addEventListener('click', function (e) { if (e.target === modal) modal.style.display = 'none'; });
+  if (btnConf) {
+    btnConf.addEventListener('click', function () {
+      try { localStorage.removeItem('mt_user'); localStorage.removeItem('mt_foto_perfil'); } catch(e){}
+      window.location.href = 'login.html';
+    });
+  }
 });
 
-/**
- * Guarda todas las preferencias de configuración en localStorage.
- */
-function guardarPreferencias() {
-  var prefs = {};
+function cargarDatos() {
+  var u = {};
+  try { u = JSON.parse(localStorage.getItem('mt_user') || '{}'); } catch(e){}
 
-  /* General */
-  prefs.nombreUsuario = getInputVal('configNombreUsuario');
-  prefs.email = getInputVal('configEmail');
-  prefs.zona = getInputVal('configZona');
-  prefs.resumenSemanal = getCheckVal('toggleResumen');
+  var partes = (u.nombre || 'Choi San').split(' ');
+  setVal('inputNombre',   partes[0] || 'Choi');
+  setVal('inputApellido', partes[1] || 'San');
+  setVal('inputEmail',    u.email   || 'sanuwu@gmail.com');
+  setVal('inputTelefono', u.telefono || '3333333333');
+  setVal('inputFecha',    u.fechaNacimiento || '1999-07-10');
+  setTxt('userName',      u.nombre  || 'Choi San');
 
-  /* Notificaciones */
-  prefs.notifTutorias = getCheckVal('notifTutorias');
-  prefs.notifMensajes = getCheckVal('notifMensajes');
-  prefs.notifOfertas  = getCheckVal('notifOfertas');
-  prefs.notifPush     = getCheckVal('notifPush');
-  prefs.notifEmail    = getCheckVal('notifEmail');
+  var nombre = u.nombre || 'Choi San';
+  var iniciales = nombre.split(' ').map(function(p){ return p[0]; }).join('').slice(0,2).toUpperCase();
+  var inicEl = document.getElementById('fotoInicial');
+  if (inicEl) inicEl.textContent = iniciales;
 
-  /* Privacidad */
-  prefs.privPerfilPublico = getCheckVal('privPerfilPublico');
-  prefs.privHistorial     = getCheckVal('privHistorial');
-  prefs.privReputacion    = getCheckVal('privReputacion');
-  prefs.privDatos         = getCheckVal('privDatos');
-
-  /* Apariencia */
-  prefs.fuente     = getInputVal('configFuente');
-  prefs.animaciones = getCheckVal('configAnimaciones');
-  /* Tema activo */
-  var temaActivo = document.querySelector('.theme-btn.active');
-  prefs.tema = temaActivo ? temaActivo.dataset.theme : 'light';
-
-  /* Idioma */
-  prefs.idioma        = getInputVal('configIdioma');
-  prefs.fechaFormato  = getInputVal('configFechaFormato');
-  prefs.moneda        = getInputVal('configMoneda');
-
-  /* Accesibilidad */
-  prefs.accLector    = getCheckVal('accLector');
-  prefs.accContraste = getCheckVal('accContraste');
-  prefs.accSubtitulos = getCheckVal('accSubtitulos');
-
-  /* Actualizar también el nombre en los datos del usuario */
-  if (prefs.nombreUsuario) {
-    try {
-      var user = JSON.parse(localStorage.getItem('mt_user') || '{}');
-      user.nombre = prefs.nombreUsuario;
-      user.email  = prefs.email;
-      localStorage.setItem('mt_user', JSON.stringify(user));
-    } catch (e) {}
-    /* Actualizar nombre visible en el header */
-    var userNameEl = document.getElementById('userName');
-    if (userNameEl) userNameEl.textContent = prefs.nombreUsuario;
+  var foto = null;
+  try { foto = localStorage.getItem('mt_foto_perfil'); } catch(e){}
+  if (foto) {
+    var prev = document.getElementById('fotoPreview');
+    var ha   = document.getElementById('headerAvatar');
+    var inic = document.getElementById('fotoInicial');
+    if (prev) { prev.src = foto; prev.style.display = 'block'; }
+    if (ha)   ha.src = foto;
+    if (inic) inic.style.display = 'none';
   }
-
-  /* Guardar todas las preferencias */
-  try { localStorage.setItem('mt_config', JSON.stringify(prefs)); } catch (e) {}
 }
 
-/**
- * Carga las preferencias guardadas y las aplica a los controles.
- */
-function cargarPreferencias() {
-  var prefs = {};
-  try { prefs = JSON.parse(localStorage.getItem('mt_config') || '{}'); } catch (e) {}
-
-  /* Cargar datos del usuario */
-  var user = {};
-  try { user = JSON.parse(localStorage.getItem('mt_user') || '{}'); } catch (e) {}
-
-  /* General */
-  setInputVal('configNombreUsuario', prefs.nombreUsuario || user.nombre || 'Choi san');
-  setInputVal('configEmail', prefs.email || user.email || 'choi@email.com');
-  setInputVal('configZona', prefs.zona || 'America/Bogota');
-  setCheckVal('toggleResumen', prefs.resumenSemanal !== false);
-
-  /* Notificaciones */
-  setCheckVal('notifTutorias', prefs.notifTutorias !== false);
-  setCheckVal('notifMensajes', prefs.notifMensajes !== false);
-  setCheckVal('notifOfertas', prefs.notifOfertas === true);
-  setCheckVal('notifPush', prefs.notifPush !== false);
-  setCheckVal('notifEmail', prefs.notifEmail !== false);
-
-  /* Privacidad */
-  setCheckVal('privPerfilPublico', prefs.privPerfilPublico !== false);
-  setCheckVal('privHistorial', prefs.privHistorial !== false);
-  setCheckVal('privReputacion', prefs.privReputacion !== false);
-  setCheckVal('privDatos', prefs.privDatos === true);
-
-  /* Apariencia */
-  setInputVal('configFuente', prefs.fuente || 'medium');
-  setCheckVal('configAnimaciones', prefs.animaciones === true);
-
-  /* Restaurar tema activo */
-  if (prefs.tema) {
-    var themeBtn = document.querySelector('[data-theme="' + prefs.tema + '"]');
-    if (themeBtn) {
-      document.querySelectorAll('.theme-btn').forEach(function (b) { b.classList.remove('active'); });
-      themeBtn.classList.add('active');
-    }
-  }
-
-  /* Idioma */
-  setInputVal('configIdioma', prefs.idioma || 'es');
-  setInputVal('configFechaFormato', prefs.fechaFormato || 'dd/mm/yyyy');
-  setInputVal('configMoneda', prefs.moneda || 'COP');
-
-  /* Accesibilidad */
-  setCheckVal('accLector', prefs.accLector === true);
-  setCheckVal('accContraste', prefs.accContraste === true);
-  setCheckVal('accSubtitulos', prefs.accSubtitulos !== false);
+function activarEdicion() {
+  modoEdicion = true;
+  ['inputNombre','inputApellido','inputTelefono','inputEmail','inputFecha'].forEach(function(id){
+    var el = document.getElementById(id); if (el) el.disabled = false;
+  });
+  var btn = document.getElementById('btnEditar');
+  if (btn) { btn.innerHTML = '<i class="fa-regular fa-floppy-disk"></i> Guardar'; btn.classList.add('guardando'); }
+  ocultarMsg();
 }
 
-/**
- * Muestra un toast de confirmación que desaparece solo.
- */
-function mostrarToast() {
-  var toast = document.getElementById('configToast');
-  if (!toast) return;
-  toast.classList.add('visible');
-  setTimeout(function () {
-    toast.classList.remove('visible');
-  }, 2800);
+function guardarCambios() {
+  var nombre   = getVal('inputNombre').trim();
+  var apellido = getVal('inputApellido').trim();
+  var email    = getVal('inputEmail').trim();
+  var telefono = getVal('inputTelefono').trim();
+  var fecha    = getVal('inputFecha').trim();
+
+  if (!nombre || nombre.length < 2)   return mostrarMsg('El nombre debe tener al menos 2 caracteres.', 'error');
+  if (!apellido || apellido.length < 2) return mostrarMsg('El apellido debe tener al menos 2 caracteres.', 'error');
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return mostrarMsg('Ingresa un correo válido.', 'error');
+  if (!telefono || telefono.length < 7) return mostrarMsg('Ingresa un teléfono válido.', 'error');
+
+  var u = {};
+  try { u = JSON.parse(localStorage.getItem('mt_user') || '{}'); } catch(e){}
+  u.nombre = nombre + ' ' + apellido;
+  u.email = email; u.telefono = telefono; u.fechaNacimiento = fecha;
+  try { localStorage.setItem('mt_user', JSON.stringify(u)); } catch(e){}
+
+  setTxt('userName', u.nombre);
+  modoEdicion = false;
+  ['inputNombre','inputApellido','inputTelefono','inputEmail','inputFecha'].forEach(function(id){
+    var el = document.getElementById(id); if (el) el.disabled = true;
+  });
+  var btn = document.getElementById('btnEditar');
+  if (btn) { btn.innerHTML = '<i class="fa-regular fa-pen-to-square"></i> Editar'; btn.classList.remove('guardando'); }
+  mostrarMsg('¡Cambios guardados correctamente!', 'exito');
 }
 
-/* ── UTILIDADES ── */
-
-/** Obtiene el valor de un input/select por ID */
-function getInputVal(id) {
-  var el = document.getElementById(id);
-  return el ? el.value : '';
+function getVal(id) { var e = document.getElementById(id); return e ? e.value : ''; }
+function setVal(id, v) { var e = document.getElementById(id); if (e) e.value = v; }
+function setTxt(id, v) { var e = document.getElementById(id); if (e) e.textContent = v; }
+function mostrarMsg(txt, tipo) {
+  var el = document.getElementById('validacionMsg');
+  if (!el) return;
+  el.textContent = txt; el.className = 'validacion-msg ' + tipo; el.style.display = 'block';
+  if (tipo === 'exito') setTimeout(ocultarMsg, 3000);
 }
-
-/** Obtiene el estado de un checkbox por ID */
-function getCheckVal(id) {
-  var el = document.getElementById(id);
-  return el ? el.checked : false;
-}
-
-/** Asigna un valor a un input/select por ID */
-function setInputVal(id, valor) {
-  var el = document.getElementById(id);
-  if (el) el.value = valor;
-}
-
-/** Asigna el estado de un checkbox por ID */
-function setCheckVal(id, checked) {
-  var el = document.getElementById(id);
-  if (el) el.checked = checked;
-}
+function ocultarMsg() { var el = document.getElementById('validacionMsg'); if (el) el.style.display = 'none'; }
