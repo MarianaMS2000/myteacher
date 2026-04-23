@@ -1,0 +1,646 @@
+/* =============================================
+   panel.css — Estilos compartidos para todas las
+   páginas del panel (estudiante, profesor, favoritos,
+   perfil tutor, agendar, confirmación)
+   ============================================= */
+
+/* Aquí definimos las variables de color y tamaño
+   que usamos en todo el panel */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --sidebar-bg: #1e4620;      /* Verde oscuro del sidebar */
+  --sidebar-w: 200px;          /* Ancho del sidebar */
+  --header-h: 64px;            /* Alto del header superior */
+  --green: #4a7a30;            /* Verde principal */
+  --green-light: #7ab648;      /* Verde claro para acentos */
+  --accent-blue: #3f51b5;      /* Azul para elementos del estudiante */
+  --bg: #f0f2ee;               /* Fondo gris-verdoso */
+  --card-bg: #fff;             /* Fondo blanco de las tarjetas */
+  --text: #1a1a1a;             /* Texto principal oscuro */
+  --muted: #6b7280;            /* Texto secundario gris */
+  --right-panel-bg: #fdf4f0;  /* Fondo del panel derecho */
+  --right-panel-w: 300px;      /* Ancho del panel derecho */
+  --font: 'DM Sans', sans-serif;
+  --font-display: 'Syne', sans-serif;
+}
+
+/* El body usa flexbox para que el sidebar
+   y el contenido queden lado a lado */
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ── */
+/* El sidebar es la barra verde oscura de la izquierda */
+.sidebar {
+  width: var(--sidebar-w);
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 28px;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  transition: transform 0.3s ease; /* Animación suave al abrir/cerrar en móvil */
+}
+
+/* Ícono del logo dentro del sidebar */
+.sidebar-logo {
+  width: 64px; height: 64px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 32px;
+}
+.sidebar-logo i { font-size: 2rem; color: white; }
+
+/* Lista de links del menú lateral */
+.sidebar-nav {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+/* Cada item del menú lateral */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 24px;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-item:hover {
+  color: white;
+  background: rgba(255,255,255,0.08);
+}
+/* El item activo (página actual) tiene borde y fondo */
+.nav-item.active {
+  color: white;
+  font-weight: 700;
+  border-left-color: white;
+  background: rgba(255,255,255,0.07);
+}
+.nav-item i { width: 18px; text-align: center; font-size: 0.95rem; }
+
+/* Fondo oscuro que aparece al abrir el sidebar en móvil */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+}
+.sidebar-overlay.visible { display: block; }
+
+/* ── HEADER ── */
+/* La barra superior blanca con logo, búsqueda y usuario */
+.header {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-w);
+  right: 0;
+  height: var(--header-h);
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  z-index: 99;
+  box-shadow: 0 1px 0 #e5e7eb;
+}
+
+/* Botón hamburger (solo visible en móvil) */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: var(--text);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.hamburger-btn:hover { background: #f3f4f6; }
+
+/* Logo "myTeacher" en el header */
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.header-brand span {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--green);
+}
+
+/* Barra de búsqueda en el header */
+.header-search {
+  flex: 1;
+  max-width: 360px;
+  display: flex;
+  align-items: center;
+  background: #f3f4f6;
+  border-radius: 100px;
+  padding: 0 16px;
+  gap: 8px;
+}
+.header-search input {
+  border: none; background: transparent;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  width: 100%;
+  outline: none;
+  color: var(--text);
+}
+.header-search input::placeholder { color: #9ca3af; }
+.search-btn {
+  background: var(--green);
+  border: none; border-radius: 100px;
+  padding: 7px 16px;
+  color: white; cursor: pointer;
+  font-size: 0.8rem;
+}
+
+/* Parte derecha del header (notificaciones y usuario) */
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Botón de la campanita de notificaciones */
+.notif-btn {
+  position: relative;
+  background: none; border: none;
+  font-size: 1.2rem; color: var(--muted);
+  cursor: pointer;
+}
+/* Puntito rojo que indica notificación nueva */
+.notif-dot {
+  position: absolute;
+  top: 0; right: 0;
+  width: 8px; height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 1.5px solid white;
+}
+
+/* Botón del usuario con foto y nombre */
+.user-btn {
+  display: flex; align-items: center; gap: 8px;
+  background: none; border: none;
+  cursor: pointer; font-family: var(--font);
+  font-size: 0.88rem; font-weight: 600;
+  color: var(--text);
+}
+/* Foto circular del usuario */
+.user-avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-weight: 700; font-size: 0.8rem;
+}
+.user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── DISEÑO PRINCIPAL ── */
+/* Envuelve el contenido principal y el panel derecho */
+.main-wrapper {
+  margin-left: var(--sidebar-w);
+  padding-top: var(--header-h);
+  flex: 1;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Área de contenido principal donde va el contenido de cada página */
+.main-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Panel lateral derecho (calendario, eventos, chat) */
+.right-panel {
+  width: var(--right-panel-w);
+  background: var(--right-panel-bg);
+  border-left: 1px solid #f0e8e4;
+  padding: 24px 20px;
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+/* ── ENCABEZADOS DE SECCIÓN ── */
+/* Fila con título y link "ver todo" */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.section-link {
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  display: flex; align-items: center; gap: 4px;
+}
+.section-link:hover { color: var(--green); }
+
+/* ── DROPDOWN DE USUARIO ── */
+/* Menú que aparece al hacer click en el nombre del usuario */
+.dropdown-menu {
+  position: absolute;
+  top: 56px; right: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  padding: 8px;
+  min-width: 160px;
+  z-index: 200;
+  display: none; /* Se muestra con JS */
+}
+.dropdown-menu.open { display: block; }
+/* Cada opción del dropdown */
+.dropdown-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+}
+.dropdown-item:hover { background: #f3f4f6; }
+.dropdown-item.danger { color: #ef4444; } /* Rojo para "cerrar sesión" */
+.dropdown-divider { border: none; border-top: 1px solid #f3f4f6; margin: 4px 0; }
+
+/* ── CALENDARIO (panel derecho) ── */
+.calendar-widget {
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.cal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px;
+}
+.cal-month { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; }
+.cal-nav-btn {
+  background: none; border: none;
+  color: var(--muted); cursor: pointer;
+  font-size: 0.9rem; padding: 4px 6px; border-radius: 6px;
+}
+.cal-nav-btn:hover { background: #f3f4f6; }
+/* Cabecera con los días de la semana (L, M, M, J, V, S, D) */
+.cal-days-header {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  text-align: center; font-size: 0.72rem; color: var(--muted);
+  font-weight: 600; margin-bottom: 6px;
+}
+/* Grilla donde van los números del mes */
+.cal-days {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  gap: 2px; text-align: center;
+}
+.cal-day {
+  padding: 6px 4px;
+  font-size: 0.78rem;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.cal-day:hover:not(.empty) { background: #f3f4f6; }
+/* El día de hoy se ve en verde oscuro */
+.cal-day.today {
+  background: var(--sidebar-bg);
+  color: white; font-weight: 700; border-radius: 50%;
+}
+/* Días con eventos tienen un puntito debajo */
+.cal-day.has-event::after {
+  content: '•'; display: block;
+  font-size: 0.5rem; color: var(--green);
+}
+/* Día seleccionado */
+.cal-day.selected {
+  background: var(--green-light);
+  color: white; border-radius: 50%;
+}
+
+/* ── RESPONSIVE MÓVIL ── */
+/* En pantallas pequeñas el sidebar se convierte en drawer */
+@media (max-width: 768px) {
+  /* El sidebar se oculta fuera de la pantalla a la izquierda */
+  .sidebar {
+    transform: translateX(-100%);
+    z-index: 200;
+  }
+  /* Cuando está abierto vuelve a su posición */
+  .sidebar.open { transform: translateX(0); }
+
+  /* El header ocupa todo el ancho */
+  .header { left: 0; }
+
+  /* Aparece el botón de hamburger */
+  .hamburger-btn { display: flex; }
+
+  /* El contenido principal ya no necesita margen del sidebar */
+  .main-wrapper { margin-left: 0; }
+
+  /* Barra de búsqueda más pequeña */
+  .header-search { max-width: 200px; }
+
+  /* El panel derecho se mueve debajo del contenido */
+  .right-panel {
+    display: none; /* Se oculta en móvil para no ocupar espacio */
+  }
+}
+
+@media (max-width: 500px) {
+  /* En pantallas muy pequeñas la búsqueda se oculta */
+  .header-search { display: none; }
+  .main-content { padding: 16px; }
+}
+ /* ── ESTILOS ESPECÍFICOS DEL PANEL ESTUDIANTE ── */
+
+    /* Panel lateral derecho: fondo rosado suave */
+    .right-panel { background: #fdf4f0; }
+
+    /* Banner héroe en azul/morado */
+    .hero-banner {
+      background: linear-gradient(135deg, #3f4fc0 0%, #5b4fa8 50%, #7c5ba8 100%);
+      border-radius: 20px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    /* Círculo decorativo en la esquina */
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .hero-text { flex: 1; }
+    .hero-text h2 {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 800;
+      color: white; line-height: 1.1; margin-bottom: 10px;
+    }
+    .hero-text p {
+      color: rgba(255,255,255,0.82);
+      font-size: 0.92rem; line-height: 1.5;
+      margin-bottom: 20px; max-width: 360px;
+    }
+    /* Botón dentro del banner */
+    .btn-hero-panel {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255,255,255,0.4);
+      color: white; border-radius: 100px;
+      padding: 11px 22px; font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; text-decoration: none; transition: background 0.2s;
+    }
+    .btn-hero-panel:hover { background: rgba(255,255,255,0.3); }
+    /* Imagen decorativa del banner */
+    .hero-illustration { width: 180px; flex-shrink: 0; }
+    .hero-illustration img { width: 100%; object-fit: contain; }
+    .hero-illus-fallback {
+      width: 180px; height: 160px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+    }
+
+    /* ── TARJETAS DE ESTADÍSTICAS ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--card-bg); border-radius: 16px;
+      padding: 20px; display: flex; align-items: center; gap: 16px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    /* Ícono cuadrado de color */
+    .stat-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; flex-shrink: 0;
+    }
+    .stat-icon.gray { background: #f3f4f6; }
+    .stat-icon.yellow { background: #fef3c7; }
+    .stat-icon.green { background: #dcfce7; }
+    /* Número grande */
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem; font-weight: 800; color: var(--text);
+    }
+    .stat-label { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── MATERIAS POPULARES ── */
+    .materias-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin-bottom: 28px;
+    }
+    /* Cada tarjeta de materia es como una foto con overlay */
+    .materia-card {
+      border-radius: 16px; overflow: hidden;
+      height: 100px; position: relative;
+      cursor: pointer; transition: transform 0.2s;
+    }
+    .materia-card:hover { transform: translateY(-2px); }
+    /* Caja de color con ícono y nombre */
+    .materia-fallback {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 8px; font-size: 0.95rem; font-weight: 700; color: white;
+    }
+    .materia-fallback span { font-size: 1.8rem; }
+
+    /* ── MAPA DE TUTORES CERCANOS ── */
+    .map-widget {
+      background: var(--card-bg); border-radius: 20px;
+      overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    /* Área donde va la imagen del mapa */
+    .map-area {
+      position: relative; height: 260px;
+      background: #e8f0e8; overflow: hidden;
+    }
+    .map-area img { width: 100%; height: 100%; object-fit: cover; }
+    /* Botón que flota sobre el mapa */
+    .btn-explore-map {
+      position: absolute; bottom: 16px;
+      left: 50%; transform: translateX(-50%);
+      background: #3f51b5; color: white; border: none;
+      border-radius: 100px; padding: 11px 28px;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(63,81,181,0.35);
+    }
+
+    /* ── PANEL DERECHO: EVENTOS ── */
+    .events-section { margin-bottom: 20px; }
+    .events-title {
+      font-family: var(--font-display);
+      font-weight: 700; font-size: 0.95rem; margin-bottom: 12px;
+    }
+    /* Tarjeta de un evento próximo */
+    .event-card {
+      background: white; border-radius: 12px;
+      padding: 12px 14px; display: flex; gap: 12px;
+      align-items: flex-start; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    /* Ícono del evento */
+    .event-icon {
+      width: 38px; height: 38px; background: #e8f5e9;
+      border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .event-name { font-weight: 700; font-size: 0.88rem; }
+    .event-meta { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
+    /* Etiqueta "Virtual" o "Presencial" */
+    .event-badge {
+      margin-top: 5px; display: inline-block;
+      background: #e8f5e9; color: var(--green);
+      border-radius: 100px; padding: 2px 10px;
+      font-size: 0.72rem; font-weight: 600;
+    }
+
+    /* ── PANEL DERECHO: CHAT CON MANZANITA ── */
+    .chat-widget {
+      background: white; border-radius: 16px;
+      overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .chat-header {
+      padding: 14px 16px; border-bottom: 1px solid #f3f4f6;
+      display: flex; align-items: center; gap: 10px;
+    }
+    /* Foto de la manzanita (mascota) */
+    .chat-apple-img {
+      width: 40px; height: 40px; border-radius: 50%;
+      overflow: hidden; background: #fee2e2;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; flex-shrink: 0;
+    }
+    .chat-apple-img img { width: 100%; height: 100%; object-fit: cover; }
+    .chat-subtitle { font-size: 0.7rem; color: var(--muted); }
+    .chat-name { font-weight: 700; font-size: 0.9rem; }
+    /* Puntito verde que indica que la manzanita está "online" */
+    .online-dot {
+      width: 8px; height: 8px; background: #22c55e;
+      border-radius: 50%; margin-left: auto;
+    }
+    /* Área donde aparecen los mensajes */
+    .chat-body {
+      padding: 14px; min-height: 120px;
+      max-height: 220px; overflow-y: auto;
+    }
+    .chat-bubble-row {
+      display: flex; gap: 8px; align-items: flex-start; margin-bottom: 10px;
+    }
+    .chat-bubble-apple {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #fee2e2; display: flex; align-items: center;
+      justify-content: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .chat-bubble-apple img { width: 100%; object-fit: cover; border-radius: 50%; }
+    /* Globo de mensaje */
+    .chat-bubble {
+      background: #f3f4f6;
+      border-radius: 12px 12px 12px 2px;
+      padding: 10px 12px; font-size: 0.83rem; max-width: 200px;
+    }
+    /* Botones de opciones rápidas en el chat */
+    .chat-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .chat-chip {
+      border: 1.5px solid #e5e7eb; border-radius: 100px;
+      padding: 4px 12px; font-size: 0.72rem; color: #374151;
+      cursor: pointer; transition: all 0.15s; background: white;
+    }
+    .chat-chip:hover { border-color: var(--green); color: var(--green); }
+    /* Área de escritura del mensaje */
+    .chat-footer {
+      padding: 12px 14px; border-bottom: 1px solid #f3f4f6; /* corregido */
+      border-top: 1px solid #f3f4f6;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .chat-input {
+      flex: 1; border: none; background: transparent;
+      font-family: var(--font); font-size: 0.83rem; outline: none; color: var(--text);
+    }
+    .chat-input::placeholder { color: #9ca3af; }
+    .chat-send-btn {
+      background: none; border: none; color: var(--muted);
+      cursor: pointer; font-size: 1rem; padding: 4px; transition: color 0.15s;
+    }
+    .chat-send-btn:hover { color: var(--green); }
+    /* Animación de los tres puntitos cuando la manzanita "está escribiendo" */
+    .typing { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
+    .typing span {
+      width: 6px; height: 6px; background: var(--muted);
+      border-radius: 50%; animation: bounce 1.2s infinite;
+    }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    /* Adaptaciones responsive */
+    @media (max-width: 900px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .materias-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-illustration { display: none; }
+      .hero-text h2 { font-size: 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .materias-grid { grid-template-columns: 1fr 1fr; }
+      .hero-banner { padding: 20px; }
+    }

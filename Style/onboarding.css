@@ -1,0 +1,116 @@
+/* ── BASE ─────────────────────────────────────────── */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; font-family: 'Lato', sans-serif;
+      /* 👉 La imagen de fondo se pone desde el <body style=""> en el HTML */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      position: relative;
+    }
+    /* Overlay oscuro sobre la imagen */
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: rgba(0, 0, 0, 0.28);
+      z-index: 0; pointer-events: none;
+    }
+ 
+    /* ── NAV FLOTANTE (igual que login y registro) ─────── */
+    nav {
+      position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+      z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 36px; width: 90%;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
+    .nav-logo { height: 40px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a {
+      color: rgba(0, 0, 0, 0.75); font-family: 'Lato', sans-serif;
+      font-size: 1rem; font-weight: 700; text-decoration: none; letter-spacing: .3px;
+      transition: color .2s;
+    }
+    .nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+ 
+    /* ── ÁREA CENTRAL ──────────────────────────────────── */
+    .ob-page {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 100px 20px 40px; position: relative; z-index: 1;
+    }
+ 
+    /* ── TARJETA ───────────────────────────────────────── */
+    .ob-card {
+      background: white; border-radius: 20px; padding: 44px 52px;
+      width: 100%; max-width: 600px;
+      box-shadow: 0 20px 64px rgba(0,0,0,.22);
+      display: none; flex-direction: column; gap: 4px;
+    }
+    .ob-card.active { display: flex; }
+ 
+    .ob-pre { font-size: .88rem; color: #6b7280; text-align: center; line-height: 1.6; margin-bottom: 10px; }
+    .ob-line { width: 52px; height: 3px; background: #2dd4bf; border-radius: 4px; margin: 0 auto 20px; }
+ 
+    .ob-apple-top { display: flex; justify-content: center; margin-bottom: 6px; }
+    .ob-apple-top img { width: 80px; }
+ 
+    .ob-back-row { margin-bottom: 4px; }
+    .ob-back { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #1a1a1a; padding: 0; line-height: 1; }
+ 
+    .ob-q {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.55rem; font-weight: 800; color: #1a1a1a; line-height: 1.2; margin-bottom: 4px;
+    }
+    .ob-hint { font-size: .85rem; color: #6b7280; margin-bottom: 18px; }
+ 
+    /* ── OPCIONES ──────────────────────────────────────── */
+    .ob-options { display: flex; flex-direction: column; gap: 10px; }
+    .ob-option {
+      display: flex; align-items: center; justify-content: space-between;
+      background: #f4f4f4; border-radius: 12px; padding: 16px 18px;
+      cursor: pointer; transition: background .2s; font-size: .92rem; color: #1a1a1a; user-select: none;
+    }
+    .ob-option:hover { background: #eef5ea; }
+    .ob-option.selected { background: #f0f9f7; }
+    .custom-check {
+      width: 20px; height: 20px; border-radius: 4px; border: 2px solid #d1d5db;
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s; font-size: .75rem; font-weight: 800; color: white;
+    }
+    .ob-option.selected .custom-check { background: #2dd4bf; border-color: #2dd4bf; }
+ 
+    /* ── BOTÓN SIGUIENTE ───────────────────────────────── */
+    .ob-nav { display: flex; justify-content: flex-end; margin-top: 18px; }
+    .btn-sig {
+      background: #2dd4bf; color: white; border: none;
+      border-radius: 10px; padding: 12px 34px;
+      font-size: .95rem; font-weight: 700; cursor: pointer;
+      transition: background .2s; font-family: inherit;
+    }
+    .btn-sig:hover { background: #14b8a6; }
+ 
+    /* ── TARJETA ÉXITO ─────────────────────────────────── */
+    .ob-success { text-align: center; }
+    .success-apple { width: 200px; margin: 0 auto 10px; }
+    .success-apple img { width: 100%; }
+    .success-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.45rem; font-weight: 800; line-height: 1.45; color: #1a1a1a;
+    }
+ 
+    /* ── RESPONSIVE ────────────────────────────────────── */
+    @media (max-width: 600px) {
+      nav { width: 94%; padding: 12px 20px; }
+      .nav-links { gap: 20px; }
+      .nav-links a { font-size: .85rem; }
+      .nav-logo { height: 32px; }
+      .ob-page { padding: 80px 14px 32px; }
+      .ob-card { padding: 28px 20px; }
+      .ob-q { font-size: 1.2rem; }
+    }
+  

@@ -1,0 +1,574 @@
+/* =============================================
+   comunidad.css — Estilos para la vista
+   "Comunidad" con el foro de preguntas y IA
+   ============================================= */
+
+/* ── HERO HEADER DE LA COMUNIDAD ──
+   Fondo degradado verde → azul con el título principal */
+.community-hero {
+  background: linear-gradient(135deg, #1e4620 0%, #2d6a4f 35%, #1d4ed8 100%);
+  border-radius: 24px;
+  padding: 40px 36px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Círculos decorativos de fondo */
+.community-hero::before,
+.community-hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.community-hero::before {
+  width: 280px; height: 280px;
+  top: -80px; right: -60px;
+}
+
+.community-hero::after {
+  width: 160px; height: 160px;
+  bottom: -50px; left: 40%;
+}
+
+/* Título grande del hero */
+.community-hero-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Subtexto descriptivo */
+.community-hero-sub {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 28px;
+  max-width: 480px;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── INPUT PRINCIPAL DE PREGUNTA ── */
+.ask-input-wrapper {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 14px;
+}
+
+.ask-textarea {
+  flex: 1;
+  padding: 14px 18px;
+  background: white;
+  border: none;
+  border-radius: 14px;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  color: var(--text);
+  outline: none;
+  resize: none;
+  height: 52px;
+  min-height: 52px;
+  max-height: 120px;
+  overflow-y: hidden;
+  transition: height 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.ask-textarea::placeholder { color: #9ca3af; }
+
+/* Botón verde "Preguntar" */
+.btn-ask {
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 22px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.15s;
+  height: 52px;
+  box-shadow: 0 2px 12px rgba(34,197,94,0.4);
+}
+
+.btn-ask:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+}
+
+.btn-ask:disabled {
+  background: #86efac;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── INPUT DE ETIQUETAS / TAGS ── */
+.tags-input-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.tags-label {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 7px;
+  display: block;
+}
+
+/* Contenedor de chips + campo de texto */
+.tags-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(255,255,255,0.25);
+  border-radius: 12px;
+  padding: 8px 12px;
+  min-height: 46px;
+  cursor: text;
+  transition: border-color 0.2s;
+}
+
+.tags-field:focus-within {
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* Chip de etiqueta dentro del input */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border-radius: 100px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Botón "×" dentro del chip para eliminarlo */
+.tag-chip-remove {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.tag-chip-remove:hover { color: white; }
+
+/* Input dentro del campo de tags */
+.tags-text-input {
+  background: none;
+  border: none;
+  outline: none;
+  font-family: var(--font);
+  font-size: 0.83rem;
+  color: white;
+  width: 140px;
+  min-width: 80px;
+}
+
+.tags-text-input::placeholder { color: rgba(255,255,255,0.5); }
+
+/* Hint "Enter para agregar" */
+.tags-hint {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.55);
+  margin-top: 5px;
+}
+
+/* ── SECCIÓN DE PREGUNTAS ── */
+.questions-section {
+  margin-bottom: 24px;
+}
+
+.questions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.questions-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.questions-count {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* ── TARJETAS DE PREGUNTAS ──
+   Card con borde rojizo suave, foto del usuario,
+   texto de la pregunta, tags y acciones */
+.question-card {
+  border: 1.5px solid #fecaca; /* Borde rojo suave */
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  background: white;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.question-card:hover {
+  box-shadow: 0 4px 18px rgba(239, 68, 68, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Nueva pregunta del usuario (recién publicada) */
+.question-card.new-question {
+  border-color: #22c55e;
+  animation: card-appear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes card-appear {
+  from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* ── ENCABEZADO DE LA CARD ── */
+.question-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* Avatar circular del autor */
+.question-user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1e4620, #4a7a30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.question-user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.question-user-info { flex: 1; }
+
+/* Nombre del autor */
+.question-user-name {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+/* Tiempo relativo (ej: Hace 5hrs) */
+.question-time {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ── TEXTO DE LA PREGUNTA ── */
+.question-text {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--text);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* ── CHIPS DE ETIQUETAS EN LA CARD ── */
+.question-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.q-tag {
+  display: inline-block;
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+/* ── BARRA INFERIOR DE LA CARD ── */
+.question-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid #fef2f2;
+}
+
+/* Botón de like con contador */
+.btn-like {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 100px;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-like:hover,
+.btn-like.liked {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.btn-like .like-count {
+  font-weight: 700;
+}
+
+/* Botón "Ver respuestas" */
+.btn-see-answers {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--sidebar-bg);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 18px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-see-answers:hover {
+  background: #163518;
+  transform: translateY(-1px);
+}
+
+/* ── SECCIÓN DE RESPUESTAS ──
+   Se despliega al hacer click en "Ver respuestas" */
+.answers-section {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #fef2f2;
+  display: none;
+}
+
+.answers-section.open { display: block; }
+
+/* Indicador de "IA respondiendo..." */
+.ai-typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.typing-dots {
+  display: flex;
+  gap: 3px;
+}
+
+.typing-dots span {
+  width: 5px; height: 5px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: dot-bounce 1.2s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dot-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+
+/* Card de respuesta de la IA */
+.ai-answer-card {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 10px;
+}
+
+.ai-answer-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #dcfce7;
+  color: #15803d;
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+
+.ai-answer-text {
+  font-size: 0.87rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+/* ── BOTÓN "VER MÁS" ──
+   Botón centrado al final de la lista de preguntas */
+.btn-load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 260px;
+  margin: 8px auto 0;
+  padding: 13px 28px;
+  background: #dcfce7;
+  color: #15803d;
+  border: none;
+  border-radius: 100px;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-load-more:hover {
+  background: #bbf7d0;
+  transform: translateY(-1px);
+}
+
+/* ── MODAL DE CLAVE API ──
+   Pequeño modal para que el usuario ingrese su API key */
+.api-key-modal-box {
+  background: white;
+  border-radius: 20px;
+  padding: 32px 28px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  animation: modal-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.api-key-icon {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.api-key-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.api-key-desc {
+  font-size: 0.83rem;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.api-key-input {
+  width: 100%;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: var(--font);
+  font-size: 0.85rem;
+  outline: none;
+  color: var(--text);
+  transition: border-color 0.2s;
+  margin-bottom: 12px;
+}
+
+.api-key-input:focus { border-color: var(--green); }
+
+/* Panel derecho de la comunidad */
+.community-right-info {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.cri-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.cri-tag {
+  display: inline-block;
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin: 3px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cri-tag:hover { background: #bbf7d0; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .community-hero { padding: 28px 20px; }
+  .community-hero-title { font-size: 1.5rem; }
+  .ask-input-wrapper { flex-direction: column; }
+  .btn-ask { width: 100%; justify-content: center; }
+}

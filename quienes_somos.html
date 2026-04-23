@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>¿Quiénes somos? — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --green:#1DB954;--green-dk:#15883d;--white:#fff;
+      --off:#f5f7f4;--dark:#0d1410;--gray:#6b7280;
+      --pink:#e91e8c;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Lato',sans-serif;color:var(--dark);background:var(--white);overflow-x:hidden}
+
+    /* NAV */
+    nav{
+      position:fixed;top:12px;left:50%;transform:translateX(-50%);
+      z-index:100;display:flex;align-items:center;justify-content:space-between;
+      padding:16px 36px;width:90%;
+      background:rgba(255,255,255,0.55);
+      backdrop-filter:blur(20px) saturate(180%);
+      -webkit-backdrop-filter:blur(20px) saturate(180%);
+      border-radius:16px;border:1px solid rgba(255,255,255,0.35);
+      box-shadow:0 4px 24px rgba(0,0,0,0.1);
+    }
+    .nav-logo{height:40px;width:auto;object-fit:contain;vertical-align:middle}
+    .nav-links{display:flex;gap:36px;list-style:none}
+    .nav-links a{color:rgba(0,0,0,0.75);font-size:1rem;font-weight:500;text-decoration:none;transition:color .2s}
+    .nav-links a:hover{text-decoration:underline;text-underline-offset:4px}
+    .nav-links a.active{color:var(--green);font-weight:700}
+    .nav-avatar img{width:30px;height:30px;object-fit:cover;cursor:pointer;transition:opacity .2s}
+    .nav-avatar img:hover{opacity:0.75}
+
+    /* HERO BANNER */
+    .hero-banner{
+      position:relative;min-height:360px;
+      display:flex;align-items:center;justify-content:center;
+      overflow:hidden;
+    }
+    .hero-banner-bg{
+      position:absolute;inset:0;z-index:0;
+      background-image:
+        url('images/fondoQNSM.png');
+      background-size:cover;background-position:center;
+    }
+    .hero-banner-content{
+      position:relative;z-index:1;text-align:center;padding:130px 40px 60px;
+    }
+    .hero-banner-content h1{
+      font-family:'Poppins',sans-serif;
+      font-size:clamp(2.4rem,5vw,4.5rem);font-weight:800;
+      color:var(--white);letter-spacing:-1px;line-height:1.1;
+      opacity:0;animation:fadeUp .7s .3s forwards;
+    }
+    .hero-q-mark{color:var(--pink)}
+
+    /* INTRO */
+    .intro-section{
+      max-width:860px;margin:0 auto;
+      padding:80px 40px;text-align:center;
+    }
+    .intro-section p{font-size:1.05rem;line-height:1.85;color:#444}
+    .intro-section strong{color:var(--green);font-weight:700}
+
+    /* MISION */
+    .mision-section{background:var(--off);padding:80px 60px;text-align:center}
+    .mision-section h2{
+      font-family:'Poppins',sans-serif;
+      font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;
+      color:var(--dark);margin-bottom:16px;
+    }
+    .mision-section .sub{
+      color:var(--gray);font-size:.95rem;max-width:600px;
+      margin:0 auto 56px;line-height:1.7;
+    }
+    .mision-cards{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:32px;
+      max-width:1000px;margin:0 auto;
+    }
+    .mision-card{
+      background:var(--white);border-radius:20px;
+      padding:36px 28px;text-align:center;
+      box-shadow:0 4px 24px rgba(0,0,0,0.06);
+      transition:transform .25s,box-shadow .25s;
+    }
+    .mision-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(0,0,0,0.1)}
+    .mision-card-icon{
+      width:64px;height:64px;border-radius:50%;
+      background:rgba(29,185,84,0.1);
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 20px;
+    }
+    .mision-card-icon img{width:36px;height:36px;object-fit:contain}
+    .mision-card h3{
+      font-family:'Poppins',sans-serif;font-size:1.05rem;
+      font-weight:700;color:var(--dark);margin-bottom:10px;
+    }
+    .mision-card p{font-size:.85rem;color:var(--gray);line-height:1.7}
+
+    /* QUE OFRECEMOS */
+    .ofrecemos-section{padding:80px 60px}
+    .ofrecemos-section h2{
+      font-family:'Poppins',sans-serif;
+      font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;
+      color:var(--dark);margin-bottom:8px;line-height:1.1;
+    }
+    .ofrecemos-section .sub{
+      color:var(--gray);font-size:.95rem;
+      max-width:380px;line-height:1.7;margin-bottom:48px;
+    }
+    .ofrecemos-layout{
+      display:grid;grid-template-columns:1fr 1fr;
+      gap:48px;align-items:center;
+    }
+    .ofrecemos-img{
+      border-radius:24px;overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,0.15);
+    }
+    .ofrecemos-img img{width:100%;display:block;object-fit:cover;max-height:500px}
+    .ofrecemos-items{display:flex;flex-direction:column;gap:28px}
+    .ofrecemos-item{
+      display:flex;gap:20px;align-items:flex-start;
+      padding:24px;background:var(--off);border-radius:16px;
+      transition:box-shadow .2s;
+    }
+    .ofrecemos-item:hover{box-shadow:0 8px 28px rgba(0,0,0,0.08)}
+    .ofrecemos-num{
+      width:36px;height:36px;border-radius:50%;
+      background:var(--green);color:white;
+      font-family:'Poppins',sans-serif;font-weight:800;font-size:.9rem;
+      display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    }
+    .ofrecemos-text h4{
+      font-family:'Poppins',sans-serif;font-size:1rem;
+      font-weight:700;color:var(--dark);margin-bottom:6px;
+    }
+    .ofrecemos-text p{font-size:.85rem;color:var(--gray);line-height:1.65}
+
+    /* EQUIPO */
+    .equipo-section{background:var(--off);padding:80px 60px;text-align:center}
+    .equipo-section h2{
+      font-family:'Poppins',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);
+      font-weight:800;color:var(--dark);margin-bottom:12px;
+    }
+    .equipo-section .sub{
+      color:var(--gray);font-size:.95rem;max-width:560px;
+      margin:0 auto 56px;line-height:1.7;
+    }
+    .equipo-grid{
+      display:grid;grid-template-columns:repeat(3,1fr);
+      gap:32px;max-width:900px;margin:0 auto;
+    }
+    .equipo-card{
+      background:var(--white);border-radius:24px;overflow:hidden;
+      box-shadow:0 4px 20px rgba(0,0,0,0.07);
+      transition:transform .25s,box-shadow .25s;
+    }
+    .equipo-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.12)}
+    .equipo-photo{height:280px;overflow:hidden}
+    .equipo-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
+    .equipo-info{padding:20px 22px 28px;text-align:center}
+    .equipo-name{
+      font-family:'Poppins',sans-serif;font-size:1.05rem;
+      font-weight:700;color:var(--dark);margin-bottom:4px;
+    }
+    .equipo-role{font-size:.82rem;color:var(--green);font-weight:600}
+
+    /* LO QUE NOS IMPORTA */
+    .importa-intro{padding:80px 60px 48px;background:var(--white);text-align:center}
+    .importa-intro h2{
+      font-family:'Poppins',sans-serif;font-size:clamp(1.8rem,3vw,2.6rem);
+      font-weight:800;color:var(--dark);margin-bottom:16px;
+    }
+    .importa-intro p{
+      color:var(--gray);font-size:.95rem;max-width:600px;
+      margin:0 auto;line-height:1.7;
+    }
+    .importa-intro p strong{color:var(--green)}
+
+    .importa-block{
+      display:grid;grid-template-columns:1fr 1fr;
+      min-height:380px;
+    }
+    .importa-block.reverse{direction:rtl}
+    .importa-block.reverse>*{direction:ltr}
+    .importa-img{overflow:hidden}
+    .importa-img img{width:100%;height:100%;object-fit:cover;display:block}
+    .importa-text{
+      padding:60px 64px;display:flex;
+      flex-direction:column;justify-content:center;
+    }
+    .importa-block:nth-child(odd) .importa-text{background:var(--white)}
+    .importa-block:nth-child(even) .importa-text{background:var(--off)}
+    .importa-icon{
+      width:52px;height:52px;border-radius:14px;
+      background:rgba(29,185,84,0.1);
+      display:flex;align-items:center;justify-content:center;
+      margin-bottom:20px;font-size:1.5rem;
+    }
+    .importa-text h3{
+      font-family:'Poppins',sans-serif;font-size:1.4rem;
+      font-weight:800;color:var(--dark);margin-bottom:14px;line-height:1.2;
+    }
+    .importa-text p{font-size:.92rem;color:var(--gray);line-height:1.75}
+    .importa-text p strong{color:var(--green)}
+
+    /* FOOTER */
+    .final-footer{position:relative;overflow:hidden;padding:80px 60px 0;text-align:center}
+    .final-footer-bg{
+      position:absolute;inset:0;z-index:0;
+      background:linear-gradient(to bottom,#0d2016,#0a1a10);
+    }
+    .final-cta-content{position:relative;z-index:1;margin-bottom:64px}
+    .final-cta-title{
+      font-family:'Poppins',sans-serif;
+      font-size:clamp(2rem,4vw,3.2rem);font-weight:800;
+      color:var(--white);letter-spacing:-1px;margin-bottom:32px;
+    }
+    .final-btns{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:24px}
+    .btn-footer-green{
+      background:var(--green);color:var(--white);border-radius:100px;
+      padding:16px 48px;font-size:1.05rem;font-weight:600;
+      text-decoration:none;width:280px;display:block;text-align:center;
+      transition:background .2s,transform .15s;
+    }
+    .btn-footer-green:hover{background:var(--green-dk);transform:translateY(-2px)}
+    .btn-footer-blue{
+      background:#2563eb;color:var(--white);border-radius:100px;
+      padding:16px 48px;font-size:1.05rem;font-weight:600;
+      text-decoration:none;width:280px;display:block;text-align:center;
+      transition:background .2s,transform .15s;
+    }
+    .btn-footer-blue:hover{background:#1d4ed8;transform:translateY(-2px)}
+    .final-login-link{color:rgba(255,255,255,0.7);font-size:.9rem;text-decoration:underline;text-underline-offset:3px}
+    .final-login-link:hover{color:var(--white)}
+    .footer-links-grid{
+      position:relative;z-index:1;display:grid;
+      grid-template-columns:repeat(4,1fr);gap:32px;
+      text-align:left;padding:48px 0;
+      border-top:1px solid rgba(255,255,255,0.15);
+    }
+    .footer-col-title{font-family:'Poppins',sans-serif;font-size:.85rem;font-weight:700;color:var(--white);margin-bottom:14px}
+    .footer-links{list-style:none}
+    .footer-links li{margin-bottom:8px}
+    .footer-links a{color:rgba(255,255,255,0.6);font-size:.85rem;text-decoration:none;transition:color .2s}
+    .footer-links a:hover{color:var(--white)}
+    .footer-bottom{
+      position:relative;z-index:1;border-top:1px solid rgba(255,255,255,0.15);
+      padding:24px 0 32px;display:flex;justify-content:space-between;align-items:center;
+    }
+    .footer-logo{height:43px;width:auto;object-fit:contain}
+    .footer-copy{font-size:.8rem;color:rgba(255,255,255,0.4)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;transform:translateY(36px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    @media(max-width:768px){
+      nav{width:95%;padding:14px 20px}
+      .nav-links{display:none}
+      .mision-cards,.ofrecemos-layout,.equipo-grid{grid-template-columns:1fr}
+      .importa-block,.importa-block.reverse{grid-template-columns:1fr;direction:ltr}
+      .importa-img{height:260px}
+      .importa-text{padding:40px 28px}
+      .footer-links-grid{grid-template-columns:repeat(2,1fr)}
+      .final-footer,.importa-intro,.ofrecemos-section,.mision-section,.equipo-section{padding:60px 24px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="#">Buscar Tutor</a></li>
+    <li><a href="#">Para Tutores</a></li>
+  </ul>
+  <div>
+    <a href="login.html">
+      <img src="images/icons8-usuario-32.png" alt="Iniciar sesión" style="width:30px;height:30px;object-fit:cover;cursor:pointer">
+    </a>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<div class="hero-banner">
+  <div class="hero-banner-bg"></div>
+  <div class="hero-banner-content">
+    <h1><span class="hero-q-mark">¿</span> Quienes somos <span class="hero-q-mark">?</span></h1>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div class="intro-section reveal">
+  <p>
+    <strong>myTeacher</strong> es una plataforma integral diseñada para transformar la forma en que el conocimiento se comparte.
+    Nos especializamos en conectar a estudiantes que buscan potenciar su aprendizaje con docentes altamente calificados,
+    facilitando encuentros educativos tanto en entornos virtuales como presenciales a través de una experiencia digital intuitiva y segura.
+  </p>
+</div>
+
+<!-- MISIÓN -->
+<section class="mision-section">
+  <h2>Nuestra Misión</h2>
+  <p class="sub">Buscamos crear un entorno donde cualquier persona pueda encontrar apoyo académico y donde los docentes tengan la oportunidad de compartir su conocimiento con quienes lo necesitan.</p>
+  <div class="mision-cards">
+    <div class="mision-card reveal">
+      <div class="mision-card-icon">
+        <img src="images/ic_ubi.png" alt="ubicacion">
+      </div>
+      <h3>Educación sin barreras</h3>
+      <p>Queremos que cualquier estudiante pueda encontrar apoyo académico sin importar dónde se encuentre.</p>
+    </div>
+    <div class="mision-card reveal">
+      <div class="mision-card-icon">
+        <img src="images/ic_prof.png" alt="profesores">
+      </div>
+      <h3>Profesores que inspiran</h3>
+      <p>Te conectamos con tutores calificados que están listos para ayudarte en la materia que necesites.</p>
+    </div>
+    <div class="mision-card reveal">
+      <div class="mision-card-icon">
+        <img src="images/ic_es.png" alt="ritmo">
+      </div>
+      <h3>A tu ritmo</h3>
+      <p>Entendemos que cada persona aprende diferente, por eso ofrecemos flexibilidad para estudiar a tu propio ritmo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ OFRECEMOS -->
+<section class="ofrecemos-section">
+  <div class="ofrecemos-layout">
+    <div>
+      <h2>Qué<br>ofrecemos?</h2>
+      <p class="sub">Te damos herramientas modernas para que organizar tus estudios sea tan fácil como pedir una app.</p>
+      <div class="ofrecemos-items">
+        <div class="ofrecemos-item reveal">
+          <div class="ofrecemos-num">1</div>
+          <div class="ofrecemos-text">
+            <h4>Búsqueda inteligente</h4>
+            <p>Localiza al tutor ideal en tiempo real, con una interfaz de mapa intuitivo y fácil de usar.</p>
+          </div>
+        </div>
+        <div class="ofrecemos-item reveal">
+          <div class="ofrecemos-num">2</div>
+          <div class="ofrecemos-text">
+            <h4>Conexión total</h4>
+            <p>Videoconferencias integradas y comunicación directa para resolver tus dudas al instante.</p>
+          </div>
+        </div>
+        <div class="ofrecemos-item reveal">
+          <div class="ofrecemos-num">3</div>
+          <div class="ofrecemos-text">
+            <h4>Todo en un solo lugar</h4>
+            <p>Reserva tus sesiones al instante y recibe avisos por WhatsApp o correo para que no se te olvide nada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ofrecemos-img reveal">
+      <img src="images/ritmo.png" alt="Qué ofrecemos">
+    </div>
+  </div>
+</section>
+
+<!-- NUESTRO EQUIPO -->
+<section class="equipo-section">
+  <h2>Nuestro equipo</h2>
+  <p class="sub">Detrás de este proyecto hay un grupo de personas comprometidas con mejorar la educación y facilitar el acceso al aprendizaje</p>
+  <div class="equipo-grid">
+    <div class="equipo-card reveal">
+      <div class="equipo-photo">
+        <img src="images/maria.png" alt="María Ureña">
+      </div>
+      <div class="equipo-info">
+        <div class="equipo-name">María Ureña</div>
+        <div class="equipo-role">Co-fundadora</div>
+      </div>
+    </div>
+    <div class="equipo-card reveal">
+      <div class="equipo-photo">
+        <img src="images/mariana.png" alt="Mariana Mier">
+      </div>
+      <div class="equipo-info">
+        <div class="equipo-name">Mariana Mier</div>
+        <div class="equipo-role">Co-fundadora</div>
+      </div>
+    </div>
+    <div class="equipo-card reveal">
+      <div class="equipo-photo">
+        <img src="images/sergio.png" alt="Sergio Martínez">
+      </div>
+      <div class="equipo-info">
+        <div class="equipo-name">Sergio Martínez</div>
+        <div class="equipo-role">Co-fundador</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LO QUE NOS IMPORTA -->
+<div class="importa-intro reveal">
+  <h2>Lo que nos importa</h2>
+  <p>
+    Más que una plataforma, queremos ser ese apoyo que te acompaña cuando sientes que un tema es difícil o cuando tienes un examen importante cerca.
+    En <strong>myTeacher</strong>, lo que de verdad nos mueve es ver cómo superas tus retos y alcanzas tus sueños.
+  </p>
+</div>
+
+<div class="importa-block reveal">
+  <div class="importa-img">
+    <img src="images/imagen.png" alt="Tu confianza es lo primero">
+  </div>
+  <div class="importa-text">
+    <div class="importa-icon">⭐</div>
+    <h3>Tu confianza es lo primero</h3>
+    <p>Nos emociona ver cómo creces, por eso te mostramos opiniones reales y un sistema de estrellas de otros alumnos para que siempre elijas al tutor que mejor conecte contigo.</p>
+  </div>
+</div>
+
+<div class="importa-block reverse reveal">
+  <div class="importa-img">
+    <img src="images/imagenCreditos.png" alt="Cuidamos tu tranquilidad">
+  </div>
+  <div class="importa-text">
+    <div class="importa-icon">🔒</div>
+    <h3>Cuidamos tu tranquilidad</h3>
+    <p>Sabemos que tu seguridad es sagrada. Usamos la mejor tecnología y técnicas modernas de autenticación para que tus datos y tu cuenta estén siempre protegidos, como si fueran los nuestros.</p>
+  </div>
+</div>
+
+<div class="importa-block reveal">
+  <div class="importa-img">
+    <img src="images/abrazo.png" alt="Crecemos juntos">
+  </div>
+  <div class="importa-text">
+    <div class="importa-icon">🤝</div>
+    <h3>Crecemos juntos</h3>
+    <p>No solo conectamos personas, creamos una comunidad donde el profesor enseña con pasión y el alumno aprende con alegría, haciendo que todo sea más fácil para todos.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="final-footer">
+  <div class="final-footer-bg"></div>
+  <div class="final-cta-content">
+    <h2 class="final-cta-title">Aprende con pasión</h2>
+    <div class="final-btns">
+      <a href="registro.html" class="btn-footer-green">Empezar ahora →</a>
+      <a href="#" class="btn-footer-blue">Como funciona →</a>
+    </div>
+    <a href="login.html" class="final-login-link">Ya eres estudiante? Inicia sesión</a>
+  </div>
+  <div class="footer-links-grid">
+    <div>
+      <div class="footer-col-title">Acerca de</div>
+      <ul class="footer-links">
+        <li><a href="quienes_somos.html">Quiénes somos</a></li>
+        <li><a href="#">Cómo funciona</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Recursos</div>
+      <ul class="footer-links">
+        <li><a href="blog.html">Blog del docente</a></li>
+        <li><a href="faq.html">Preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Empieza</div>
+      <ul class="footer-links">
+        <li><a href="registro.html">Registrarse</a></li>
+        <li><a href="registro.html?tipo=profesor">Conviértete en tutor</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Otro</div>
+      <ul class="footer-links">
+        <li><a href="#">Terminos y condiciones</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <img src="images/logowhite.png" alt="myTeacher" class="footer-logo">
+    <div class="footer-copy">© 2026 myTeacher. Todos los derechos reservados.</div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold: 0.1});
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>

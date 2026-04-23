@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis Tutorías — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <link rel="stylesheet" href="Style/mis_tutorias.css">
+</head>
+<body data-page="mis-tutorias">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo">
+      <i class="fa-solid fa-person-chalkboard"></i>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="panel_estudiante.html" data-page="inicio">
+        <i class="fa-solid fa-house"></i> Inicio
+      </a>
+      <a class="nav-item" href="perfil_tutor.html" data-page="tutores">
+        <i class="fa-solid fa-chalkboard-user"></i> Tutores
+      </a>
+      <a class="nav-item active" href="mis_tutorias.html" data-page="mis-tutorias">
+        <i class="fa-solid fa-calendar-check"></i> Mis tutorías
+      </a>
+      <a class="nav-item" href="comunidad.html" data-page="comunidad">
+        <i class="fa-solid fa-users"></i> Comunidad
+      </a>
+      <a class="nav-item" href="favoritos.html" data-page="favoritos">
+        <i class="fa-solid fa-heart"></i> Favoritos
+      </a>
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;">
+        <i class="fa-solid fa-gear"></i> Configuración
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="header-brand">
+      <span class="leaf">🌿</span>
+      <span><em>my</em>Teacher</span>
+    </div>
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar....">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <button class="notif-btn">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar">
+            <img src="images/choi.png" alt="Choi" onerror="this.style.display='none';this.parentNode.textContent='CS'">
+          </div>
+          <span id="userName">Choi san</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="perfil_estudiante.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <div class="main-wrapper">
+    <main class="main-content">
+
+      <!-- Encabezado de la sección -->
+      <h1 class="page-heading">Mis Tutorías</h1>
+      <p class="page-subheading">Gestiona todas tus sesiones de aprendizaje en un solo lugar.</p>
+
+      <!-- Contenedor de tabs -->
+      <div class="tabs-wrapper">
+
+        <!-- Barra de pestañas -->
+        <div class="tabs-bar">
+          <button class="tab-btn active" data-tab="proximos">
+            Próximos <span class="tab-badge" id="badge-proximos">2</span>
+          </button>
+          <button class="tab-btn" data-tab="solicitudes">
+            Solicitudes <span class="tab-badge" id="badge-solicitudes">2</span>
+          </button>
+          <button class="tab-btn" data-tab="historial">
+            Historial
+          </button>
+        </div>
+
+        <!-- ══════════════════════════════════
+             TAB: PRÓXIMOS
+             ══════════════════════════════════ -->
+        <div class="tab-content active" id="tab-proximos">
+
+          <!-- Card 1: Tutoría confirmada de Inglés -->
+          <div class="tutoria-card">
+            <div class="tutoria-card-top">
+              <!-- Foto circular del tutor -->
+              <div class="tutor-avatar">
+                <img src="images/lucia3.png" alt="Lucía Martínez"
+                     onerror="this.style.display='none';this.parentNode.textContent='LM'">
+              </div>
+
+              <!-- Info central -->
+              <div class="tutoria-info">
+                <div class="tutor-name">Lucía Martínez</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Inglés Avanzado
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-calendar"></i> Lunes 28 Abr
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-clock"></i> 4:00 PM
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-solid fa-video"></i> Virtual
+                  </span>
+                </div>
+                <span class="duration-badge">
+                  <i class="fa-solid fa-hourglass-half"></i> 60 minutos
+                </span>
+              </div>
+
+              <!-- Badge y precio (columna derecha) -->
+              <div class="tutoria-card-right">
+                <span class="badge badge-confirmada">
+                  <i class="fa-solid fa-circle-check"></i> Confirmada
+                </span>
+                <div>
+                  <div class="tutoria-price">$45,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mensaje del tutor en burbuja gris -->
+            <div class="tutor-message-bubble">
+              <strong>Lucía:</strong> ¡Hola! Recuerda traer tu cuaderno y tener la plataforma Zoom instalada. Empezaremos con una conversación práctica sobre el tema que elegiste. 😊
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="tutoria-actions">
+              <button class="btn-action btn-whatsapp" onclick="openWhatsApp('+573001234567')">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+              </button>
+              <button class="btn-action btn-link" onclick="openLink('https://zoom.us/j/example')">
+                <i class="fa-solid fa-video"></i> Link Zoom
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Tutoría confirmada de Programación -->
+          <div class="tutoria-card">
+            <div class="tutoria-card-top">
+              <div class="tutor-avatar">
+                <img src="images/esteban.png" alt="Esteban García"
+                     onerror="this.style.display='none';this.parentNode.textContent='EG'">
+              </div>
+              <div class="tutoria-info">
+                <div class="tutor-name">Esteban García</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Programación Python
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-calendar"></i> Miércoles 30 Abr
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-clock"></i> 7:00 PM
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-solid fa-house"></i> Presencial
+                  </span>
+                </div>
+                <span class="duration-badge">
+                  <i class="fa-solid fa-hourglass-half"></i> 90 minutos
+                </span>
+              </div>
+              <div class="tutoria-card-right">
+                <span class="badge badge-confirmada">
+                  <i class="fa-solid fa-circle-check"></i> Confirmada
+                </span>
+                <div>
+                  <div class="tutoria-price">$60,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+            <div class="tutor-message-bubble">
+              <strong>Esteban:</strong> Nos vemos en la biblioteca del campus, sección 3. Trabajaremos estructuras de datos y POO. Si puedes, instala PyCharm antes de la sesión. 👨‍💻
+            </div>
+            <div class="tutoria-actions">
+              <button class="btn-action btn-whatsapp" onclick="openWhatsApp('+573009876543')">
+                <i class="fa-brands fa-whatsapp"></i> WhatsApp
+              </button>
+              <button class="btn-action btn-link" onclick="openLink('https://meet.google.com/example')">
+                <i class="fa-brands fa-google"></i> Link Meet
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <!-- FIN TAB PRÓXIMOS -->
+
+        <!-- ══════════════════════════════════
+             TAB: SOLICITUDES
+             ══════════════════════════════════ -->
+        <div class="tab-content" id="tab-solicitudes">
+
+          <!-- Card Pendiente -->
+          <div class="tutoria-card" id="card-solicitud-1">
+            <div class="tutoria-card-top">
+              <div class="tutor-avatar">
+                <img src="images/mariana.png" alt="Mariana Ospina"
+                     onerror="this.style.display='none';this.parentNode.textContent='MO'">
+              </div>
+              <div class="tutoria-info">
+                <div class="tutor-name">Mariana Ospina</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Cálculo Diferencial
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-calendar"></i> Vie 2 May
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-clock"></i> 3:00 PM
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-solid fa-video"></i> Virtual
+                  </span>
+                </div>
+                <span class="duration-badge">
+                  <i class="fa-solid fa-hourglass-half"></i> 60 minutos
+                </span>
+              </div>
+              <div class="tutoria-card-right">
+                <span class="badge badge-pendiente">
+                  <i class="fa-solid fa-clock"></i> Pendiente
+                </span>
+                <div>
+                  <div class="tutoria-price">$50,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+            <div class="tutoria-actions" style="margin-top:14px;">
+              <button class="btn-action btn-gray" onclick="cancelarSolicitud('card-solicitud-1')">
+                <i class="fa-solid fa-xmark"></i> Cancelar solicitud
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Rechazada -->
+          <div class="tutoria-card" id="card-solicitud-2">
+            <div class="tutoria-card-top">
+              <div class="tutor-avatar">
+                <img src="images/sergio.png" alt="Sergio Ramírez"
+                     onerror="this.style.display='none';this.parentNode.textContent='SR'">
+              </div>
+              <div class="tutoria-info">
+                <div class="tutor-name">Sergio Ramírez</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Química Orgánica
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-calendar"></i> Jue 1 May
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-clock"></i> 10:00 AM
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-solid fa-house"></i> Presencial
+                  </span>
+                </div>
+                <span class="duration-badge">
+                  <i class="fa-solid fa-hourglass-half"></i> 90 minutos
+                </span>
+              </div>
+              <div class="tutoria-card-right">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span class="badge badge-rechazada">
+                    <i class="fa-solid fa-xmark-circle"></i> Rechazada
+                  </span>
+                  <!-- Ícono X para eliminar la card -->
+                  <button class="card-close-btn" onclick="eliminarCard('card-solicitud-2')"
+                          title="Eliminar">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+                <div>
+                  <div class="tutoria-price">$55,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+            <div class="tutoria-actions" style="margin-top:14px;">
+              <button class="btn-action btn-gray" onclick="editarSolicitud('card-solicitud-2')">
+                <i class="fa-solid fa-pen"></i> Editar solicitud
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <!-- FIN TAB SOLICITUDES -->
+
+        <!-- ══════════════════════════════════
+             TAB: HISTORIAL
+             ══════════════════════════════════ -->
+        <div class="tab-content" id="tab-historial">
+
+          <!-- Card Completada (sin reseña aún) -->
+          <div class="tutoria-card" id="card-hist-1">
+            <div class="tutoria-card-top">
+              <div class="tutor-avatar">
+                <img src="images/maria.png" alt="María González"
+                     onerror="this.style.display='none';this.parentNode.textContent='MG'">
+              </div>
+              <div class="tutoria-info">
+                <div class="tutor-name">María González</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Álgebra Lineal
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-calendar"></i> Lun 14 Abr
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-clock"></i> 2:00 PM
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-solid fa-video"></i> Virtual
+                  </span>
+                </div>
+                <span class="duration-badge">
+                  <i class="fa-solid fa-hourglass-half"></i> 60 min
+                </span>
+              </div>
+              <div class="tutoria-card-right">
+                <span class="badge badge-completado" id="badge-hist-1">
+                  <i class="fa-solid fa-check"></i> Completado
+                </span>
+                <div>
+                  <div class="tutoria-price">$45,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+            <!-- Acciones del historial -->
+            <div class="tutoria-actions" id="actions-hist-1">
+              <button class="btn-action btn-favorite" id="fav-hist-1"
+                      onclick="toggleFavorito('hist-1')">
+                <i class="fa-solid fa-heart"></i> Favorito
+              </button>
+              <button class="btn-action btn-review"
+                      onclick="abrirModalReseña('María González', 'images/maria.png', 'hist-1')">
+                <i class="fa-solid fa-star"></i> Dejar reseña
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Completada (ya reseñada) -->
+          <div class="tutoria-card" id="card-hist-2">
+            <div class="tutoria-card-top">
+              <div class="tutor-avatar">
+                <img src="images/maira.png" alt="Maira Torres"
+                     onerror="this.style.display='none';this.parentNode.textContent='MT'">
+              </div>
+              <div class="tutoria-info">
+                <div class="tutor-name">Maira Torres</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Estadística
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-calendar"></i> Mar 8 Abr
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-clock"></i> 5:00 PM
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-solid fa-video"></i> Virtual
+                  </span>
+                </div>
+                <span class="duration-badge">
+                  <i class="fa-solid fa-hourglass-half"></i> 90 min
+                </span>
+              </div>
+              <div class="tutoria-card-right">
+                <!-- Este ya está reseñado: badge diferente con estrella -->
+                <span class="badge badge-reseñado">
+                  <span class="reseñado-star">⭐</span> Reseñado
+                </span>
+                <div>
+                  <div class="tutoria-price">$50,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+            <!-- Solo botón favorito, el de reseña ya no aparece -->
+            <div class="tutoria-actions" id="actions-hist-2">
+              <button class="btn-action btn-favorite active" id="fav-hist-2"
+                      onclick="toggleFavorito('hist-2')">
+                <i class="fa-solid fa-heart"></i> Favorito
+              </button>
+            </div>
+          </div>
+
+          <!-- Card Completada (sin reseña) -->
+          <div class="tutoria-card" id="card-hist-3">
+            <div class="tutoria-card-top">
+              <div class="tutor-avatar">
+                <img src="images/alfonso.png" alt="Alfonso Duarte"
+                     onerror="this.style.display='none';this.parentNode.textContent='AD'">
+              </div>
+              <div class="tutoria-info">
+                <div class="tutor-name">Alfonso Duarte</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Física Mecánica
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-calendar"></i> Vie 4 Abr
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-regular fa-clock"></i> 9:00 AM
+                  </span>
+                  <span class="meta-chip">
+                    <i class="fa-solid fa-house"></i> Presencial
+                  </span>
+                </div>
+                <span class="duration-badge">
+                  <i class="fa-solid fa-hourglass-half"></i> 60 min
+                </span>
+              </div>
+              <div class="tutoria-card-right">
+                <span class="badge badge-completado" id="badge-hist-3">
+                  <i class="fa-solid fa-check"></i> Completado
+                </span>
+                <div>
+                  <div class="tutoria-price">$40,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+            <div class="tutoria-actions" id="actions-hist-3">
+              <button class="btn-action btn-favorite" id="fav-hist-3"
+                      onclick="toggleFavorito('hist-3')">
+                <i class="fa-solid fa-heart"></i> Favorito
+              </button>
+              <button class="btn-action btn-review"
+                      onclick="abrirModalReseña('Alfonso Duarte', 'images/alfonso.png', 'hist-3')">
+                <i class="fa-solid fa-star"></i> Dejar reseña
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <!-- FIN TAB HISTORIAL -->
+
+      </div>
+      <!-- FIN TABS WRAPPER -->
+
+    </main>
+
+    <!-- Panel lateral derecho -->
+    <aside class="right-panel">
+
+      <!-- Estadísticas rápidas de tutorías -->
+      <div class="tutorias-stats">
+        <div class="tutorias-stats-title">Resumen</div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">Próximas</span>
+          <span class="stat-mini-val">2</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">Completadas</span>
+          <span class="stat-mini-val">12</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">Solicitudes</span>
+          <span class="stat-mini-val">2</span>
+        </div>
+        <div class="stat-mini">
+          <span class="stat-mini-label">Horas totales</span>
+          <span class="stat-mini-val" style="color:var(--green);">18h</span>
+        </div>
+      </div>
+
+      <!-- Calendario mini -->
+      <div class="calendar-widget">
+        <div class="cal-header">
+          <button class="cal-nav-btn">&#8249;</button>
+          <div class="cal-month" id="calMonth">Abril 2026</div>
+          <button class="cal-nav-btn">&#8250;</button>
+        </div>
+        <div class="cal-days-header">
+          <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+      </div>
+
+      <!-- Próxima tutoría en el panel -->
+      <div class="events-section">
+        <div class="events-title">Próxima sesión</div>
+        <div class="event-card">
+          <div class="event-icon">📚</div>
+          <div class="event-info">
+            <div class="event-name">Inglés Avanzado</div>
+            <div class="event-meta">Lun 28 Abr · 4:00 PM</div>
+            <span class="event-badge">Virtual · Lucía M.</span>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       MODAL: CALIFICAR TUTOR
+       ══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="ratingModal" role="dialog" aria-modal="true"
+       aria-labelledby="ratingModalTitle">
+    <div class="modal-box">
+      <!-- Botón cerrar -->
+      <button class="modal-close" onclick="cerrarModalReseña()" aria-label="Cerrar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Info del tutor -->
+      <div class="modal-tutor-info">
+        <div class="modal-tutor-avatar" id="modalTutorAvatar">
+          <img src="" alt="" id="modalTutorImg" onerror="this.style.display='none'">
+        </div>
+        <div>
+          <div class="modal-tutor-name" id="modalTutorNombre">Tutor</div>
+          <div class="modal-tutor-sub">Califica tu experiencia</div>
+        </div>
+      </div>
+
+      <!-- Título -->
+      <h3 class="modal-title" id="ratingModalTitle">Califica a tu Tutor</h3>
+
+      <!-- Sistema de 5 estrellas interactivo -->
+      <div class="stars-row" id="starsRow" role="group" aria-label="Calificación de 1 a 5 estrellas">
+        <button class="star-btn" data-value="1" aria-label="1 estrella">★</button>
+        <button class="star-btn" data-value="2" aria-label="2 estrellas">★</button>
+        <button class="star-btn" data-value="3" aria-label="3 estrellas">★</button>
+        <button class="star-btn" data-value="4" aria-label="4 estrellas">★</button>
+        <button class="star-btn" data-value="5" aria-label="5 estrellas">★</button>
+      </div>
+
+      <!-- Textarea de reseña -->
+      <textarea class="review-textarea" id="reviewTextarea"
+        placeholder="Cuéntanos cómo fue tu experiencia con este tutor. ¿Qué aprendiste? ¿Lo recomendarías?"
+        maxlength="200"></textarea>
+      <div class="char-counter" id="charCounter">0/200</div>
+
+      <!-- Botón enviar -->
+      <button class="btn-modal-submit" id="btnSubmitReview" onclick="enviarReseña()">
+        ENVIAR OPINIÓN
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       MODAL: CONFIRMACIÓN DE RESEÑA
+       ══════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="confirmModal" role="dialog" aria-modal="true">
+    <div class="modal-box" style="text-align:center;">
+      <div class="confirm-modal-content">
+        <!-- Ilustración manzanita -->
+        <img class="confirm-apple-img" src="images/manzanaR.png" alt="¡Gracias!"
+             onerror="this.src='images/manzana.png'">
+        <h3 class="confirm-title">¡Gracias por tu opinión!</h3>
+        <p class="confirm-text">
+          Tu reseña ayuda a otros estudiantes a elegir mejor a sus profesores y
+          mejora la comunidad de myTeacher. 🌟
+        </p>
+        <button class="btn-modal-submit" onclick="cerrarConfirmModal()">
+          ¡Excelente!
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts: primero el común y luego el específico -->
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/mis_tutorias.js"></script>
+</body>
+</html>

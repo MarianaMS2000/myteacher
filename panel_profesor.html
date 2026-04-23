@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Profesor — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <style>
+    /* ── ESTILOS ESPECÍFICOS DEL PANEL PROFESOR ── */
+
+    /* Banner héroe en verde oscuro (diferente al del estudiante que era azul) */
+    .hero-banner {
+      background: linear-gradient(135deg, #1e4620 0%, #2d6a30 50%, #3d8a40 100%);
+      border-radius: 20px; padding: 32px;
+      display: flex; align-items: center; gap: 24px;
+      position: relative; overflow: hidden; margin-bottom: 20px;
+    }
+    .hero-banner::before {
+      content: ''; position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,0.05); border-radius: 50%;
+    }
+    .hero-text { flex: 1; }
+    .hero-text h2 {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 800; color: white;
+      line-height: 1.1; margin-bottom: 10px;
+    }
+    .hero-text p { color: rgba(255,255,255,0.82); font-size: 0.92rem; line-height: 1.5; margin-bottom: 20px; max-width: 360px; }
+    .btn-hero-panel {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);
+      border: 1.5px solid rgba(255,255,255,0.4); color: white;
+      border-radius: 100px; padding: 11px 22px;
+      font-size: 0.88rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-hero-panel:hover { background: rgba(255,255,255,0.3); }
+    .hero-illus-fallback {
+      width: 160px; height: 140px;
+      display: flex; align-items: center; justify-content: center; font-size: 5rem;
+    }
+
+    /* ── TARJETAS DE ESTADÍSTICAS (4 columnas) ── */
+    .stats-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 14px; margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card-bg); border-radius: 16px; padding: 18px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .stat-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    .stat-icon.blue { background: #dbeafe; }
+    .stat-icon.green { background: #dcfce7; }
+    .stat-icon.yellow { background: #fef3c7; }
+    .stat-icon.purple { background: #ede9fe; }
+    .stat-num { font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    /* Indicador de tendencia (flecha verde hacia arriba) */
+    .stat-trend { font-size: 0.72rem; color: #22c55e; margin-top: 2px; }
+
+    /* ── LISTA DE SESIONES DEL DÍA ── */
+    .sessions-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+    .session-card {
+      background: var(--card-bg); border-radius: 16px; padding: 16px 18px;
+      display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    /* Avatar circular con iniciales del estudiante */
+    .session-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      overflow: hidden; background: var(--green); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; flex-shrink: 0;
+    }
+    .session-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .session-info { flex: 1; }
+    .session-name { font-weight: 700; font-size: 0.92rem; }
+    .session-meta { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
+    /* Etiquetas de estado de la sesión */
+    .session-badge { border-radius: 100px; padding: 4px 12px; font-size: 0.72rem; font-weight: 600; }
+    .badge-virtual { background: #dbeafe; color: #1e40af; }
+    .badge-presencial { background: #dcfce7; color: #166534; }
+    .badge-pending { background: #fef3c7; color: #92400e; }
+    .session-time { text-align: right; font-size: 0.8rem; color: var(--muted); }
+    .session-price { font-weight: 700; font-size: 0.88rem; color: var(--green); margin-top: 2px; }
+
+    /* ── GRÁFICO DE GANANCIAS ── */
+    .earnings-card {
+      background: var(--card-bg); border-radius: 16px; padding: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 24px;
+    }
+    .earnings-total {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 800;
+    }
+    .earnings-total span { font-size: 0.9rem; color: var(--muted); font-weight: 500; font-family: var(--font); }
+    /* Las barras del gráfico de barras */
+    .chart-bars { display: flex; align-items: flex-end; gap: 8px; height: 80px; }
+    .chart-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+    .chart-bar {
+      width: 100%; border-radius: 6px 6px 0 0;
+      background: var(--green-light); transition: opacity 0.2s; cursor: pointer;
+    }
+    .chart-bar:hover { opacity: 0.8; }
+    .chart-bar.active { background: var(--green); } /* La barra activa es más oscura */
+    .chart-label { font-size: 0.68rem; color: var(--muted); }
+
+    /* ── MENSAJES RECIENTES ── */
+    .messages-card {
+      background: var(--card-bg); border-radius: 16px;
+      overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .msg-header {
+      padding: 16px 18px; border-bottom: 1px solid #f3f4f6;
+      font-family: var(--font-display); font-weight: 700; font-size: 0.95rem;
+    }
+    .msg-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 18px; border-bottom: 1px solid #f9fafb;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .msg-item:hover { background: #f9fafb; }
+    .msg-item:last-child { border-bottom: none; }
+    .msg-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      overflow: hidden; background: #e8f5e9;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .msg-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .msg-info { flex: 1; overflow: hidden; }
+    .msg-name { font-weight: 600; font-size: 0.88rem; }
+    .msg-preview { font-size: 0.78rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .msg-time { font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+    /* Puntito verde que indica mensaje no leído */
+    .msg-unread { width: 8px; height: 8px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+
+    /* ── PANEL DERECHO: PERFIL RÁPIDO ── */
+    .profile-card {
+      background: white; border-radius: 16px; padding: 20px;
+      margin-bottom: 20px; text-align: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .profile-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      overflow: hidden; background: var(--green);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; color: white; margin: 0 auto 12px;
+    }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-name { font-family: var(--font-display); font-weight: 700; font-size: 1rem; margin-bottom: 3px; }
+    .profile-role { font-size: 0.78rem; color: var(--muted); margin-bottom: 12px; }
+    .profile-stars { color: #f59e0b; font-size: 0.9rem; }
+    /* Fila de estadísticas debajo del perfil */
+    .profile-stats { display: flex; gap: 0; border-top: 1px solid #f3f4f6; margin-top: 14px; }
+    .profile-stat { flex: 1; padding: 10px 0; text-align: center; }
+    .profile-stat:not(:last-child) { border-right: 1px solid #f3f4f6; }
+    .ps-num { font-family: var(--font-display); font-weight: 800; font-size: 1rem; color: var(--green); }
+    .ps-label { font-size: 0.68rem; color: var(--muted); }
+
+    /* ── PANEL DERECHO: ACCIONES RÁPIDAS ── */
+    .quick-actions { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .q-action-btn {
+      background: var(--card-bg); border: none; border-radius: 12px;
+      padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+      font-family: var(--font); font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      transition: all 0.2s; text-align: left;
+    }
+    .q-action-btn:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); transform: translateY(-1px); }
+    .q-action-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .q-arrow { margin-left: auto; color: var(--muted); font-size: 0.75rem; }
+
+    /* Adaptaciones responsive */
+    @media (max-width: 900px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .hero-illus-fallback { display: none; }
+    }
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .hero-banner { padding: 20px; }
+      .hero-text h2 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body data-page="inicio">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ── SIDEBAR ──
+       Nota: "Estadísticas" fue eliminado según lo pedido -->
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo">
+      <i class="fa-solid fa-chalkboard-teacher"></i>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" href="panel_profesor.html" data-page="inicio">
+        <i class="fa-solid fa-house"></i> Inicio
+      </a>
+      <a class="nav-item" href="#" data-page="agenda">
+        <i class="fa-solid fa-calendar-days"></i> Mi agenda
+      </a>
+      <a class="nav-item" href="#" data-page="estudiantes">
+        <i class="fa-solid fa-users"></i> Mis estudiantes
+      </a>
+      <a class="nav-item" href="#" data-page="mensajes">
+        <i class="fa-solid fa-comments"></i> Mensajes
+      </a>
+      <!-- "Estadísticas" fue quitado porque el usuario lo pidió -->
+      <a class="nav-item" href="#" data-page="configuracion" style="margin-top:auto;">
+        <i class="fa-solid fa-gear"></i> Configuracion
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="header-brand">
+      <span>🌿</span>
+      <span><em>my</em>Teacher</span>
+    </div>
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar estudiantes, sesiones...">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <button class="notif-btn">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar">
+            <img src="images/prof_tabl.png" alt="Profesor" onerror="this.style.display='none';this.parentNode.textContent='PR'">
+          </div>
+          <span id="userName">Profesor</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="#"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <div class="main-wrapper">
+    <main class="main-content">
+
+      <!-- Banner del profesor en verde -->
+      <div class="hero-banner">
+        <div class="hero-text">
+          <h2 id="heroGreeting">¡Buenas tardes, Profesor!</h2>
+          <p>Tienes 3 sesiones pendientes hoy. Revisa tu agenda y prepárate para inspirar a tus estudiantes.</p>
+          <a href="#" class="btn-hero-panel">
+            <i class="fa-solid fa-calendar-plus"></i> Crear nueva sesión
+          </a>
+        </div>
+        <div class="hero-illus-fallback">🧑‍🏫</div>
+      </div>
+
+      <!-- Estadísticas del mes del profesor -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon blue">👥</div>
+          <div>
+            <div class="stat-num">24</div>
+            <div class="stat-label">Estudiantes activos</div>
+            <div class="stat-trend">↑ +3 este mes</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">💵</div>
+          <div>
+            <div class="stat-num">$840K</div>
+            <div class="stat-label">Ganancias del mes</div>
+            <div class="stat-trend">↑ +12%</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon yellow">⭐</div>
+          <div>
+            <div class="stat-num">4.9</div>
+            <div class="stat-label">Reputación</div>
+            <div class="stat-trend">67 reseñas</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">📚</div>
+          <div>
+            <div class="stat-num">128</div>
+            <div class="stat-label">Clases impartidas</div>
+            <div class="stat-trend">↑ +8 esta semana</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sesiones de hoy -->
+      <div class="section-header">
+        <h3 class="section-title">Sesiones de hoy</h3>
+        <a href="#" class="section-link">Ver agenda completa →</a>
+      </div>
+      <div class="sessions-list">
+        <div class="session-card">
+          <div class="session-avatar">CL</div>
+          <div class="session-info">
+            <div class="session-name">Carlos Lizarazo</div>
+            <div class="session-meta">Cálculo Diferencial · 90 min</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <span class="session-badge badge-virtual">Virtual</span>
+            <div class="session-time">10:00 AM</div>
+            <div class="session-price">$35K</div>
+          </div>
+        </div>
+        <div class="session-card">
+          <div class="session-avatar" style="background:#7c3aed;">MS</div>
+          <div class="session-info">
+            <div class="session-name">María Suárez</div>
+            <div class="session-meta">Álgebra Lineal · 60 min</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <span class="session-badge badge-presencial">Presencial</span>
+            <div class="session-time">2:30 PM</div>
+            <div class="session-price">$30K</div>
+          </div>
+        </div>
+        <div class="session-card">
+          <div class="session-avatar" style="background:#db2777;">JR</div>
+          <div class="session-info">
+            <div class="session-name">Julián Rodríguez</div>
+            <div class="session-meta">Física Mecánica · 90 min</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <span class="session-badge badge-pending">Por confirmar</span>
+            <div class="session-time">5:00 PM</div>
+            <div class="session-price">$40K</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico de ganancias del mes -->
+      <div class="earnings-card">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;">
+          <div>
+            <div style="font-size:0.8rem;color:var(--muted);margin-bottom:4px;">Ganancias este mes</div>
+            <div class="earnings-total">$840.000 <span>COP</span></div>
+          </div>
+          <select style="border:1.5px solid #e5e7eb;border-radius:8px;padding:6px 10px;font-family:var(--font);font-size:0.8rem;outline:none;">
+            <option>Abril 2026</option>
+            <option>Marzo 2026</option>
+          </select>
+        </div>
+        <!-- Las barras se crean con JS en panel_profesor.js -->
+        <div class="chart-bars" id="chartBars"></div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;">
+          <span style="font-size:0.68rem;color:var(--muted);">Sem 1</span>
+          <span style="font-size:0.68rem;color:var(--muted);">Sem 2</span>
+          <span style="font-size:0.68rem;color:var(--muted);">Sem 3</span>
+          <span style="font-size:0.68rem;color:var(--muted);">Sem 4</span>
+        </div>
+      </div>
+
+      <!-- Mensajes recientes de estudiantes -->
+      <div class="section-header">
+        <h3 class="section-title">Mensajes recientes</h3>
+        <a href="#" class="section-link">Ver todos →</a>
+      </div>
+      <div class="messages-card">
+        <div class="msg-item">
+          <div class="msg-avatar">👩‍🎓</div>
+          <div class="msg-info">
+            <div class="msg-name">Valentina Pérez</div>
+            <div class="msg-preview">¿Profe, podemos reagendar la clase del jueves?</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+            <div class="msg-time">hace 5 min</div>
+            <div class="msg-unread"></div>
+          </div>
+        </div>
+        <div class="msg-item">
+          <div class="msg-avatar">👨‍🎓</div>
+          <div class="msg-info">
+            <div class="msg-name">Felipe Gómez</div>
+            <div class="msg-preview">Muchas gracias por la clase de hoy, me quedó todo claro</div>
+          </div>
+          <div class="msg-time">hace 1h</div>
+        </div>
+        <div class="msg-item">
+          <div class="msg-avatar">👩‍🎓</div>
+          <div class="msg-info">
+            <div class="msg-name">Isabella Torres</div>
+            <div class="msg-preview">¿Tiene disponibilidad para el sábado en la mañana?</div>
+          </div>
+          <div class="msg-time">ayer</div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Panel lateral derecho del profesor -->
+    <aside class="right-panel">
+
+      <!-- Tarjeta del perfil del profesor -->
+      <div class="profile-card">
+        <div class="profile-avatar">
+          <img src="images/prof_tabl.png" alt="Profesor"
+               onerror="this.style.display='none';this.parentNode.textContent='🧑‍🏫'">
+        </div>
+        <div class="profile-name" id="profileName">Profesor</div>
+        <div class="profile-role">Docente en myTeacher</div>
+        <div class="profile-stars">⭐⭐⭐⭐⭐ <span style="color:#6b7280;font-size:0.8rem;">(4.9)</span></div>
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <div class="ps-num">24</div>
+            <div class="ps-label">Estudiantes</div>
+          </div>
+          <div class="profile-stat">
+            <div class="ps-num">128</div>
+            <div class="ps-label">Clases</div>
+          </div>
+          <div class="profile-stat">
+            <div class="ps-num">3</div>
+            <div class="ps-label">Materias</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendario mini -->
+      <div class="calendar-widget">
+        <div class="cal-header">
+          <button class="cal-nav-btn">&#8249;</button>
+          <div class="cal-month" id="calMonth">Abril 2026</div>
+          <button class="cal-nav-btn">&#8250;</button>
+        </div>
+        <div class="cal-days-header">
+          <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+      </div>
+
+      <!-- Botones de acciones rápidas -->
+      <div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;margin-bottom:12px;">Acciones rápidas</div>
+      <div class="quick-actions">
+        <button class="q-action-btn">
+          <div class="q-action-icon" style="background:#dbeafe;">📅</div>
+          Agregar disponibilidad
+          <i class="fa-solid fa-chevron-right q-arrow"></i>
+        </button>
+        <button class="q-action-btn">
+          <div class="q-action-icon" style="background:#dcfce7;">📝</div>
+          Subir material
+          <i class="fa-solid fa-chevron-right q-arrow"></i>
+        </button>
+        <button class="q-action-btn">
+          <div class="q-action-icon" style="background:#fef3c7;">🔗</div>
+          Compartir perfil
+          <i class="fa-solid fa-chevron-right q-arrow"></i>
+        </button>
+      </div>
+
+    </aside>
+  </div>
+
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/panel_profesor.js"></script>
+</body>
+</html>

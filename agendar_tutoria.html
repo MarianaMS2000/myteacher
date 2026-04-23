@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agendar Tutoría — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <style>
+    /* ── ESTILOS DEL FORMULARIO DE AGENDAR TUTORÍA ── */
+
+    /* Tarjeta mini del tutor (parte de arriba) */
+    .tutor-mini-card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px 28px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 20px;
+      align-items: center;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* Foto pequeña del tutor */
+    .tutor-mini-avatar {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #e2e8f0;
+    }
+    .tutor-mini-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+    }
+
+    /* Nombre y datos del tutor */
+    .tutor-mini-info {}
+    .tutor-mini-nombre {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+    .tutor-mini-nombre .check { color: #22c55e; }
+    .tutor-mini-esp {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+    .tutor-mini-loc {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .tutor-mini-loc i { color: var(--green); font-size: 0.72rem; }
+
+    /* Datos de contacto en mini */
+    .tutor-mini-datos {
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .tutor-mini-datos strong { color: var(--text); }
+
+    /* Lista de materias del tutor */
+    .tutor-mini-materias {
+      text-align: right;
+    }
+    .mini-mat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .mini-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+    .mini-chip {
+      background: #f3f4f6;
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      color: var(--text);
+    }
+
+    /* ── FORMULARIO DE AGENDAMIENTO ── */
+    .agendar-form-card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    /* Cada grupo de campo (label + input) */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* Todos los inputs y selects se ven igual */
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      border: 1.5px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      color: var(--text);
+      font-family: var(--font);
+      outline: none;
+      transition: border-color 0.2s;
+      background: white;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+    }
+
+    /* El textarea del mensaje es más alto */
+    .form-group textarea {
+      min-height: 110px;
+      resize: vertical; /* El usuario puede agrandarlo verticalmente */
+      border-radius: 14px;
+    }
+
+    /* Fila de dos columnas para los campos de horario y duración */
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Fila de tres columnas para materia, precio/hora y total */
+    .form-row-3 {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* Nota explicativa sobre el precio automático */
+    .form-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: -12px;
+      margin-bottom: 16px;
+    }
+
+    /* Botón para enviar el formulario */
+    .btn-agendar {
+      width: 100%;
+      background: var(--accent-blue);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font);
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    .btn-agendar:hover { background: #3449a3; }
+
+    /* Adaptaciones para pantallas medianas */
+    @media (max-width: 900px) {
+      .tutor-mini-card {
+        grid-template-columns: auto 1fr;
+      }
+      .tutor-mini-materias {
+        grid-column: 1 / -1;
+        text-align: left;
+      }
+      .mini-chips { justify-content: flex-start; }
+      .form-row-3 { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* Adaptaciones para móvil */
+    @media (max-width: 600px) {
+      .tutor-mini-card { grid-template-columns: 1fr; text-align: center; }
+      .tutor-mini-loc { justify-content: center; }
+      .form-row-2 { grid-template-columns: 1fr; }
+      .form-row-3 { grid-template-columns: 1fr; }
+      .mini-chips { justify-content: center; }
+    }
+  </style>
+</head>
+<body data-page="tutores">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo">
+      <i class="fa-solid fa-person-chalkboard"></i>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="panel_estudiante.html" data-page="inicio">
+        <i class="fa-solid fa-house"></i> Inicio
+      </a>
+      <a class="nav-item active" href="perfil_tutor.html" data-page="tutores">
+        <i class="fa-solid fa-chalkboard-user"></i> Tutores
+      </a>
+      <a class="nav-item" href="#" data-page="mis-tutorias">
+        <i class="fa-solid fa-calendar-check"></i> Mis tutorias
+      </a>
+      <a class="nav-item" href="#" data-page="comunidad">
+        <i class="fa-solid fa-users"></i> Comunidad
+      </a>
+      <a class="nav-item" href="favoritos.html" data-page="favoritos">
+        <i class="fa-solid fa-heart"></i> Favoritos
+      </a>
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;">
+        <i class="fa-solid fa-gear"></i> Configuracion
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="header-brand">
+      <span>🌿</span>
+      <span><em>my</em>Teacher</span>
+    </div>
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar....">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <button class="notif-btn">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar">
+            <img src="images/choi.png" alt="Choi" onerror="this.style.display='none';this.parentNode.textContent='CS'">
+          </div>
+          <span id="userName">Choi san</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="perfil_estudiante.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── CONTENIDO PRINCIPAL ── -->
+  <div class="main-wrapper">
+    <main class="main-content">
+
+      <!-- Mini tarjeta del tutor arriba del formulario -->
+      <div class="tutor-mini-card">
+        <div class="tutor-mini-avatar">
+          <img src="images/sergio.png" alt="Ricardo Soler"
+               onerror="this.style.display='none';this.parentNode.style.background='#4a7a30'">
+        </div>
+        <div class="tutor-mini-info">
+          <div class="tutor-mini-nombre">
+            Ricardo Soler
+            <i class="fa-solid fa-circle-check check"></i>
+          </div>
+          <div class="tutor-mini-esp">Físico Teórico y Astrónomo</div>
+          <div class="tutor-mini-loc">
+            <i class="fa-solid fa-location-dot"></i> Bogotá, COL
+          </div>
+          <div class="tutor-mini-datos">
+            <span><strong>Nivel:</strong> Secundaria / Universidad</span>
+            <span><strong>Email:</strong> juanperez@email.com</span>
+            <span><strong>Teléfono:</strong> +57 300 123 4567</span>
+          </div>
+        </div>
+        <div class="tutor-mini-materias">
+          <div class="mini-mat-label">Materias que enseña:</div>
+          <div class="mini-chips">
+            <span class="mini-chip">Física</span>
+            <span class="mini-chip">Electromagnetismo</span>
+            <span class="mini-chip">Relatividad</span>
+            <span class="mini-chip">Astrofísica</span>
+            <span class="mini-chip">Matemáticas aplicadas</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Formulario para agendar la tutoría -->
+      <div class="agendar-form-card">
+
+        <!-- Campo de fecha -->
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="date" id="fechaInput" placeholder="dd/mm/aa">
+        </div>
+
+        <!-- Fila: horario disponible + duración -->
+        <div class="form-row-2">
+          <div class="form-group">
+            <label>Horario disponible</label>
+            <select id="horarioSelect">
+              <option value="">--:-- ----</option>
+              <option value="08:00">08:00 AM</option>
+              <option value="09:00">09:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="14:00">02:00 PM</option>
+              <option value="15:00">03:00 PM</option>
+              <option value="16:00">04:00 PM</option>
+              <option value="17:00">05:00 PM</option>
+              <option value="18:00">06:00 PM</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Duración</label>
+            <select id="duracionSelect">
+              <option value="1">1 Hora</option>
+              <option value="2" selected>2 Horas</option>
+              <option value="3">3 Horas</option>
+              <option value="4">4 Horas</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Fila: materia + precio/hora + total -->
+        <div class="form-row-3">
+          <div class="form-group">
+            <label>Tema de la tutoría</label>
+            <select id="materiaSelect">
+              <option value="Física" data-precio="20">Física</option>
+              <option value="Electromagnetismo" data-precio="25">Electromagnetismo</option>
+              <option value="Relatividad" data-precio="25">Relatividad</option>
+              <option value="Astrofísica" data-precio="30">Astrofísica</option>
+              <option value="Matemáticas aplicadas" data-precio="15" selected>Matemáticas aplicadas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Precio por Hora</label>
+            <!-- Este campo se calcula automáticamente con JS -->
+            <input type="text" id="precioHora" value="15k/h" readonly
+                   style="background:#f9fafb; color:var(--muted);">
+          </div>
+          <div class="form-group">
+            <label>Total</label>
+            <!-- Este campo también se calcula automáticamente -->
+            <input type="text" id="totalPrecio" value="30k" readonly
+                   style="background:#f9fafb; color:var(--muted);">
+          </div>
+        </div>
+
+        <!-- Nota explicativa del precio -->
+        <p class="form-note">
+          Este precio se pone automáticamente dependiendo de la materia que se elija y las horas
+        </p>
+
+        <!-- Mensaje para el profesor -->
+        <div class="form-group">
+          <label>Mensaje para el profesor</label>
+          <textarea id="mensajeInput"
+                    placeholder="Hola profe, me gustaría prepararme para un examen de derivadas"></textarea>
+        </div>
+
+        <!-- Modalidad: virtual o presencial -->
+        <div class="form-group">
+          <label>Modalidad</label>
+          <select id="modalidadSelect">
+            <option value="Virtual" selected>Virtual</option>
+            <option value="Presencial">Presencial</option>
+          </select>
+          <small style="color:var(--muted);font-size:0.75rem;margin-top:4px;">
+            La opción presencial solo está disponible si el estudiante y el profesor están en la misma ciudad.
+          </small>
+        </div>
+
+        <!-- Botón para enviar la solicitud -->
+        <button class="btn-agendar" id="btnAgendar">Agendar tutoría</button>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/agendar_tutoria.js"></script>
+</body>
+</html>

@@ -1,0 +1,149 @@
+/* =============================================
+   myTeacher — mobile.css
+   Responsive breakpoints: tablet (900px) y móvil (600px)
+   ============================================= */
+
+/* ── TABLET (≤ 900px) ── */
+@media (max-width: 900px) {
+
+  nav#main-nav { padding: 16px 24px; }
+  .nav-links   { display: none; flex-direction: column; position: fixed; top: 64px; left: 0; right: 0; background: rgba(13,20,16,.97); padding: 24px 28px; gap: 20px; z-index: 150; }
+  .nav-links.open { display: flex; }
+  .nav-hamburger { display: flex; }
+
+  .hero { margin-top: 72px; min-height: 70vh; }
+  .hero-content { padding: 0 32px 40px; max-width: 100%; }
+
+  .features-bar { grid-template-columns: 1fr; gap: 20px; padding: 28px 32px; }
+  .feature-divider { width: 100%; height: 1px; }
+
+  section { padding: 64px 32px; }
+
+  .how-grid { grid-template-columns: 1fr; }
+  .how-step { border-right: none; border-bottom: 1px solid #e5e7eb; }
+  .how-step:last-child { border-bottom: none; }
+
+  .tutors-grid { grid-template-columns: repeat(2,1fr); }
+
+  .map-section { grid-template-columns: 1fr; }
+  .map-sidebar { padding: 40px 32px; }
+
+  .become-section { grid-template-columns: 1fr; gap: 40px; }
+  .become-img { max-width: 400px; margin: 0 auto; }
+
+  .final-footer { padding: 60px 32px 0; }
+  .footer-links-grid { grid-template-columns: repeat(2,1fr); }
+
+  /* Para tutores */
+  .tutor-hero { min-height: 60vh; margin-top: 72px; }
+  .tutor-hero-content { padding: 0 32px 40px; }
+  .why-card { grid-template-columns: 1fr; text-align: center; }
+  .why-connector { margin-left: auto; margin-right: auto; }
+  .how-start-grid { grid-template-columns: 1fr; gap: 32px; }
+  .requisitos-inner { grid-template-columns: 1fr; }
+  .testimonios-grid { grid-template-columns: 1fr; }
+  .faqs-section { padding: 64px 32px; }
+
+  /* Registro split */
+  .registro-split { grid-template-columns: 1fr; }
+  .registro-foto  { display: none; }
+  .registro-form-panel { padding: 40px 32px; }
+  .registro-form-row { grid-template-columns: 1fr; }
+
+  /* FAQ */
+  .faq-hero { grid-template-columns: 1fr; }
+  .faq-hero-img { display: none; }
+  .faq-hero-content { padding: 50px 32px; }
+  .faq-main-section { padding: 48px 32px; }
+  .faq-cards-grid { grid-template-columns: 1fr; }
+  .faq-cta-banner { grid-template-columns: 1fr; margin: 0 32px 48px; }
+  .faq-cta-img { display: none; }
+}
+
+/* ── MÓVIL (≤ 600px) ── */
+@media (max-width: 600px) {
+
+  /* NAV */
+  nav#main-nav { padding: 14px 18px; }
+  .nav-hamburger { display: flex; }
+  .nav-links { top: 60px; }
+
+  /* HERO */
+  .hero { margin: 60px 8px 0; border-radius: 16px; min-height: 65vh; }
+  .hero-bg { border-radius: 16px; }
+  .hero-content { padding: 0 22px 36px; }
+  .hero-title { font-size: 1.8rem; letter-spacing: -.8px; }
+  .hero-sub { font-size: .88rem; max-width: 100%; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .btn-hero { padding: 12px 24px; font-size: .9rem; }
+
+  /* FEATURES */
+  .features-bar { margin: 0 8px; padding: 22px 18px; gap: 18px; border-radius: 0 0 16px 16px; }
+  .feature-icon { font-size: 1.5rem; }
+
+  /* SECTIONS */
+  section { padding: 48px 18px; }
+  .section-title { font-size: 1.6rem; }
+
+  /* HOW */
+  .how-step { padding: 28px 22px; }
+  .step-num { font-size: 2.5rem; }
+
+  /* TUTORS */
+  .tutors-grid { grid-template-columns: 1fr; }
+  .tutors-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+  /* MAP */
+  .map-sidebar { padding: 28px 18px; }
+  .map-sidebar-title { font-size: 1.2rem; }
+
+  /* BECOME */
+  .become-section { padding: 48px 18px; }
+  .become-title { font-size: 2rem; }
+
+  /* FOOTER */
+  .final-footer { padding: 48px 18px 0; }
+  .footer-links-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+  /* PARA TUTORES */
+  .tutor-hero { margin: 60px 8px 0; border-radius: 16px; min-height: 55vh; }
+  .tutor-hero-content { padding: 0 22px 36px; }
+  .tutor-hero-title { font-size: 2rem; }
+  .why-section { padding: 48px 18px; }
+  .how-start-section { padding: 48px 18px; }
+  .requisitos-section { padding: 48px 18px; }
+  .requisitos-inner { padding: 32px 24px; }
+  .testimonios-section { padding: 48px 18px; }
+
+  /* AUTH NAV */
+  .auth-nav { padding: 14px 18px; border-radius: 0; }
+  .auth-nav-links a { font-size: .78rem; }
+  .auth-nav .nav-logo { font-size: 1rem; }
+
+  /* LOGIN */
+  .login-card { padding: 32px 24px; border-radius: 20px; margin: 0 12px; }
+  .login-title { font-size: 1.6rem; }
+
+  /* REGISTRO — en móvil mostrar solo la vista de bienvenida */
+  .bienvenida-movil { max-width: 100%; border-radius: 0 0 40px 40px; padding: 48px 24px 60px; }
+  .bienvenida-text  { font-size: 1.3rem; }
+  .registro-form-page { padding-top: 64px; }
+  .registro-split { min-height: auto; margin: 12px; border-radius: 16px; }
+  .registro-form-panel { padding: 28px 20px; }
+  .registro-title { font-size: 1.3rem; }
+
+  /* ONBOARDING */
+  .onboarding-bg   { padding: 80px 16px 32px; }
+  .onboarding-card { padding: 28px 20px; }
+  .onboarding-q    { font-size: 1.2rem; }
+
+  /* FAQ */
+  .faq-hero { margin-top: 60px; }
+  .faq-hero-content { padding: 40px 18px; }
+  .faq-hero-content h1 { font-size: 2rem; }
+  .faq-search-row { flex-direction: column; align-items: stretch; }
+  .faq-main-section { padding: 40px 18px; }
+  .faq-cta-banner { margin: 0 18px 40px; }
+  .faq-cta-content { padding: 32px 20px; }
+}

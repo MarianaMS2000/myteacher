@@ -1,0 +1,354 @@
+/* =============================================
+   perfil_estudiante.css — Fiel al diseño
+   de la imagen de referencia
+   ============================================= */
+
+/* Card principal blanca con bordes redondeados */
+.perfil-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px 36px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Título "Información del Perfil" */
+.perfil-titulo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+/* ── FILA DE FOTO ── */
+/* Foto + botones subir/borrar + botón editar en la misma fila */
+.perfil-foto-fila {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+/* Foto circular */
+.foto-circulo {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e2e8f0;
+  flex-shrink: 0;
+}
+.foto-circulo img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top;
+  display: block;
+}
+.foto-iniciales {
+  width: 100%; height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: white;
+  background: var(--green);
+}
+
+/* Botones de foto: "Subir nueva foto" y "Borrar" */
+.btn-foto-accion {
+  border-radius: 100px;
+  padding: 9px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.btn-subir {
+  background: white;
+  color: var(--text);
+  border: 1.5px solid #d1d5db;
+}
+.btn-subir:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+.btn-borrar {
+  background: white;
+  color: var(--text);
+  border: 1.5px solid #d1d5db;
+}
+.btn-borrar:hover {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* Botón Editar empujado a la derecha */
+.btn-editar-perfil {
+  margin-left: auto;
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 9px 22px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: background 0.18s;
+}
+.btn-editar-perfil:hover { background: #3449a3; }
+.btn-editar-perfil.guardando { background: var(--green); }
+
+/* Separador horizontal */
+.perfil-hr {
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  margin: 0 0 28px 0;
+}
+
+/* Mensaje de validación */
+.validacion-msg {
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+}
+.validacion-msg.error {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+.validacion-msg.exito {
+  background: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #86efac;
+}
+
+/* ── GRID DATOS: izquierda | separador | derecha ── */
+.perfil-datos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 320px;
+  gap: 0 40px;
+  align-items: start;
+}
+
+/* Separador vertical entre columnas */
+.separador-vertical {
+  width: 1px;
+  background: #f3f4f6;
+  min-height: 260px;
+  align-self: stretch;
+}
+
+/* Título de columna */
+.col-titulo {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+
+/* ── CAMPOS ── */
+/* Fila de dos campos lado a lado */
+.campos-fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Un campo que ocupa solo la mitad */
+.campo-grupo--mitad {
+  grid-column: 1;
+}
+
+.campo-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.campo-label {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Input base */
+.campo-input {
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 10px 13px;
+  font-size: 0.88rem;
+  font-family: var(--font);
+  color: var(--text);
+  background: white;
+  outline: none;
+  transition: border-color 0.18s;
+  width: 100%;
+}
+/* Deshabilitado: se ve como texto plano con borde sutil */
+.campo-input:disabled {
+  background: white;
+  color: var(--text);
+  border-color: #e5e7eb;
+  cursor: default;
+}
+/* Habilitado (modo edición) */
+.campo-input:not(:disabled) {
+  border-color: #d1d5db;
+  cursor: text;
+}
+.campo-input:not(:disabled):focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(63,81,181,0.1);
+}
+
+/* Contraseña con ojo */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.password-wrapper .campo-input {
+  padding-right: 42px;
+}
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.88rem;
+  padding: 3px;
+  transition: color 0.18s;
+}
+.toggle-password:hover { color: var(--text); }
+
+/* Botón Cambiar contraseña */
+.btn-cambiar-pass {
+  margin-top: 14px;
+  background: #f3f4f6;
+  color: #6b7280;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.btn-cambiar-pass:hover { background: #e5e7eb; color: var(--text); }
+
+/* Zona Eliminar cuenta — parte baja de la columna izquierda */
+.eliminar-zona {
+  margin-top: 28px;
+}
+.btn-eliminar-cuenta {
+  background: white;
+  color: #e53e3e;
+  border: 1.5px solid #e53e3e;
+  border-radius: 100px;
+  padding: 9px 22px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.btn-eliminar-cuenta:hover {
+  background: #e53e3e;
+  color: white;
+}
+
+/* ── MODAL ELIMINAR ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-box {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+.modal-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.modal-titulo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.modal-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+.modal-btns { display: flex; gap: 12px; justify-content: center; }
+.btn-modal-cancel {
+  background: #f3f4f6;
+  color: var(--text);
+  border: none;
+  border-radius: 100px;
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.btn-modal-cancel:hover { background: #e5e7eb; }
+.btn-modal-confirm {
+  background: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: background 0.18s;
+}
+.btn-modal-confirm:hover { background: #b91c1c; }
+
+/* Responsive */
+@media (max-width: 860px) {
+  .perfil-datos-grid {
+    grid-template-columns: 1fr;
+  }
+  .separador-vertical {
+    display: none;
+  }
+  .col-seguridad {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 24px;
+    margin-top: 8px;
+  }
+}
+@media (max-width: 560px) {
+  .campos-fila { grid-template-columns: 1fr; }
+  .perfil-card { padding: 24px 18px; }
+  .perfil-foto-fila { flex-wrap: wrap; }
+  .btn-editar-perfil { margin-left: 0; }
+}

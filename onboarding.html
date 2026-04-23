@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configura tu perfil — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/onboarding.css" />
+
+  <body style="background-image: url('images/PaisajeFor.png');">
+ 
+  <!-- ── NAV FLOTANTE (igual que login y registro) ────── -->
+  <nav>
+    <ul class="nav-links">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="#">Sobre Nosotros</a></li>
+    </ul>
+    <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
+  </nav>
+ 
+  <div class="ob-page">
+ 
+    <!-- Pregunta A: Nivel de formación -->
+    <div class="ob-card active" id="paso-a">
+      <div class="ob-pre">Antes de Terminar..<br>Nos gustaría preguntarte</div>
+      <div class="ob-line"></div>
+      <h2 class="ob-q">¿Cuál es tu máximo nivel<br>de formación alcanzado?</h2>
+      <p class="ob-hint">Selecciona una respuesta</p>
+      <div class="ob-options" data-group="formacion">
+        <div class="ob-option" data-value="universitario">
+          <span><strong>Estudiante Universitario</strong></span>
+          <div class="custom-check"></div>
+        </div>
+        <div class="ob-option" data-value="graduado">
+          <span><strong>Profesional / Graduado</strong></span>
+          <div class="custom-check"></div>
+        </div>
+        <div class="ob-option" data-value="magister">
+          <span><strong>Especialista / Magíster</strong></span>
+          <div class="custom-check"></div>
+        </div>
+        <div class="ob-option" data-value="doctorado">
+          <span><strong>Doctorado</strong></span>
+          <div class="custom-check"></div>
+        </div>
+        <div class="ob-option" data-value="tecnico">
+          <span><strong>Técnico o Tecnólogo</strong></span>
+          <div class="custom-check"></div>
+        </div>
+      </div>
+      <div class="ob-nav">
+        <button class="btn-sig" onclick="irPaso('paso-b', 'paso-a')">Siguiente</button>
+      </div>
+    </div>
+ 
+    <!-- Pregunta B: Experiencia enseñando -->
+    <div class="ob-card" id="paso-b">
+      <div class="ob-apple-top"><img src="images/manzanaFOR.png" alt="mascota"></div>
+      <div class="ob-line"></div>
+      <div class="ob-back-row">
+        <button class="ob-back" onclick="irPaso('paso-a','paso-b')">←</button>
+      </div>
+      <h2 class="ob-q">¿Cuánto tiempo llevas<br>compartiendo tu conocimiento?</h2>
+      <p class="ob-hint">Selecciona una respuesta</p>
+      <div class="ob-options" data-group="experiencia">
+        <div class="ob-option" data-value="novato"><span><strong>Novato</strong> (Menos de 1 año)</span><div class="custom-check"></div></div>
+        <div class="ob-option" data-value="intermedio"><span><strong>Intermedio</strong> (De 1 a 3 años)</span><div class="custom-check"></div></div>
+        <div class="ob-option" data-value="avanzado"><span><strong>Avanzado</strong> (De 4 a 7 años)</span><div class="custom-check"></div></div>
+        <div class="ob-option" data-value="senior"><span><strong>Senior / Experto</strong> (Más de 8 años)</span><div class="custom-check"></div></div>
+      </div>
+      <div class="ob-nav">
+        <button class="btn-sig" onclick="irPaso('paso-c','paso-b')">Siguiente</button>
+      </div>
+    </div>
+ 
+    <!-- Pregunta C: Modalidad de enseñanza -->
+    <div class="ob-card" id="paso-c">
+      <div class="ob-apple-top"><img src="images/manzanaFOR.png" alt="mascota"></div>
+      <div class="ob-line"></div>
+      <div class="ob-back-row">
+        <button class="ob-back" onclick="irPaso('paso-b','paso-c')">←</button>
+      </div>
+      <h2 class="ob-q">¿Cómo prefieres conectar<br>con tus alumnos?</h2>
+      <p class="ob-hint">Selecciona una respuesta</p>
+      <div class="ob-options" data-group="modalidad">
+        <div class="ob-option" data-value="virtual"><span><strong>Virtual</strong> (Clases por videollamada)</span><div class="custom-check"></div></div>
+        <div class="ob-option" data-value="presencial"><span><strong>Presencial</strong> (En un lugar físico acordado)</span><div class="custom-check"></div></div>
+        <div class="ob-option" data-value="ambas"><span><strong>Ambas</strong> (Disponibilidad para ambas)</span><div class="custom-check"></div></div>
+      </div>
+      <div class="ob-nav">
+        <button class="btn-sig" onclick="irPaso('paso-d','paso-c')">Siguiente</button>
+      </div>
+    </div>
+ 
+    <!-- Tarjeta de éxito final -->
+    <div class="ob-card ob-success" id="paso-d">
+      <div class="success-apple"><img src="images/manzanaR.png" alt="mascota"></div>
+      <p class="success-text">
+        ¡Registro exitoso! Hemos configurado tu espacio de tutoría según tus respuestas.
+        Ya puedes empezar a conectar con alumnos y agendar tu primera clase. ¡A darle con todo!
+      </p>
+      <div class="ob-nav">
+        <button class="btn-sig" onclick="window.location.href='panel_profesor.html'">Siguiente</button>
+      </div>
+    </div>
+ 
+  </div>
+ 
+  <script src="scripts/onboarding.js"></script>
+</body>
+</html>

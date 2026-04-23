@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>myTeacher — Aprender es más fácil cuando no estás solo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="Style/inicio.css" />
+  <link rel="stylesheet" href="Style/mobile.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ── BOTÓN HAMBURGER ──
+       Solo se ve en pantallas pequeñas (lo controla mobile.css) */
+    .nav-hamburger {
+      display: none; /* Oculto en escritorio */
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px; height: 2.5px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    /* Cuando está abierto, las tres líneas forman una X */
+    .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ── SECCIÓN "¿DESEAS REGISTRARTE COMO?" ──
+       Esta sección SOLO aparece en versión móvil.
+       En escritorio se oculta completamente. */
+    .mobile-register-section {
+      display: none; /* Oculta en escritorio */
+      background: linear-gradient(135deg, #1e4620, #3d8a40);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .mobile-register-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 20px;
+    }
+    .mobile-register-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .btn-register-mobile {
+      background: white;
+      color: #1e4620;
+      border: none;
+      border-radius: 100px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s;
+      display: block;
+    }
+    .btn-register-mobile:hover { background: #f0f0f0; }
+    .btn-register-mobile.dark {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+    .btn-register-mobile.dark:hover { background: rgba(255,255,255,0.25); }
+
+    /* Mostramos la sección de registro en móvil */
+    @media (max-width: 768px) {
+      .mobile-register-section { display: block; }
+      .nav-hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <!-- Barra de navegación superior -->
+  <nav id="main-nav">
+    <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
+
+    <!-- Botón hamburger (solo visible en móvil) -->
+    <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+
+    <!-- Links del menú (se ocultan en móvil y aparecen al hacer click en hamburger) -->
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#hero-section">Inicio</a></li>
+      <li><a href="#tutors-section">Buscar Tutor</a></li>
+      <li><a href="#become-section">Para Tutores</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <!-- Botón para ir al login -->
+      <a href="login.html" class="nav-avatar">
+        <img src="images/icons8-usuario-32.png" alt="Iniciar sesión">
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <!-- Sección principal con la imagen grande y el mensaje -->
+  <section class="hero" id="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Aprender es más fácil<br>
+        cuando no estás<br>
+        solo.
+      </h1>
+      <p class="hero-sub">
+        Descubre una nueva forma de estudiar
+        con acompañamiento constante y personalizado.
+      </p>
+      <div class="hero-ctas">
+        <!-- Botón que lleva al registro -->
+        <a href="registro.html" class="btn-hero">Comenzar ahora <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── BARRA VERDE DE FEATURES ── -->
+  <!-- Tres características rápidas de la plataforma -->
+  <div class="features-bar">
+    <div class="feature-item">
+      <img class="feature-icon" src="images/icon1.png" alt="profesores">
+      <p>Encuentra profesores expertos en diferentes áreas y niveles educativos.</p>
+    </div>
+    <div class="feature-divider"></div>
+    <div class="feature-item">
+      <img class="feature-icon" src="images/icon2.png" alt="flexibilidad">
+      <p>Aprende desde casa por videollamada o agenda tutorías presenciales.</p>
+    </div>
+    <div class="feature-divider"></div>
+    <div class="feature-item">
+      <img class="feature-icon" src="images/iconoubica.png" alt="conexion">
+      <p>Visualiza profesores disponibles en el mapa y elige el más cercano.</p>
+    </div>
+  </div>
+
+  <!-- ── SECCIÓN REGISTRO MÓVIL ──
+       Solo aparece en pantallas pequeñas -->
+  <div class="mobile-register-section">
+    <div class="mobile-register-title">¿Deseas registrarte como?</div>
+    <div class="mobile-register-btns">
+      <a href="registro.html?tipo=profesor" class="btn-register-mobile">Profesor</a>
+      <a href="registro.html?tipo=estudiante" class="btn-register-mobile dark">Estudiante</a>
+    </div>
+  </div>
+
+  <!-- ── CÓMO FUNCIONA ── -->
+  <section class="how-section">
+    <div style="text-align:center;">
+      <h2 class="section-title">Cómo funciona myTeacher</h2>
+      <p class="section-sub" style="text-align:center; margin: 0 auto;">Encuentra, agenda y aprende con facilidad.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="step-circle">1</div>
+        <div class="step-title">Encuentra el tutor ideal</div>
+        <div class="step-desc">Explora perfiles de profesores según materia, nivel educativo y calificaciones. Elige el que mejor se adapte a ti.</div>
+        <img src="images/paso1.png" alt="paso 1" class="step-img step-img-1">
+      </div>
+      <div class="how-step">
+        <div class="step-circle">2</div>
+        <div class="step-title">Agenda tu tutoría</div>
+        <div class="step-desc">Consulta la disponibilidad del tutor y reserva la clase en el horario que prefieras, en minutos.</div>
+        <img src="images/paso2.png" alt="paso 2" class="step-img">
+      </div>
+      <div class="how-step">
+        <div class="step-circle">3</div>
+        <div class="step-title">Aprende a tu ritmo</div>
+        <div class="step-desc">Toma tu clase online o presencial, mejora tus habilidades y da seguimiento a tu progreso.</div>
+        <img src="images/paso3.png" alt="paso 3" class="step-img">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TUTORES MEJOR VALORADOS ── -->
+  <section class="tutors-section" id="tutors-section">
+    <div class="tutors-header">
+      <h2 class="section-title">Encuentra a los tutores mejor valorados:</h2>
+      <p class="section-sub">Aprende con profesores altamente calificados y recomendados por estudiantes. Explora sus perfiles, revisa sus especialidades y agenda tu próxima clase fácilmente.</p>
+    </div>
+    <div class="tutors-grid">
+      <div class="tutor-card">
+        <div class="tutor-card-top">
+          <div class="tutor-stars">⭐ 4.9</div>
+          <div class="tutor-reviews">86 Reseñas</div>
+          <img src="images/maira.png" alt="Maira Gómez">
+        </div>
+        <div class="tutor-card-body">
+          <div class="tutor-name">Maira Gómez</div>
+          <div class="tutor-subject">Literatura inglesa</div>
+          <div class="tutor-exp">+4 años de experiencia</div>
+          <!-- Botón que lleva al perfil del tutor -->
+          <a href="perfil_tutor.html" class="btn-ver-perfil">VER PERFIL</a>
+        </div>
+      </div>
+      <div class="tutor-card tutor-card-featured">
+        <div class="tutor-card-top">
+          <div class="tutor-stars">⭐ 4.9</div>
+          <div class="tutor-reviews">53 Reseñas</div>
+          <img src="images/esteban.png" alt="Esteban Navarro">
+        </div>
+        <div class="tutor-card-body">
+          <div class="tutor-name">Esteban Navarro</div>
+          <div class="tutor-subject">Física</div>
+          <div class="tutor-exp">+1 año de experiencia</div>
+          <a href="perfil_tutor.html" class="btn-ver-perfil">VER PERFIL</a>
+        </div>
+      </div>
+      <div class="tutor-card">
+        <div class="tutor-card-top">
+          <div class="tutor-stars">⭐ 4.9</div>
+          <div class="tutor-reviews">125 Reseñas</div>
+          <img src="images/daniela img.png" alt="Daniela Rojas">
+        </div>
+        <div class="tutor-card-body">
+          <div class="tutor-name">Daniela Rojas</div>
+          <div class="tutor-subject">Base de datos</div>
+          <div class="tutor-exp">+2 años de experiencia</div>
+          <a href="perfil_tutor.html" class="btn-ver-perfil">VER PERFIL</a>
+        </div>
+      </div>
+    </div>
+    <div class="tutors-cta">
+      <a href="login.html" class="btn-explore">Explorar tutores <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </section>
+
+  <!-- ── MAPA + TUTORES CERCANOS ── -->
+  <div class="map-section">
+    <div class="map-header">
+      <h2 class="map-main-title">Tu próximo profesor está más cerca de lo que imaginas</h2>
+      <p class="map-main-sub">Explora el mapa, revisa perfiles y reserva tu próxima clase en segundos.</p>
+    </div>
+    <div class="map-body">
+      <div class="map-placeholder">
+        <div class="map-pins">
+          <div class="map-pin"></div>
+          <div class="map-pin"></div>
+          <div class="map-pin"></div>
+          <div class="map-pin"></div>
+        </div>
+        <div class="map-zoom">
+          <button>+</button>
+          <button>-</button>
+        </div>
+        <a href="login.html" class="map-explore-btn">🔵 Explorar Mapa</a>
+      </div>
+      <div class="map-sidebar">
+        <div class="map-sidebar-header">
+          <strong>Tutores disponibles</strong>
+          <span class="map-filter">⊞ Filtrar</span>
+        </div>
+        <div class="nearby-tutor">
+          <img class="nearby-avatar" src="images/eugenia.png" alt="Eugenia">
+          <div class="nearby-info">
+            <div class="nearby-name">Eugenia Marino</div>
+            <div class="nearby-meta">Profesora de Inglés</div>
+            <div class="nearby-rating">
+              <div class="nearby-stars">⭐ <span>4.9</span></div>
+              <span class="nearby-reviews">140 Reseñas</span>
+            </div>
+            <div class="nearby-dist">📍 A 1km</div>
+          </div>
+          <div class="nearby-right">
+            <div class="nearby-price">$12k/hora</div>
+            <a href="login.html" class="nearby-btn">Reservar clase</a>
+          </div>
+        </div>
+        <div class="nearby-tutor">
+          <img class="nearby-avatar" src="images/alfonso.png" alt="Alfonso">
+          <div class="nearby-info">
+            <div class="nearby-name">Alfonso Lopez</div>
+            <div class="nearby-meta">Profesor de matemáticas</div>
+            <div class="nearby-rating">
+              <div class="nearby-stars">⭐ <span>4.5</span></div>
+              <span class="nearby-reviews">110 Reseñas</span>
+            </div>
+            <div class="nearby-dist">📍 A 3km</div>
+          </div>
+          <div class="nearby-right">
+            <div class="nearby-price">$16k/hora</div>
+            <a href="login.html" class="nearby-btn">Reservar clase</a>
+          </div>
+        </div>
+        <div class="nearby-tutor">
+          <img class="nearby-avatar" src="images/lucia3.png" alt="Lucia">
+          <div class="nearby-info">
+            <div class="nearby-name">Lucia Martinez</div>
+            <div class="nearby-meta">Profesora de Algoritmos</div>
+            <div class="nearby-rating">
+              <div class="nearby-stars">⭐ <span>4.7</span></div>
+              <span class="nearby-reviews">24 Reseñas</span>
+            </div>
+            <div class="nearby-dist">📍 A 8km</div>
+          </div>
+          <div class="nearby-right">
+            <div class="nearby-price">$8k/hora</div>
+            <a href="login.html" class="nearby-btn">Reservar clase</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONVIÉRTETE EN TUTOR ── -->
+  <section class="become-section" id="become-section">
+    <div class="become-card">
+      <div class="become-left">
+        <div class="become-badge">Únete como instructor</div>
+        <h2 class="become-title">Conviértete en<br>Tutor</h2>
+        <p class="become-desc">En myTeacher puedes ofrecer tutorías en línea o presenciales y conectar con estudiantes que buscan mejorar en sus materias.</p>
+        <ul class="become-perks">
+          <li><div class="perk-tag">👤 Llega a más estudiantes</div></li>
+          <li><div class="perk-tag">📅 Administra tus horarios</div></li>
+          <li><div class="perk-tag">📈 Desarrolla tu carrera como tutor</div></li>
+        </ul>
+        <!-- Botón que lleva al registro como profesor -->
+        <a href="registro.html?tipo=profesor" class="btn-become">Empezar <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="become-right">
+        <img src="images/tutorimagen1.png" alt="Tutor">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="final-footer">
+    <div class="final-footer-bg"></div>
+    <div class="final-cta-content">
+      <h2 class="final-cta-title">Aprende con pasión</h2>
+      <div class="final-btns">
+        <!-- Botón que lleva al registro -->
+        <a href="registro.html" class="btn-footer-green">Empezar ahora <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <a href="login.html" class="final-login-link">Ya eres estudiante? <span class="login-underline">Inicia sesión</span></a>
+    </div>
+    <div class="footer-links-grid">
+      <div>
+        <div class="footer-col-title">Acerca de</div>
+        <ul class="footer-links">
+          <li><a href="quienes_somos.html">Quiénes somos</a></li>
+          <li><a href="#">Cómo funciona</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Recursos</div>
+        <ul class="footer-links">
+          <li><a href="blog.html">Blog del docente</a></li>
+          <li><a href="faq.html">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Empieza</div>
+        <ul class="footer-links">
+          <li><a href="registro.html">Registrarse</a></li>
+          <li><a href="registro.html?tipo=profesor">Conviértete en tutor</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Otro</div>
+        <ul class="footer-links">
+          <li><a href="#">Terminos y condiciones</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <img src="images/logowhite.png" alt="myTeacher" class="footer-logo">
+      <div class="footer-copy">© 2026 myTeacher. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <!-- Script que maneja el hamburger y las animaciones de entrada -->
+  <script src="scripts/index.js"></script>
+</body>
+</html>

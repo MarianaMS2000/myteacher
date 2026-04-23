@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comunidad — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <link rel="stylesheet" href="Style/comunidad.css">
+</head>
+<body data-page="comunidad">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo">
+      <i class="fa-solid fa-person-chalkboard"></i>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="panel_estudiante.html" data-page="inicio">
+        <i class="fa-solid fa-house"></i> Inicio
+      </a>
+      <a class="nav-item" href="perfil_tutor.html" data-page="tutores">
+        <i class="fa-solid fa-chalkboard-user"></i> Tutores
+      </a>
+      <a class="nav-item" href="mis_tutorias.html" data-page="mis-tutorias">
+        <i class="fa-solid fa-calendar-check"></i> Mis tutorías
+      </a>
+      <a class="nav-item active" href="comunidad.html" data-page="comunidad">
+        <i class="fa-solid fa-users"></i> Comunidad
+      </a>
+      <a class="nav-item" href="favoritos.html" data-page="favoritos">
+        <i class="fa-solid fa-heart"></i> Favoritos
+      </a>
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;">
+        <i class="fa-solid fa-gear"></i> Configuración
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="header-brand">
+      <span class="leaf">🌿</span>
+      <span><em>my</em>Teacher</span>
+    </div>
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar preguntas...">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <button class="notif-btn">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar">
+            <img src="images/choi.png" alt="Choi" onerror="this.style.display='none';this.parentNode.textContent='CS'">
+          </div>
+          <span id="userName">Choi san</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="perfil_estudiante.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <div class="main-wrapper">
+    <main class="main-content">
+
+      <!-- ── HERO CON GRADIENTE Y FORMULARIO ── -->
+      <section class="community-hero">
+        <h1 class="community-hero-title">Resuelve tus dudas aquí 🤔</h1>
+        <p class="community-hero-sub">
+          Publica tu pregunta y recibe ayuda de la comunidad myTeacher o de
+          nuestra IA educativa. Juntos aprendemos más rápido.
+        </p>
+
+        <!-- Input principal de pregunta -->
+        <div class="ask-input-wrapper">
+          <textarea
+            class="ask-textarea"
+            id="askTextarea"
+            placeholder="Ej: ¿Cómo se resuelve una integral por partes? ¿Qué diferencia hay entre TCP y UDP?"
+            rows="1"
+          ></textarea>
+          <button class="btn-ask" id="btnPreguntar" onclick="publicarPregunta()">
+            <i class="fa-solid fa-paper-plane"></i> Preguntar
+          </button>
+        </div>
+
+        <!-- Input de etiquetas con chips -->
+        <div class="tags-input-wrapper">
+          <label class="tags-label" for="tagsInput">
+            <i class="fa-solid fa-tags"></i> Agregar etiquetas (presiona Enter para añadir)
+          </label>
+          <div class="tags-field" id="tagsField">
+            <!-- Los chips se insertan aquí dinámicamente -->
+            <input
+              type="text"
+              class="tags-text-input"
+              id="tagsInput"
+              placeholder="Ej: Matemáticas, Python, Principiante..."
+            >
+          </div>
+          <div class="tags-hint">💡 Las etiquetas ayudan a clasificar tu pregunta</div>
+        </div>
+      </section>
+
+      <!-- ── LISTA DE PREGUNTAS ── -->
+      <div class="questions-section">
+        <div class="questions-header">
+          <h2 class="questions-title">Preguntas recientes</h2>
+          <span class="questions-count" id="questionsCount">4 preguntas</span>
+        </div>
+
+        <!-- Lista donde se insertan las cards -->
+        <div id="questionsList">
+
+          <!-- Card 1 -->
+          <div class="question-card" id="q-1">
+            <div class="question-card-header">
+              <div class="question-user-avatar">
+                <img src="images/eugenia.png" alt="Eugenia"
+                     onerror="this.style.display='none';this.parentNode.textContent='EU'">
+              </div>
+              <div class="question-user-info">
+                <div class="question-user-name">Eugenia Ríos</div>
+                <div class="question-time">
+                  <i class="fa-regular fa-clock"></i> Hace 5 hrs
+                </div>
+              </div>
+            </div>
+            <div class="question-text">
+              ¿Cómo se aplica el Teorema de Bayes en problemas de probabilidad condicional? Tengo un parcial la próxima semana y no entiendo bien la lógica detrás del teorema.
+            </div>
+            <div class="question-tags">
+              <span class="q-tag">Estadística</span>
+              <span class="q-tag">Probabilidad</span>
+              <span class="q-tag">Teorema de Bayes</span>
+            </div>
+            <div class="question-card-footer">
+              <button class="btn-like" onclick="toggleLike(this)">
+                <i class="fa-regular fa-heart"></i>
+                <span class="like-count">12</span>
+              </button>
+              <button class="btn-see-answers" onclick="verRespuestas('q-1', this,
+                'Cómo se aplica el Teorema de Bayes en problemas de probabilidad condicional')">
+                <i class="fa-regular fa-comment-dots"></i> Ver respuestas (3)
+              </button>
+            </div>
+            <!-- Sección de respuestas (oculta por defecto) -->
+            <div class="answers-section" id="answers-q-1"></div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="question-card" id="q-2">
+            <div class="question-card-header">
+              <div class="question-user-avatar">
+                <img src="images/daniela img.png" alt="Daniela"
+                     onerror="this.style.display='none';this.parentNode.textContent='DA'">
+              </div>
+              <div class="question-user-info">
+                <div class="question-user-name">Daniela Mora</div>
+                <div class="question-time">
+                  <i class="fa-regular fa-clock"></i> Hace 8 hrs
+                </div>
+              </div>
+            </div>
+            <div class="question-text">
+              ¿Cuál es la diferencia entre una lista y una tupla en Python? ¿Cuándo debería usar cada una?
+            </div>
+            <div class="question-tags">
+              <span class="q-tag">Programación</span>
+              <span class="q-tag">Python</span>
+              <span class="q-tag">Principiante</span>
+            </div>
+            <div class="question-card-footer">
+              <button class="btn-like" onclick="toggleLike(this)">
+                <i class="fa-regular fa-heart"></i>
+                <span class="like-count">8</span>
+              </button>
+              <button class="btn-see-answers" onclick="verRespuestas('q-2', this,
+                'Cuál es la diferencia entre una lista y una tupla en Python')">
+                <i class="fa-regular fa-comment-dots"></i> Ver respuestas (5)
+              </button>
+            </div>
+            <div class="answers-section" id="answers-q-2"></div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="question-card" id="q-3">
+            <div class="question-card-header">
+              <div class="question-user-avatar" style="background:linear-gradient(135deg,#1d4ed8,#7c3aed);">
+                JC
+              </div>
+              <div class="question-user-info">
+                <div class="question-user-name">Juan Camilo Vélez</div>
+                <div class="question-time">
+                  <i class="fa-regular fa-clock"></i> Ayer
+                </div>
+              </div>
+            </div>
+            <div class="question-text">
+              ¿Cómo puedo mejorar mi pronunciación en inglés? Tengo buen vocabulario pero cuando hablo me trabo mucho con la pronunciación de las vocales largas.
+            </div>
+            <div class="question-tags">
+              <span class="q-tag">Inglés</span>
+              <span class="q-tag">Pronunciación</span>
+              <span class="q-tag">Intermedio</span>
+            </div>
+            <div class="question-card-footer">
+              <button class="btn-like" onclick="toggleLike(this)">
+                <i class="fa-regular fa-heart"></i>
+                <span class="like-count">21</span>
+              </button>
+              <button class="btn-see-answers" onclick="verRespuestas('q-3', this,
+                'Cómo puedo mejorar mi pronunciación en inglés')">
+                <i class="fa-regular fa-comment-dots"></i> Ver respuestas (7)
+              </button>
+            </div>
+            <div class="answers-section" id="answers-q-3"></div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="question-card" id="q-4">
+            <div class="question-card-header">
+              <div class="question-user-avatar" style="background:linear-gradient(135deg,#92400e,#d97706);">
+                SV
+              </div>
+              <div class="question-user-info">
+                <div class="question-user-name">Sofía Vargas</div>
+                <div class="question-time">
+                  <i class="fa-regular fa-clock"></i> Hace 2 días
+                </div>
+              </div>
+            </div>
+            <div class="question-text">
+              Necesito entender la segunda ley de Newton. ¿Por qué F = ma y cómo se diferencia de la primera ley de Newton?
+            </div>
+            <div class="question-tags">
+              <span class="q-tag">Física</span>
+              <span class="q-tag">Leyes de Newton</span>
+              <span class="q-tag">Mecánica</span>
+            </div>
+            <div class="question-card-footer">
+              <button class="btn-like" onclick="toggleLike(this)">
+                <i class="fa-regular fa-heart"></i>
+                <span class="like-count">6</span>
+              </button>
+              <button class="btn-see-answers" onclick="verRespuestas('q-4', this,
+                'Cuál es la diferencia entre la primera y segunda ley de Newton')">
+                <i class="fa-regular fa-comment-dots"></i> Ver respuestas (2)
+              </button>
+            </div>
+            <div class="answers-section" id="answers-q-4"></div>
+          </div>
+
+        </div>
+        <!-- FIN #questionsList -->
+
+        <!-- Botón Ver más -->
+        <div style="margin-top: 20px;">
+          <button class="btn-load-more" id="btnLoadMore" onclick="cargarMas()">
+            <i class="fa-solid fa-arrows-rotate"></i> Ver más preguntas
+          </button>
+        </div>
+
+      </div>
+      <!-- FIN questions-section -->
+
+    </main>
+
+    <!-- ── PANEL LATERAL DERECHO ── -->
+    <aside class="right-panel">
+
+      <!-- Info rápida de la comunidad -->
+      <div class="community-right-info">
+        <div class="cri-title">Temas populares</div>
+        <div>
+          <span class="cri-tag" onclick="filtrarTag('Matemáticas')">Matemáticas</span>
+          <span class="cri-tag" onclick="filtrarTag('Python')">Python</span>
+          <span class="cri-tag" onclick="filtrarTag('Inglés')">Inglés</span>
+          <span class="cri-tag" onclick="filtrarTag('Física')">Física</span>
+          <span class="cri-tag" onclick="filtrarTag('Química')">Química</span>
+          <span class="cri-tag" onclick="filtrarTag('Estadística')">Estadística</span>
+          <span class="cri-tag" onclick="filtrarTag('Historia')">Historia</span>
+          <span class="cri-tag" onclick="filtrarTag('Biología')">Biología</span>
+        </div>
+      </div>
+
+      <!-- Mini stat de comunidad -->
+      <div class="community-right-info">
+        <div class="cri-title">Comunidad activa</div>
+        <div style="font-size:0.82rem;color:var(--muted);line-height:1.8;">
+          <div>👥 <strong>1,243</strong> estudiantes</div>
+          <div>❓ <strong>347</strong> preguntas esta semana</div>
+          <div>✅ <strong>89%</strong> de preguntas respondidas</div>
+        </div>
+      </div>
+
+      <!-- Calendario mini -->
+      <div class="calendar-widget">
+        <div class="cal-header">
+          <button class="cal-nav-btn">&#8249;</button>
+          <div class="cal-month" id="calMonth">Abril 2026</div>
+          <button class="cal-nav-btn">&#8250;</button>
+        </div>
+        <div class="cal-days-header">
+          <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- ══════════════════════════════════════════════
+       MODAL: CONFIGURAR API KEY
+       Aparece la primera vez que el usuario usa la IA
+       ══════════════════════════════════════════════ -->
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/comunidad.js"></script>
+</body>
+</html>

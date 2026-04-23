@@ -1,0 +1,212 @@
+/* ══════════════════════════════════════════════════════
+   REGISTRO.CSS — myTeacher
+   ══════════════════════════════════════════════════════ */
+
+/* ── BASE ─────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: 'Lato', sans-serif;
+  /* La imagen de fondo se pone desde el HTML en el style="" del body */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+/* Overlay oscuro sobre la imagen para que la card se lea bien */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.30);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── NAV FLOTANTE (igual que login) ───────────────────── */
+nav {
+  position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+  z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 36px;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+}
+.nav-logo { height: 40px; width: auto; object-fit: contain; }
+.nav-links { display: flex; gap: 36px; list-style: none; margin: 0; padding: 0; }
+.nav-links a {
+  color: rgba(0, 0, 0, 0.75);
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem; font-weight: 700;
+  text-decoration: none; letter-spacing: .3px;
+  transition: color .2s;
+}
+.nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ── FONDO DE PÁGINA ──────────────────────────────────── */
+#step-form {
+  min-height: 100vh;
+  position: relative; z-index: 1;
+}
+
+/* ── CONTENEDOR INTERIOR ──────────────────────────────── */
+.form-page-inner {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 88px 24px 32px;
+}
+
+/* ── TARJETA DIVIDIDA (foto | formulario) ─────────────── */
+.registro-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  width: 100%; max-width: 1080px;
+  background: white; border-radius: 24px; overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .35);
+  min-height: 560px; position: relative;
+}
+
+/* ── LADO FOTO (escritorio) ───────────────────────────── */
+.foto-side { position: relative; overflow: hidden; background: #1a3a22; }
+.foto-side > img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top; display: block;
+}
+.foto-side::after {
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 72px;
+  background: white; clip-path: ellipse(72px 55% at 100% 50%);
+}
+
+/* ── TABS DE ROL (escritorio: sobre la foto) ──────────── */
+.role-tabs {
+  position: absolute; bottom: 44px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; gap: 14px;
+  align-items: center; z-index: 2; width: 220px;
+}
+.role-tab-btn {
+  width: 100%; border: none; border-radius: 100px;
+  padding: 14px 32px; font-size: .95rem; font-weight: 700;
+  cursor: pointer; font-family: inherit; text-align: center;
+  transition: background .2s;
+  text-decoration: none; /* sin subrayado */
+}
+.role-tab-btn.active {
+  background: rgba(255, 255, 255, .92); color: #1a1a1a;
+}
+.role-tab-btn:not(.active) {
+  background: rgba(255, 255, 255, .22);
+  backdrop-filter: blur(8px);
+  color: white;
+  /* SIN text-decoration: underline */
+}
+
+/* ── TABS DE ROL (móvil: dentro del formulario) ───────── */
+.role-tabs-mobile {
+  display: none; /* oculto en escritorio */
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.role-tab-mobile-btn {
+  flex: 1; border: 2px solid #e5e7eb; border-radius: 100px;
+  padding: 12px; font-size: .9rem; font-weight: 700;
+  cursor: pointer; font-family: inherit; text-align: center;
+  background: white; color: #6b7280;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.role-tab-mobile-btn.active {
+  background: #7a9848; border-color: #7a9848; color: white;
+}
+.role-tab-mobile-btn:not(.active):hover {
+  border-color: #7a9848; color: #7a9848;
+}
+
+/* ── PANEL FORMULARIO ─────────────────────────────────── */
+.form-panel {
+  padding: 52px;
+  display: flex; flex-direction: column; justify-content: center;
+  background: white;
+}
+.form-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem; line-height: 1.2; color: #1a1a1a;
+  margin-bottom: 28px;
+}
+.form-heading strong { font-weight: 800; display: block; }
+
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-group label { font-size: .84rem; color: #6b7280; font-weight: 500; }
+.form-group input {
+  border: 1.5px solid #e5e7eb; border-radius: 100px;
+  padding: 13px 20px; font-size: .95rem; color: #1a1a1a;
+  outline: none; transition: border-color .2s;
+  font-family: inherit; background: white;
+}
+.form-group input:focus { border-color: #7a9848; }
+
+.btn-submit-registro {
+  width: 100%; background: #7a9848; color: white; border: none;
+  border-radius: 100px; padding: 16px; font-size: .95rem; font-weight: 700;
+  cursor: pointer; margin-top: 10px; letter-spacing: .5px;
+  text-transform: uppercase; transition: background .2s; font-family: inherit;
+}
+.btn-submit-registro:hover { background: #5a7a2e; }
+
+.form-footer {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 18px; font-size: .87rem; color: #6b7280;
+}
+.btn-ingresa {
+  background: #a8c463; color: white; border-radius: 100px;
+  padding: 7px 18px; font-size: .82rem; font-weight: 700;
+  transition: background .2s; text-decoration: none;
+}
+.btn-ingresa:hover { background: #5a7a2e; }
+
+/* ── FOTO MÓVIL (parte superior) ──────────────────────── */
+.mobile-foto-top {
+  display: none; width: 100%; height: 200px;
+  overflow: hidden; position: relative;
+}
+.mobile-foto-top img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center top;
+}
+.mobile-foto-top::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 48px; background: white; border-radius: 40px 40px 0 0;
+}
+
+/* ── SHAKE ERROR ──────────────────────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.shake { animation: shake 0.4s; }
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media (max-width: 860px) {
+  .registro-split { grid-template-columns: 1fr; }
+  .foto-side { display: none; }
+  .mobile-foto-top { display: block; }
+  .form-panel { padding: 32px 28px; }
+  .form-row-2 { grid-template-columns: 1fr; }
+
+  /* Mostrar botones de rol dentro del formulario en móvil */
+  .role-tabs-mobile { display: flex; }
+}
+@media (max-width: 600px) {
+  nav { width: 94%; padding: 12px 20px; }
+  .nav-links { gap: 20px; }
+  .nav-links a { font-size: .85rem; }
+  .nav-logo { height: 32px; }
+  .form-page-inner { padding: 80px 0 24px; }
+  .registro-split { border-radius: 0; box-shadow: none; min-height: auto; }
+  .form-panel { padding: 24px 20px; }
+  .form-heading { font-size: 1.3rem; }
+}

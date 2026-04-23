@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perfil Tutor — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <link rel="stylesheet" href="Style/perfil_tutor.css">
+</head>
+<body data-page="tutores">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo">
+      <i class="fa-solid fa-person-chalkboard"></i>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="panel_estudiante.html" data-page="inicio">
+        <i class="fa-solid fa-house"></i> Inicio
+      </a>
+      <a class="nav-item active" href="perfil_tutor.html" data-page="tutores">
+        <i class="fa-solid fa-chalkboard-user"></i> Tutores
+      </a>
+      <a class="nav-item" href="mis_tutorias.html" data-page="mis-tutorias">
+        <i class="fa-solid fa-calendar-check"></i> Mis tutorias
+      </a>
+      <a class="nav-item" href="comunidad.html" data-page="comunidad">
+        <i class="fa-solid fa-users"></i> Comunidad
+      </a>
+      <a class="nav-item" href="favoritos.html" data-page="favoritos">
+        <i class="fa-solid fa-heart"></i> Favoritos
+      </a>
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;">
+        <i class="fa-solid fa-gear"></i> Configuracion
+      </a>
+    </nav>
+  </aside>
+
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="header-brand">
+      <span class="leaf">🌿</span>
+      <span><em>my</em>Teacher</span>
+    </div>
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar....">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <button class="notif-btn">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar">
+            <img src="images/choi.png" alt="User" onerror="this.style.display='none';this.parentNode.textContent='CS'">
+          </div>
+          <span id="userName">Choi san</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="perfil_estudiante.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-wrapper">
+    <main class="main-content">
+
+      <div class="breadcrumb">
+        <a href="javascript:history.back()"><i class="fa-solid fa-arrow-left"></i> Volver a tutores</a>
+      </div>
+
+      <div class="perfil-card" id="perfilCard">
+        <div class="perfil-left">
+          <div class="perfil-avatar">
+            <img id="tutorFoto" src="images/sergio.png" alt="Tutor"
+                 onerror="this.style.display='none';this.parentNode.style.background='#4a7a30'">
+          </div>
+          <div class="perfil-rating">
+            <i class="fa-solid fa-star"></i> <span id="tutorRating">5.0</span>
+          </div>
+          <div class="perfil-price" id="tutorPrecio">15k - 60k COP</div>
+          <a href="agendar_tutoria.html" class="btn-solicitar" id="btnSolicitar">Solicitar tutoría</a>
+        </div>
+
+        <div class="perfil-center">
+          <div class="perfil-nombre">
+            <span id="tutorNombre">Ricardo Soler</span>
+            <i class="fa-solid fa-circle-check verificado-badge"></i>
+          </div>
+          <div class="perfil-especialidad" id="tutorEspecialidad">Físico Teórico y Astrónomo</div>
+          <div class="perfil-ubicacion">
+            <i class="fa-solid fa-location-dot"></i> <span id="tutorUbicacion">Bogotá, COL</span>
+          </div>
+          <div class="materias-label">Materias que enseña:</div>
+          <div class="materias-chips" id="tutorMaterias"></div>
+          <div class="info-row">
+            <div class="info-item"><strong>Experiencia:</strong> <span id="tutorExperiencia">5 años enseñando</span></div>
+            <div class="info-item"><strong>Nivel:</strong> <span id="tutorNivel">Secundaria / Universidad</span></div>
+            <div class="info-item"><strong>Email:</strong> <span id="tutorEmail">email@email.com</span></div>
+            <div class="info-item"><strong>Teléfono:</strong> <span id="tutorTelefono">+57 300 000 0000</span></div>
+          </div>
+        </div>
+
+        <div class="perfil-right">
+          <div class="desc-label">Descripción:</div>
+          <p class="desc-texto" id="tutorDescripcion">Cargando información del tutor...</p>
+        </div>
+      </div>
+
+      <div class="resenas-section">
+        <div class="resenas-titulo">Reseñas:</div>
+        <div class="resenas-stats">
+          <div class="resena-stat-box">
+            <div class="resena-stat-label">Reseñas Totales</div>
+            <div class="resena-stat-num" id="totalResenas">67</div>
+          </div>
+          <div class="resena-stat-box">
+            <div class="resena-stat-label">Calificación promedio</div>
+            <div class="resena-calificacion">
+              <span class="num" id="ratingPromedio">5.0</span>
+              <span class="estrellas" id="estrellasMostradas">★★★★★</span>
+            </div>
+          </div>
+        </div>
+        <div class="resenas-lista" id="resenasList"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="scripts/tutores_data.js"></script>
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/perfil_tutor.js"></script>
+</body>
+</html>

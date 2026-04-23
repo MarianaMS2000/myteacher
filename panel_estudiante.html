@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Estudiante — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+</head>
+<body data-page="inicio">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo">
+      <i class="fa-solid fa-person-chalkboard"></i>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" href="panel_estudiante.html" data-page="inicio">
+        <i class="fa-solid fa-house"></i> Inicio
+      </a>
+      <a class="nav-item" href="perfil_tutor.html" data-page="tutores">
+        <i class="fa-solid fa-chalkboard-user"></i> Tutores
+      </a>
+      <a class="nav-item" href="mis_tutorias.html" data-page="mis-tutorias">
+        <i class="fa-solid fa-calendar-check"></i> Mis tutorias
+      </a>
+      <a class="nav-item" href="comunidad.html" data-page="comunidad">
+        <i class="fa-solid fa-users"></i> Comunidad
+      </a>
+      <a class="nav-item" href="favoritos.html" data-page="favoritos">
+        <i class="fa-solid fa-heart"></i> Favoritos
+      </a>
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;">
+        <i class="fa-solid fa-gear"></i> Configuracion
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="header-brand">
+      <span class="leaf">🌿</span>
+      <span><em>my</em>Teacher</span>
+    </div>
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar....">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <button class="notif-btn">
+        <i class="fa-regular fa-bell"></i>
+        <span class="notif-dot"></span>
+      </button>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar">
+            <img src="images/choi.png" alt="Choi" onerror="this.style.display='none';this.parentNode.textContent='CS'">
+          </div>
+          <span id="userName">Choi san</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="perfil_estudiante.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <div class="main-wrapper">
+    <main class="main-content">
+
+      <!-- Banner de bienvenida -->
+      <div class="hero-banner">
+        <div class="hero-text">
+          <h2 id="heroBuenos">Buenos días, Choi!</h2>
+          <p>¿Qué meta alcanzaremos hoy? Encuentra al tutor ideal para tu próxima gran lección.</p>
+          <a href="perfil_tutor.html" class="btn-hero-panel">
+            Encontrar tutor <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="hero-illustration">
+          <img src="images/imcompu.png" alt="Estudiante"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="hero-illus-fallback" style="display:none;">🧑‍💻</div>
+        </div>
+      </div>
+
+      <!-- Tarjetas de estadísticas del estudiante -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon gray">🎓</div>
+          <div class="stat-info">
+            <div class="stat-num">10</div>
+            <div class="stat-label">clases completadas</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon yellow">🏅</div>
+          <div class="stat-info">
+            <div class="stat-num">4.8</div>
+            <div class="stat-label">Reputación de estudiante</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">⏳</div>
+          <div class="stat-info">
+            <div class="stat-num">16h</div>
+            <div class="stat-label">horas de estudio</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Materias populares -->
+      <div class="section-header">
+        <h3 class="section-title">Materias populares</h3>
+        <a href="#" class="section-link">Ver todo <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="materias-grid">
+        <div class="materia-card">
+          <div class="materia-fallback" style="background:linear-gradient(135deg,#0f172a,#1e3a5f);">
+            <span>💻</span>Programación
+          </div>
+        </div>
+        <div class="materia-card">
+          <div class="materia-fallback" style="background:linear-gradient(135deg,#1e3a5f,#2d6a9f);">
+            <span>🇺🇸</span>Inglés
+          </div>
+        </div>
+        <div class="materia-card">
+          <div class="materia-fallback" style="background:linear-gradient(135deg,#064e3b,#065f46);">
+            <span>🔬</span>Ciencias
+          </div>
+        </div>
+      </div>
+
+      <!-- Mapa de tutores cercanos -->
+      <div class="section-header">
+        <h3 class="section-title">
+          Tutores disponibles cerca de ti
+          <span style="font-size:0.75rem;color:var(--muted);font-weight:500;">(En tiempo real)</span>
+        </h3>
+        <div style="background:#fee2e2;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;">📍</div>
+      </div>
+      <div class="map-widget">
+        <div class="map-area">
+          <img src="images/mapafondo.png" alt="Mapa"
+               onerror="this.style.display='none'">
+          <button class="btn-explore-map">
+            <i class="fa-solid fa-magnifying-glass"></i> Explorar Mapa
+          </button>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Panel lateral derecho con calendario, eventos y chat -->
+    <aside class="right-panel">
+
+      <!-- Calendario mini -->
+      <div class="calendar-widget">
+        <div class="cal-header">
+          <button class="cal-nav-btn">&#8249;</button>
+          <div class="cal-month" id="calMonth">Abril 2026</div>
+          <button class="cal-nav-btn">&#8250;</button>
+        </div>
+        <div class="cal-days-header">
+          <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+      </div>
+
+      <!-- Próximo evento -->
+      <div class="events-section">
+        <div class="events-title">Eventos próximos</div>
+        <div class="event-card">
+          <div class="event-icon">📷</div>
+          <div class="event-info">
+            <div class="event-name">Tutoria de Modelaje</div>
+            <div class="event-meta">Abril 4 · 5:00 PM</div>
+            <span class="event-badge">Virtual</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat con la mascota Manzanita -->
+      <div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-bottom:6px;">Tu IA de compañía</div>
+        <div class="chat-widget">
+          <div class="chat-header">
+            <div class="chat-apple-img">
+              <img src="images/manzana.png" alt="Manzanita" onerror="this.textContent='🍎'">
+            </div>
+            <div class="chat-header-info">
+              <div class="chat-name">Chatea con Manzanita</div>
+              <div class="chat-subtitle">Online</div>
+            </div>
+            <div class="online-dot"></div>
+          </div>
+          <div class="chat-body" id="chatBody">
+            <div class="chat-bubble-row">
+              <div class="chat-bubble-apple">
+                <img src="images/manzana.png" onerror="this.textContent='🍎'">
+              </div>
+              <div>
+                <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">Manzanita</div>
+                <div class="chat-bubble">
+                  Hola 😊 ¿en qué puedo ayudarte el día de hoy?
+                </div>
+                <div class="chat-chips">
+                  <button class="chat-chip" onclick="sendChip(this)">Recomiéndame un profesor</button>
+                  <button class="chat-chip" onclick="sendChip(this)">Preguntar sobre una materia</button>
+                  <button class="chat-chip" onclick="sendChip(this)">Horarios y precios</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-footer">
+            <input type="text" class="chat-input" placeholder="Escribe tu mensaje..." id="chatInput">
+            <button class="chat-send-btn" onclick="sendMessage()">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/panel_estudiante.js"></script>
+</body>
+</html>
