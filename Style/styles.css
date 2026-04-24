@@ -715,7 +715,7 @@ img { display: block; max-width: 100%; }
   position: absolute; inset: 0; z-index: 0;
   background-image:
     linear-gradient(rgba(10,18,12,0.5), rgba(10,18,12,0.7)),
-    url('images/imagenCreditos.png');
+    url('../images/imagenCreditos.png');
   background-size: cover; background-position: center;
 }
 .faq-final-content {

@@ -269,7 +269,7 @@ function mostrarIndicadorEscritura() {
   div.id = id;
   div.innerHTML =
     '<div class="chat-bubble-apple">' +
-      '<img src="images/manzana.png" onerror="this.textContent=\'🍎\'">' +
+      '<img src="../images/manzana.png" onerror="this.textContent=\'🍎\'">' +
     '</div>' +
     '<div class="chat-bubble">' +
       '<div class="typing"><span></span><span></span><span></span></div>' +
@@ -310,7 +310,7 @@ function reemplazarIndicadorEscritura(typingId, respuesta, esApiReal, tutores) {
 
   elem.innerHTML =
     '<div class="chat-bubble-apple">' +
-      '<img src="images/manzana.png" onerror="this.textContent=\'🍎\'">' +
+      '<img src="../images/manzana.png" onerror="this.textContent=\'🍎\'">' +
     '</div>' +
     '<div>' +
       '<div style="font-size:.72rem;color:#6b7280;margin-bottom:4px;">Manzanita</div>' +

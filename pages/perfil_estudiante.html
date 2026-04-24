@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuración — myTeacher</title>
+  <title>Mi Perfil — myTeacher</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="Style/panel.css">
-  <link rel="stylesheet" href="Style/configuracion.css">
+  <link rel="stylesheet" href="../Style/panel.css">
+  <link rel="stylesheet" href="../Style/perfil_estudiante.css">
 </head>
-<body data-page="configuracion">
+<body data-page="perfil">
 
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -34,7 +34,7 @@
       <a class="nav-item" href="favoritos.html" data-page="favoritos">
         <i class="fa-solid fa-heart"></i> Favoritos
       </a>
-      <a class="nav-item active" href="configuracion.html" data-page="configuracion" style="margin-top:auto;">
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;">
         <i class="fa-solid fa-gear"></i> Configuracion
       </a>
     </nav>
@@ -55,14 +55,14 @@
       <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
     <div class="header-right">
-      <button class="notif-btn">
+      <div class="notif-wrapper"><button class="notif-btn">
         <i class="fa-regular fa-bell"></i>
         <span class="notif-dot"></span>
-      </button>
+      </button></div>
       <div style="position:relative;">
         <button class="user-btn" id="userBtn">
           <div class="user-avatar">
-            <img id="headerAvatar" src="images/choi.png" alt="User" onerror="this.style.display='none';this.parentNode.textContent='CS'">
+            <img id="headerAvatar" src="../images/choi.png" alt="User" onerror="this.style.display='none';this.parentNode.textContent='CS'">
           </div>
           <span id="userName">Choi san</span>
           <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
@@ -83,20 +83,22 @@
     <main class="main-content">
 
       <!-- CARD PRINCIPAL -->
-      <div class="config-card">
+      <div class="perfil-card">
 
         <!-- TÍTULO -->
-        <h2 class="config-titulo">Información del Perfil</h2>
+        <h2 class="perfil-titulo">Información del Perfil</h2>
 
         <!-- FILA: FOTO + BOTONES + BOTÓN EDITAR -->
-        <div class="config-foto-fila">
+        <div class="perfil-foto-fila">
+          <!-- Foto circular -->
           <div class="foto-circulo" id="fotoCirculo">
-            <img id="fotoPreview" src="images/choi.png" alt="Foto de perfil"
+            <img id="fotoPreview" src="../images/choi.png" alt="Foto de perfil"
                  onerror="this.style.display='none';document.getElementById('fotoInicial').style.display='flex'">
             <div id="fotoInicial" class="foto-iniciales" style="display:none;">CS</div>
           </div>
           <input type="file" id="fotoInput" accept="image/*" style="display:none;">
 
+          <!-- Botones subir y borrar -->
           <label for="fotoInput" class="btn-foto-accion btn-subir">
             Subir nueva foto
           </label>
@@ -104,21 +106,22 @@
             Borrar <i class="fa-regular fa-trash-can"></i>
           </button>
 
-          <button class="btn-editar-config" id="btnEditar">
+          <!-- Botón Editar / Guardar alineado a la derecha -->
+          <button class="btn-editar-perfil" id="btnEditar">
             <i class="fa-regular fa-pen-to-square"></i> Editar
           </button>
         </div>
 
         <!-- Separador -->
-        <hr class="config-hr">
+        <hr class="perfil-hr">
 
-        <!-- Mensaje validación -->
+        <!-- Mensaje de validación -->
         <div class="validacion-msg" id="validacionMsg" style="display:none;"></div>
 
-        <!-- GRID: datos personales | separador | seguridad -->
-        <div class="config-datos-grid">
+        <!-- GRID DE DATOS: izquierda datos personales, derecha seguridad -->
+        <div class="perfil-datos-grid">
 
-          <!-- COLUMNA IZQUIERDA -->
+          <!-- COLUMNA IZQUIERDA: Datos personales -->
           <div class="col-datos">
             <h4 class="col-titulo">Datos personales</h4>
 
@@ -151,6 +154,7 @@
               </div>
             </div>
 
+            <!-- Botón eliminar cuenta -->
             <div class="eliminar-zona">
               <button class="btn-eliminar-cuenta" id="btnEliminarCuenta">
                 Eliminar cuenta
@@ -161,7 +165,7 @@
           <!-- SEPARADOR VERTICAL -->
           <div class="separador-vertical"></div>
 
-          <!-- COLUMNA DERECHA: Seguridad -->
+          <!-- COLUMNA DERECHA: Seguridad de la cuenta -->
           <div class="col-seguridad">
             <h4 class="col-titulo">Seguridad de la cuenta</h4>
 
@@ -181,9 +185,9 @@
             </button>
           </div>
 
-        </div><!-- /config-datos-grid -->
+        </div><!-- /perfil-datos-grid -->
 
-      </div><!-- /config-card -->
+      </div><!-- /perfil-card -->
 
     </main>
   </div>
@@ -201,7 +205,8 @@
     </div>
   </div>
 
-  <script src="scripts/panel_common.js"></script>
-  <script src="scripts/configuracion.js"></script>
+  <script src="../scripts/panel_common.js"></script>
+  <script src="../scripts/perfil_estudiante.js"></script>
+  <script src="../scripts/notifications.js"></script>
 </body>
 </html>

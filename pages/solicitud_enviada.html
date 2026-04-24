@@ -6,7 +6,7 @@
   <title>Solicitud Enviada — myTeacher</title>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="Style/panel.css">
+  <link rel="stylesheet" href="../Style/panel.css">
   <style>
     /* ── ESTILOS DE LA PÁGINA DE CONFIRMACIÓN ── */
 
@@ -216,14 +216,14 @@
       <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
     <div class="header-right">
-      <button class="notif-btn">
+      <div class="notif-wrapper"><button class="notif-btn">
         <i class="fa-regular fa-bell"></i>
         <span class="notif-dot"></span>
-      </button>
+      </button></div>
       <div style="position:relative;">
         <button class="user-btn" id="userBtn">
           <div class="user-avatar">
-            <img src="images/choi.png" alt="Choi" onerror="this.style.display='none';this.parentNode.textContent='CS'">
+            <img src="../images/choi.png" alt="Choi" onerror="this.style.display='none';this.parentNode.textContent='CS'">
           </div>
           <span id="userName">Choi san</span>
           <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
@@ -246,7 +246,7 @@
       <!-- Mini tarjeta del tutor -->
       <div class="tutor-mini-card">
         <div class="tutor-mini-avatar">
-          <img src="images/sergio.png" alt="Ricardo Soler"
+          <img src="../images/sergio.png" alt="Ricardo Soler"
                onerror="this.style.display='none';this.parentNode.style.background='#4a7a30'">
         </div>
         <div class="tutor-mini-info">
@@ -303,7 +303,8 @@
     </main>
   </div>
 
-  <script src="scripts/panel_common.js"></script>
-  <script src="scripts/solicitud_enviada.js"></script>
+  <script src="../scripts/panel_common.js"></script>
+  <script src="../scripts/solicitud_enviada.js"></script>
+  <script src="../scripts/notifications.js"></script>
 </body>
 </html>

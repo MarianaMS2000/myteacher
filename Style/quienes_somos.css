@@ -35,7 +35,7 @@
     .hero-banner-bg{
       position:absolute;inset:0;z-index:0;
       background-image:
-        url('/images/fondoQNSM.png');
+        url('../images/fondoQNSM.png');
       background-size:cover;background-position:center;
     }
     .hero-banner-content{
