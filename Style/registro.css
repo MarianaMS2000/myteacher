@@ -181,6 +181,41 @@ nav {
   height: 48px; background: white; border-radius: 40px 40px 0 0;
 }
 
+/* Ocultar ojo nativo del navegador */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-credentials-auto-fill-button { display: none !important; }
+
+/* ── OJO MOSTRAR/OCULTAR CONTRASEÑA ──────────────────── */
+.input-eye-wrap {
+  position: relative; display: flex; align-items: center;
+}
+.input-eye-wrap input {
+  width: 100%; padding-right: 44px;
+}
+.btn-eye {
+  position: absolute; right: 14px;
+  background: none; border: none; cursor: pointer;
+  color: #9ca3af; font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0; line-height: 1;
+  transition: color .2s;
+}
+.btn-eye:hover { color: #4b5563; }
+
+/* ── MENSAJES DE ERROR / HINT ─────────────────────────── */
+.pass-hint {
+  font-size: .78rem; color: #9ca3af;
+  margin-top: 4px; padding-left: 4px;
+}
+.field-error {
+  font-size: .78rem; color: #e53e3e;
+  margin-top: 4px; padding-left: 4px;
+  min-height: 16px; display: block;
+}
+.form-group input.input-error { border-color: #e53e3e; }
+.form-group input.input-ok    { border-color: #7a9848; }
+
 /* ── SHAKE ERROR ──────────────────────────────────────── */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }

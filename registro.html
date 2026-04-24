@@ -20,7 +20,7 @@
     <nav>
       <ul class="nav-links">
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="#">Sobre Nosotros</a></li>
+        <li><a href="quienes_somos.html">Sobre Nosotros</a></li>
       </ul>
       <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
     </nav>
@@ -69,11 +69,24 @@
             <div class="form-row-2">
               <div class="form-group">
                 <label>Contraseña</label>
-                <input type="password" name="password" placeholder="••••••••">
+                <div class="input-eye-wrap">
+                  <input type="password" name="password" id="input-password" placeholder="••••••••">
+                  <button type="button" class="btn-eye" onclick="togglePass('input-password', this)" tabindex="-1">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+                <span class="pass-hint">Mínimo 8 caracteres</span>
+                <span class="field-error" id="error-password"></span>
               </div>
               <div class="form-group">
                 <label>Repita contraseña</label>
-                <input type="password" name="password2" placeholder="••••••••">
+                <div class="input-eye-wrap">
+                  <input type="password" name="password2" id="input-password2" placeholder="••••••••">
+                  <button type="button" class="btn-eye" onclick="togglePass('input-password2', this)" tabindex="-1">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+                <span class="field-error" id="error-password2"></span>
               </div>
             </div>
             <button type="submit" class="btn-submit-registro">REGISTRARSE</button>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapa de Tutores — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <link rel="stylesheet" href="Style/mapa.css">
+  <!-- Leaflet.js para el mapa interactivo real -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+</head>
+<body data-page="tutores">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo"><i class="fa-solid fa-person-chalkboard"></i></div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="panel_estudiante.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="nav-item active" href="tutores.html" data-page="tutores"><i class="fa-solid fa-chalkboard-user"></i> Tutores</a>
+      <a class="nav-item" href="mis_tutorias.html" data-page="mis-tutorias"><i class="fa-solid fa-calendar-check"></i> Mis tutorias</a>
+      <a class="nav-item" href="comunidad.html" data-page="comunidad"><i class="fa-solid fa-users"></i> Comunidad</a>
+      <a class="nav-item" href="favoritos.html" data-page="favoritos"><i class="fa-solid fa-heart"></i> Favoritos</a>
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;"><i class="fa-solid fa-gear"></i> Configuracion</a>
+    </nav>
+  </aside>
+
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn"><i class="fa-solid fa-bars"></i></button>
+    <div class="header-brand"><span class="leaf">🌿</span><span><em>my</em>Teacher</span></div>
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar....">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <button class="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></button>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar"><img src="images/choi.png" alt="User" onerror="this.style.display='none';this.parentNode.textContent='CS'"></div>
+          <span id="userName">Choi san</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="perfil_estudiante.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- LAYOUT ESPECIAL: el mapa ocupa toda la altura restante -->
+  <div class="mapa-layout">
+
+    <!-- PANEL IZQUIERDO: filtros + lista de tutores -->
+    <aside class="mapa-panel-izq">
+
+      <!-- Filtros superiores del panel -->
+      <div class="mapa-filtros">
+        <div class="mapa-filtros-titulo">
+          <i class="fa-solid fa-sliders"></i> Filtrar tutores
+        </div>
+
+        <div class="mapa-filtro-grupo">
+          <label class="mapa-filtro-label">Ubicación</label>
+          <select class="mapa-filtro-select" id="mapaFiltroUbicacion">
+            <option value="">Todas las ciudades</option>
+            <option value="bogota">Bogotá</option>
+            <option value="medellin">Medellín</option>
+            <option value="cali">Cali</option>
+            <option value="barranquilla">Barranquilla</option>
+            <option value="cartagena">Cartagena</option>
+          </select>
+        </div>
+
+        <div class="mapa-filtro-grupo">
+          <label class="mapa-filtro-label">Nivel</label>
+          <select class="mapa-filtro-select" id="mapaFiltroNivel">
+            <option value="">Todos</option>
+            <option value="secundaria">Secundaria</option>
+            <option value="universidad">Universidad</option>
+          </select>
+        </div>
+
+        <div class="mapa-filtro-grupo">
+          <label class="mapa-filtro-label">Materia</label>
+          <select class="mapa-filtro-select" id="mapaFiltroMateria">
+            <option value="">Todas</option>
+            <option value="matematicas">Matemáticas</option>
+            <option value="ingles">Inglés</option>
+            <option value="fisica">Física</option>
+            <option value="programacion">Programación</option>
+            <option value="biologia">Biología</option>
+            <option value="historia">Historia</option>
+          </select>
+        </div>
+
+        <div class="mapa-filtro-grupo">
+          <label class="mapa-filtro-label">Precio máx. (COP)</label>
+          <select class="mapa-filtro-select" id="mapaFiltroPrecio">
+            <option value="">Sin límite</option>
+            <option value="20000">Hasta 20k</option>
+            <option value="50000">Hasta 50k</option>
+            <option value="80000">Hasta 80k</option>
+          </select>
+        </div>
+
+        <button class="btn-mapa-filtrar" id="btnMapaFiltrar">
+          <i class="fa-solid fa-magnifying-glass"></i> Buscar
+        </button>
+      </div>
+
+      <!-- Lista de resultados -->
+      <div class="mapa-lista-header">
+        <span id="mapaCount">6 tutores encontrados</span>
+        <a href="tutores.html" class="mapa-btn-volver">
+          <i class="fa-solid fa-arrow-left"></i> Lista
+        </a>
+      </div>
+
+      <div class="mapa-tutores-lista" id="mapaTutoresList"></div>
+
+    </aside>
+
+    <!-- MAPA REAL (Leaflet.js con OpenStreetMap) -->
+    <div class="mapa-contenedor" id="mapaContenedor"></div>
+
+    <!-- Popup flotante al hacer clic en marcador -->
+    <div class="mapa-popup-flotante" id="mapaPopup" style="display:none;">
+      <button class="mapa-popup-cerrar" onclick="cerrarPopup()">✕</button>
+      <div class="popup-avatar">
+        <img id="popupFoto" src="" alt="">
+      </div>
+      <div class="popup-nombre" id="popupNombre"></div>
+      <div class="popup-especialidad" id="popupEspecialidad"></div>
+      <div class="popup-precio" id="popupPrecio"></div>
+      <a class="popup-btn-perfil" id="popupBtnPerfil" href="#">Ver perfil</a>
+    </div>
+
+  </div><!-- /mapa-layout -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="scripts/tutores_data.js"></script>
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/mapa.js"></script>
+</body>
+</html>

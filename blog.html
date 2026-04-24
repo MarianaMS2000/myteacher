@@ -13,21 +13,19 @@
 <body>
 
   <!-- NAV -->
-  <nav>
+  <nav id="main-nav">
     <a href="index.html">
-      <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
+      <img src="images/logowhite.png" alt="myTeacher" class="nav-logo">
     </a>
-    <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
-    </button>
     <ul class="nav-links" id="nav-links">
-      <li><a href="index.html">INICIO</a></li>
-      <li><span class="nav-separator">|</span></li>
-      <li><a href="#">BUSCAR TUTOR</a></li>
-      <li><span class="nav-separator">|</span></li>
-      <li><a href="#">PARA TUTORES</a></li>
+      <li><a href="blog.html">Inicio</a></li>
+      <li><a href="index.html#tutors-section">Buscar Tutor</a></li>
+      <li><a href="index.html#become-section">Para Tutores</a></li>
     </ul>
     <div class="nav-actions">
+      <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
       <a href="login.html" class="nav-avatar">
         <img src="images/icons8-usuario-32.png" alt="Iniciar sesión">
       </a>
@@ -40,7 +38,7 @@
     <h1 class="blog-page-title">Blog docente</h1>
 
     <div class="blog-hero-card">
-      <div class="blog-hero-img-placeholder">👨‍🏫</div>
+      <img src="images/blogdocente.png" alt="Blog docente" class="blog-hero-img">
       <div class="blog-hero-text">
         <h2>Hola querido<br>Docente</h2>
         <p>
@@ -57,7 +55,7 @@
 
       <!-- Article 1 -->
       <div class="article-card">
-        <div class="article-card-img-placeholder" style="background: linear-gradient(135deg,#dde8f0,#b8cfe0);">💻</div>
+        <img src="images/arti1.png" alt="Tutoría efectiva" class="article-card-img">
         <div class="article-card-body">
           <div class="article-card-title">Cómo preparar una tutoría efectiva</div>
           <p class="article-card-desc">Pequeños pasos para planificar una sesión clara, organizada y útil para tus estudiantes.</p>
@@ -67,7 +65,7 @@
 
       <!-- Article 2 -->
       <div class="article-card">
-        <div class="article-card-img-placeholder" style="background: linear-gradient(135deg,#f0e8d0,#d4b896);">🤝</div>
+        <img src="images/arti2.png" alt="Motivar estudiantes" class="article-card-img">
         <div class="article-card-body">
           <div class="article-card-title">Estrategias para motivar a los estudiantes</div>
           <p class="article-card-desc">Igunas técnicas simples que ayudan a mantener el interés y la participación durante las tutorías.</p>
@@ -77,7 +75,7 @@
 
       <!-- Article 3 -->
       <div class="article-card">
-        <div class="article-card-img-placeholder" style="background: linear-gradient(135deg,#e8e0d8,#c4b8ac);">🏫</div>
+        <img src="images/arti3.png" alt="Temas difíciles" class="article-card-img">
         <div class="article-card-body">
           <div class="article-card-title">Cómo explicar temas difíciles de forma sencilla</div>
           <p class="article-card-desc">Métodos para simplificar conceptos complejos y facilitar el aprendizaje de los estudiantes.</p>
@@ -88,48 +86,48 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+  <!-- ── FOOTER ── -->
   <footer class="final-footer">
     <div class="final-footer-bg"></div>
     <div class="final-cta-content">
       <h2 class="final-cta-title">Aprende con pasión</h2>
       <div class="final-btns">
-        <a href="registro.html" class="btn-footer-green">Empezar ahora →</a>
-        <a href="#" class="btn-footer-blue">Como funciona →</a>
+        <!-- Botón que lleva al registro -->
+        <a href="registro.html" class="btn-footer-green">Empezar ahora <i class="fa-solid fa-arrow-right"></i></a>
       </div>
-      <a href="login.html" class="final-login-link">Ya eres estudiante? Inicia sesión</a>
+      <a href="login.html" class="final-login-link">Ya eres estudiante? <span class="login-underline">Inicia sesión</span></a>
     </div>
     <div class="footer-links-grid">
       <div>
         <div class="footer-col-title">Acerca de</div>
-        <ul class="footer-links-list">
+        <ul class="footer-links">
           <li><a href="quienes_somos.html">Quiénes somos</a></li>
-          <li><a href="#">Cómo funciona</a></li>
+          <li><a href="index.html#how-section">Cómo funciona</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Recursos</div>
-        <ul class="footer-links-list">
+        <ul class="footer-links">
           <li><a href="blog.html">Blog del docente</a></li>
           <li><a href="faq.html">Preguntas frecuentes</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Empieza</div>
-        <ul class="footer-links-list">
+        <ul class="footer-links">
           <li><a href="registro.html">Registrarse</a></li>
-          <li><a href="#">Conviértete en tutor</a></li>
+          <li><a href="conviertetetutor.html">Conviértete en tutor</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Otro</div>
-        <ul class="footer-links-list">
+        <ul class="footer-links">
           <li><a href="#">Terminos y condiciones</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-logo-text">my<span>Teacher</span></div>
+      <img src="images/logowhite.png" alt="myTeacher" class="footer-logo">
       <div class="footer-copy">© 2026 myTeacher. Todos los derechos reservados.</div>
     </div>
   </footer>

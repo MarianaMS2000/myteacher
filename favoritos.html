@@ -4,332 +4,78 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Favoritos — myTeacher</title>
-  <!-- Fuentes de Google para un diseño bonito -->
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
-  <!-- Iconos de Font Awesome (estrellas, corazones, etc.) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <!-- Estilos compartidos del panel -->
   <link rel="stylesheet" href="Style/panel.css">
-  <style>
-    /* ── ESTILOS ESPECÍFICOS DE LA PÁGINA FAVORITOS ── */
-
-    /* Título principal "Mis Tutores favoritos" con corazón */
-    .favoritos-title {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .favoritos-title .heart-icon {
-      color: #e53e3e;
-      font-size: 1.4rem;
-    }
-
-    /* Grilla donde se muestran las tarjetas de tutores */
-    .tutores-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    /* Cada tarjeta de tutor favorito */
-    .tutor-fav-card {
-      background: #fff5f5; /* Fondo rosado suave */
-      border-radius: 20px;
-      padding: 24px 20px 20px;
-      position: relative;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .tutor-fav-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-    }
-
-    /* Fila superior: calificación + foto del tutor */
-    .tutor-card-top {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    /* Calificación con estrellas en la esquina */
-    .tutor-rating-badge {
-      align-self: flex-end;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 8px;
-    }
-    .tutor-rating-badge i { color: #f59e0b; } /* Estrella amarilla */
-
-    /* Foto circular del tutor */
-    .tutor-avatar {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #e2e8f0;
-      margin-bottom: 14px;
-    }
-    .tutor-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top;
-    }
-
-    /* Nombre del tutor */
-    .tutor-name {
-      font-family: var(--font-display);
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    /* Especialidad/materia del tutor */
-    .tutor-subject {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
-    /* Ubicación del tutor con ícono de pin */
-    .tutor-location {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    .tutor-location i { color: var(--green); font-size: 0.7rem; }
-
-    /* Rango de precios */
-    .tutor-price {
-      font-size: 0.82rem;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
-
-    /* Botón "Ver perfil" */
-    .btn-ver-perfil {
-      display: inline-block;
-      background: #c0392b;
-      color: white;
-      border: none;
-      border-radius: 100px;
-      padding: 10px 22px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-    .btn-ver-perfil:hover { background: #a93226; }
-
-    /* Botón corazón rojo en la esquina inferior derecha */
-    .heart-btn {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #e53e3e;
-      font-size: 1.4rem;
-      transition: transform 0.15s;
-    }
-    .heart-btn:hover { transform: scale(1.2); }
-
-    /* Responsive: en pantallas medianas 2 columnas */
-    @media (max-width: 900px) {
-      .tutores-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    /* En móvil solo 1 columna */
-    @media (max-width: 600px) {
-      .tutores-grid { grid-template-columns: 1fr; }
-      .favoritos-title { font-size: 1.3rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="Style/favoritos.css">
 </head>
 <body data-page="favoritos">
 
-  <!-- Fondo oscuro que aparece cuando el sidebar está abierto en móvil -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-  <!-- ── SIDEBAR ── -->
-  <!-- Menú lateral verde oscuro -->
   <aside class="sidebar" id="mainSidebar">
-    <div class="sidebar-logo">
-      <i class="fa-solid fa-person-chalkboard"></i>
-    </div>
+    <div class="sidebar-logo"><i class="fa-solid fa-person-chalkboard"></i></div>
     <nav class="sidebar-nav">
-      <!-- Cada link lleva a su página correspondiente -->
-      <a class="nav-item" href="panel_estudiante.html" data-page="inicio">
-        <i class="fa-solid fa-house"></i> Inicio
-      </a>
-      <a class="nav-item" href="perfil_tutor.html" data-page="tutores">
-        <i class="fa-solid fa-chalkboard-user"></i> Tutores
-      </a>
-      <a class="nav-item" href="#" data-page="mis-tutorias">
-        <i class="fa-solid fa-calendar-check"></i> Mis tutorias
-      </a>
-      <a class="nav-item" href="#" data-page="comunidad">
-        <i class="fa-solid fa-users"></i> Comunidad
-      </a>
-      <!-- Este está activo porque estamos en Favoritos -->
-      <a class="nav-item active" href="favoritos.html" data-page="favoritos">
-        <i class="fa-solid fa-heart"></i> Favoritos
-      </a>
-      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;">
-        <i class="fa-solid fa-gear"></i> Configuracion
-      </a>
+      <a class="nav-item" href="panel_estudiante.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="nav-item" href="tutores.html" data-page="tutores"><i class="fa-solid fa-chalkboard-user"></i> Tutores</a>
+      <a class="nav-item" href="mis_tutorias.html" data-page="mis-tutorias"><i class="fa-solid fa-calendar-check"></i> Mis tutorias</a>
+      <a class="nav-item" href="comunidad.html" data-page="comunidad"><i class="fa-solid fa-users"></i> Comunidad</a>
+      <a class="nav-item active" href="favoritos.html" data-page="favoritos"><i class="fa-solid fa-heart"></i> Favoritos</a>
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;"><i class="fa-solid fa-gear"></i> Configuracion</a>
     </nav>
   </aside>
 
-  <!-- ── HEADER ── -->
-  <!-- Barra superior con logo, búsqueda y perfil de usuario -->
   <header class="header">
-    <!-- Botón hamburger para abrir el sidebar en móvil -->
-    <button class="hamburger-btn" id="hamburgerBtn">
-      <i class="fa-solid fa-bars"></i>
-    </button>
-    <div class="header-brand">
-      <span>🌿</span>
-      <span><em>my</em>Teacher</span>
-    </div>
+    <button class="hamburger-btn" id="hamburgerBtn"><i class="fa-solid fa-bars"></i></button>
+    <div class="header-brand"><span class="leaf">🌿</span><span><em>my</em>Teacher</span></div>
     <div class="header-search">
       <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
       <input type="text" placeholder="Buscar....">
       <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
     <div class="header-right">
-      <!-- Campana de notificaciones con puntito rojo -->
-      <button class="notif-btn">
-        <i class="fa-regular fa-bell"></i>
-        <span class="notif-dot"></span>
-      </button>
+      <button class="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></button>
       <div style="position:relative;">
-        <!-- Botón de usuario con foto y nombre -->
         <button class="user-btn" id="userBtn">
-          <div class="user-avatar">
-            <img src="images/choi.png" alt="Choi" onerror="this.style.display='none';this.parentNode.textContent='CS'">
-          </div>
+          <div class="user-avatar"><img src="images/choi.png" alt="User" onerror="this.style.display='none';this.parentNode.textContent='CS'"></div>
           <span id="userName">Choi san</span>
           <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
         </button>
-        <!-- Menú desplegable del usuario -->
         <div class="dropdown-menu" id="dropdownMenu">
-          <a class="dropdown-item" href="#">
-            <i class="fa-regular fa-user"></i> Mi perfil
-          </a>
+          <a class="dropdown-item" href="perfil_estudiante.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
           <hr class="dropdown-divider">
-          <a class="dropdown-item danger" href="login.html" onclick="logout()">
-            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
-          </a>
+          <a class="dropdown-item danger" href="login.html" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ── CONTENIDO PRINCIPAL ── -->
   <div class="main-wrapper">
     <main class="main-content">
 
-      <!-- Título de la sección -->
-      <div class="favoritos-title">
-        Mis Tutores favoritos
-        <span class="heart-icon">❤️</span>
+      <div class="fav-page-header">
+        <h2 class="fav-page-titulo">Mis Tutores favoritos <span class="heart-icon">❤️</span></h2>
+        <a href="tutores.html" class="btn-explorar-tutores">
+          <i class="fa-solid fa-chalkboard-user"></i> Explorar tutores
+        </a>
       </div>
 
-      <!-- Cuadrícula con las tarjetas de tutores favoritos -->
-      <div class="tutores-grid">
-
-        <!-- Tarjeta tutor 1 -->
-        <div class="tutor-fav-card">
-          <div class="tutor-card-top">
-            <div class="tutor-rating-badge">
-              <i class="fa-solid fa-star"></i> 5.0
-            </div>
-            <div class="tutor-avatar">
-              <img src="images/esteban.png" alt="Roberto Pattinson" onerror="this.style.display='none';this.parentNode.style.background='#c8d5e0'">
-            </div>
-          </div>
-          <div class="tutor-name">Roberto Pattinson</div>
-          <div class="tutor-subject">Actuación y Literatura</div>
-          <div class="tutor-location">
-            <i class="fa-solid fa-location-dot"></i> Medellin, COL
-          </div>
-          <div class="tutor-price">$20K - 60K COP</div>
-          <a href="perfil_tutor.html?id=1" class="btn-ver-perfil">Ver perfil</a>
-          <!-- Botón para quitar de favoritos -->
-          <button class="heart-btn" onclick="toggleFavorito(this)" title="Quitar de favoritos">
-            <i class="fa-solid fa-heart"></i>
-          </button>
-        </div>
-
-        <!-- Tarjeta tutor 2 -->
-        <div class="tutor-fav-card">
-          <div class="tutor-card-top">
-            <div class="tutor-rating-badge">
-              <i class="fa-solid fa-star"></i> 5.0
-            </div>
-            <div class="tutor-avatar">
-              <img src="images/mariana.png" alt="Loli Bahia" onerror="this.style.display='none';this.parentNode.style.background='#c8d5e0'">
-            </div>
-          </div>
-          <div class="tutor-name">Loli Bahia</div>
-          <div class="tutor-subject">Fotografía Neiva COL</div>
-          <div class="tutor-location">
-            <i class="fa-solid fa-location-dot"></i> Neiva, COL
-          </div>
-          <div class="tutor-price">$12K - 62K COP</div>
-          <a href="perfil_tutor.html?id=2" class="btn-ver-perfil">Ver perfil</a>
-          <button class="heart-btn" onclick="toggleFavorito(this)" title="Quitar de favoritos">
-            <i class="fa-solid fa-heart"></i>
-          </button>
-        </div>
-
-        <!-- Tarjeta tutor 3 -->
-        <div class="tutor-fav-card">
-          <div class="tutor-card-top">
-            <div class="tutor-rating-badge">
-              <i class="fa-solid fa-star"></i> 5.0
-            </div>
-            <div class="tutor-avatar">
-              <img src="images/esteban.png" alt="Roberto Pattinson" onerror="this.style.display='none';this.parentNode.style.background='#c8d5e0'">
-            </div>
-          </div>
-          <div class="tutor-name">Roberto Pattinson</div>
-          <div class="tutor-subject">Actuación y Literatura</div>
-          <div class="tutor-location">
-            <i class="fa-solid fa-location-dot"></i> Medellin, COL
-          </div>
-          <div class="tutor-price">$20K - 60K COP</div>
-          <a href="perfil_tutor.html?id=5" class="btn-ver-perfil">Ver perfil</a>
-          <button class="heart-btn" onclick="toggleFavorito(this)" title="Quitar de favoritos">
-            <i class="fa-solid fa-heart"></i>
-          </button>
-        </div>
-
+      <!-- Estado vacío (se muestra cuando no hay favoritos) -->
+      <div class="fav-vacio-estado" id="favVacio" style="display:none;">
+        <i class="fa-regular fa-heart"></i>
+        <h3>No tienes favoritos aún</h3>
+        <p>Explora los tutores y haz clic en el corazón ❤ para guardarlos aquí.</p>
+        <a href="tutores.html" class="btn-ir-tutores">Ver tutores disponibles</a>
       </div>
+
+      <!-- Cuadrícula de favoritos (se llena dinámicamente) -->
+      <div class="tutores-fav-grid" id="tutoresFavGrid"></div>
+
     </main>
   </div>
 
-  <!-- Script de funciones compartidas del panel -->
+  <script src="scripts/tutores_data.js"></script>
   <script src="scripts/panel_common.js"></script>
-  <!-- Script específico de esta página -->
   <script src="scripts/favoritos.js"></script>
 </body>
 </html>

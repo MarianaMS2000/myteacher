@@ -15,7 +15,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: 'Lato', sans-serif;
   color: var(--dark);
-  background: #0d1410;
+  background: #ffffff;
   overflow-x: hidden;
 }
 
@@ -54,7 +54,7 @@ nav {
   display: flex; gap: 36px; list-style: none;
 }
 .nav-links a {
-  color: rgba(0,0,0,0.75);
+  color: rgba(0, 0, 0, 0.75);
   font-size: 1rem; font-weight: 500;
   text-decoration: none; letter-spacing: .3px;
   transition: color .2s;
@@ -65,7 +65,7 @@ nav {
   text-underline-offset: 4px;
 }
 
-.nav-actions { display: flex; gap: 12px; align-items: center; }
+.nav-actions { display: flex; gap: 10px; align-items: center; }
 
 .nav-avatar img {
   width: 30px; height: 30px;
@@ -790,4 +790,60 @@ nav {
 
   .become-section { padding: 32px 16px; }
   .final-footer { padding: 48px 16px 0; }
+}
+
+/* ─── BOTÓN HAMBURGER ───────────────────────────────────────────── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px; height: 2.5px;
+  background: rgb(0, 0, 0);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ─── SECCIÓN REGISTRO MÓVIL ────────────────────────────────────── */
+.mobile-register-section {
+  display: none;
+  background: linear-gradient(135deg, #1e4620, #3d8a40);
+  padding: 40px 24px;
+  text-align: center;
+}
+.mobile-register-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.3rem; font-weight: 700;
+  color: white; margin-bottom: 20px;
+}
+.mobile-register-btns {
+  display: flex; flex-direction: column;
+  gap: 12px; max-width: 300px; margin: 0 auto;
+}
+.btn-register-mobile {
+  background: white; color: #1e4620;
+  border: none; border-radius: 100px;
+  padding: 14px 28px; font-size: 1rem; font-weight: 700;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.2s; display: block;
+}
+.btn-register-mobile:hover { background: #f0f0f0; }
+.btn-register-mobile.dark {
+  background: rgba(255,255,255,0.15); color: white;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+.btn-register-mobile.dark:hover { background: rgba(255,255,255,0.25); }
+
+@media (max-width: 768px) {
+  .mobile-register-section { display: block; }
+  .nav-hamburger { display: flex; }
 }

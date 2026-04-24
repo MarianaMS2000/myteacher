@@ -11,15 +11,18 @@
 <body>
 
   <!-- NAV (igual que index) -->
-  <nav>
+  <nav id="main-nav">
     <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
-    <ul class="nav-links">
-      <li><a href="#">Inicio</a></li>
-      <li><a href="#">Buscar Tutor</a></li>
-      <li><a href="#">Para Tutores</a></li>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="conviertetetutor.html">Inicio</a></li>
+      <li><a href="index.html#tutors-section">Buscar Tutor</a></li>
+      <li><a href="index.html#become-section">Para Tutores</a></li>
     </ul>
     <div class="nav-actions">
-      <a href="#" class="nav-avatar">
+      <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="login.html" class="nav-avatar">
         <img src="images/icons8-usuario-32.png" alt="Iniciar sesión">
       </a>
     </div>
@@ -36,7 +39,7 @@
         Comparte tu conocimiento, ayuda a estudiantes y gana dinero
         enseñando lo que sabes. Conecta con alumnos que buscan apoyo académico.
       </p>
-      <a href="#" class="btn btn-primary">Crear perfil de tutor <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="registro.html?tipo=profesor" class="btn btn-primary">Crear perfil de tutor <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </section>
 
@@ -135,7 +138,7 @@
             <li><i class="fas fa-check"></i> Contar con conexión a internet estable.</li>
             <li><i class="fas fa-check"></i> Tener interés en ayudar a los estudiantes a mejorar.</li>
           </ul>
-          <a href="#" class="btn btn-outline">Crear perfil de tutor <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="registro.html?tipo=profesor" class="btn btn-outline">Crear perfil de tutor <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
         <div class="requirements-img-placeholder">
@@ -248,41 +251,42 @@
       </div>
 
       <div class="faq-cta">
-        <a href="#" class="btn btn-dark">¿Tienes más preguntas? <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="faq.html" class="btn btn-dark">¿Tienes más preguntas? <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </div>
   </section>
 
-  <!-- FINAL CTA + FOOTER (igual que index) -->
+ <!-- ── FOOTER ── -->
   <footer class="final-footer">
     <div class="final-footer-bg"></div>
     <div class="final-cta-content">
       <h2 class="final-cta-title">Aprende con pasión</h2>
       <div class="final-btns">
-        <a href="#" class="btn-footer-green">Empezar ahora <i class="fa-solid fa-arrow-right"></i></a>
+        <!-- Botón que lleva al registro -->
+        <a href="registro.html" class="btn-footer-green">Empezar ahora <i class="fa-solid fa-arrow-right"></i></a>
       </div>
-      <a href="#" class="final-login-link">Ya eres estudiante? <span class="login-underline">Inicia sesión</span></a>
+      <a href="login.html" class="final-login-link">Ya eres estudiante? <span class="login-underline">Inicia sesión</span></a>
     </div>
     <div class="footer-links-grid">
       <div>
         <div class="footer-col-title">Acerca de</div>
         <ul class="footer-links">
-          <li><a href="#">Quiénes somos</a></li>
-          <li><a href="#">Cómo funciona</a></li>
+          <li><a href="quienes_somos.html">Quiénes somos</a></li>
+          <li><a href="index.html#how-section">Cómo funciona</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Recursos</div>
         <ul class="footer-links">
-          <li><a href="#">Blog del docente</a></li>
-          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="blog.html">Blog del docente</a></li>
+          <li><a href="faq.html">Preguntas frecuentes</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Empieza</div>
         <ul class="footer-links">
-          <li><a href="#">Registrarse</a></li>
-          <li><a href="#">Conviértete en tutor</a></li>
+          <li><a href="registro.html">Registrarse</a></li>
+          <li><a href="conviertetetutor.html">Conviértete en tutor</a></li>
         </ul>
       </div>
       <div>
@@ -298,7 +302,16 @@
     </div>
   </footer>
 
+
   <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks  = document.getElementById('nav-links');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+
     // FAQ toggle
     function toggleFaq(btn) {
       const item = btn.parentElement;

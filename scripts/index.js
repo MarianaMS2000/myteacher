@@ -35,19 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ── EFECTO SCROLL DEL NAV ──
-     El nav cambia de color cuando el usuario baja en la página */
-  var mainNav = document.getElementById('main-nav');
-  if (mainNav) {
-    window.addEventListener('scroll', function () {
-      /* Si bajamos más de 60px, el nav se vuelve más oscuro */
-      if (window.scrollY > 60) {
-        mainNav.style.background = 'rgba(13,20,16,0.92)';
-      } else {
-        mainNav.style.background = 'rgba(13,20,16,0.55)';
-      }
-    });
-  }
+ 
 
   /* ── ANIMACIONES DE ENTRADA AL HACER SCROLL ──
      Las secciones aparecen con una animación suave

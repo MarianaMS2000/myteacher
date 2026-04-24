@@ -1,4 +1,4 @@
-/* ── BASE ─────────────────────────────────────────── */
+/* /* ── BASE ─────────────────────────────────────────── */
     * { box-sizing: border-box; }
     body {
       margin: 0; font-family: 'Lato', sans-serif;
@@ -103,6 +103,16 @@
       font-size: 1.45rem; font-weight: 800; line-height: 1.45; color: #1a1a1a;
     }
  
+    /* ── VALIDACIÓN ────────────────────────────────────── */
+    .hint-error { color: #e53e3e !important; font-weight: 600; }
+
+    @keyframes shake-card {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    .shake-card { animation: shake-card 0.4s; }
+
     /* ── RESPONSIVE ────────────────────────────────────── */
     @media (max-width: 600px) {
       nav { width: 94%; padding: 12px 20px; }
@@ -113,4 +123,3 @@
       .ob-card { padding: 28px 20px; }
       .ob-q { font-size: 1.2rem; }
     }
-  

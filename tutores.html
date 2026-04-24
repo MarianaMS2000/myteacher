@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutores — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <link rel="stylesheet" href="Style/tutores.css">
+</head>
+<body data-page="tutores">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo"><i class="fa-solid fa-person-chalkboard"></i></div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="panel_estudiante.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="nav-item active" href="tutores.html" data-page="tutores"><i class="fa-solid fa-chalkboard-user"></i> Tutores</a>
+      <a class="nav-item" href="mis_tutorias.html" data-page="mis-tutorias"><i class="fa-solid fa-calendar-check"></i> Mis tutorias</a>
+      <a class="nav-item" href="comunidad.html" data-page="comunidad"><i class="fa-solid fa-users"></i> Comunidad</a>
+      <a class="nav-item" href="favoritos.html" data-page="favoritos"><i class="fa-solid fa-heart"></i> Favoritos</a>
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;"><i class="fa-solid fa-gear"></i> Configuracion</a>
+    </nav>
+  </aside>
+
+  <!-- HEADER -->
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn"><i class="fa-solid fa-bars"></i></button>
+    <div class="header-brand"><span class="leaf">🌿</span><span><em>my</em>Teacher</span></div>
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar....">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <button class="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></button>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar"><img src="images/choi.png" alt="User" onerror="this.style.display='none';this.parentNode.textContent='CS'"></div>
+          <span id="userName">Choi san</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="perfil_estudiante.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <main class="main-content tutores-main">
+
+      <!-- ── BANNER PROMOCIONAL (Hanna Lee) ── -->
+      <div class="tutores-banner">
+        <div class="banner-text">
+          <div class="banner-tag">Tutor destacado</div>
+          <h2 class="banner-nombre">Hanna Lee</h2>
+          <p class="banner-desc">Profesora de inglés certificada con más de 8 años de experiencia. Clases dinámicas, personalizadas y enfocadas en resultados reales desde la primera sesión.</p>
+          <a href="perfil_tutor.html?id=2" class="btn-banner-reserva">
+            <i class="fa-solid fa-calendar-plus"></i> Hacer Reserva
+          </a>
+        </div>
+        <div class="banner-img">
+          <img src="images/daniela img.png" alt="Hanna Lee" onerror="this.style.display='none'">
+        </div>
+      </div>
+
+      <!-- ── BARRA DE FILTROS ── -->
+      <div class="filtros-bar">
+        <div class="filtros-selects">
+
+          <div class="filtro-grupo">
+            <label class="filtro-label">Materia</label>
+            <select class="filtro-select" id="filtroMateria">
+              <option value="">Todas</option>
+              <option value="matematicas">Matemáticas</option>
+              <option value="ingles">Inglés</option>
+              <option value="fisica">Física</option>
+              <option value="biologia">Biología</option>
+              <option value="programacion">Programación</option>
+              <option value="historia">Historia</option>
+              <option value="quimica">Química</option>
+            </select>
+          </div>
+
+          <div class="filtro-grupo">
+            <label class="filtro-label">Nivel</label>
+            <select class="filtro-select" id="filtroNivel">
+              <option value="">Todos</option>
+              <option value="primaria">Primaria</option>
+              <option value="secundaria">Secundaria</option>
+              <option value="universidad">Universidad</option>
+              <option value="profesional">Profesional</option>
+            </select>
+          </div>
+
+          <div class="filtro-grupo">
+            <label class="filtro-label">Precio (COP)</label>
+            <select class="filtro-select" id="filtroPrecio">
+              <option value="">Cualquier precio</option>
+              <option value="0-20000">Hasta 20k</option>
+              <option value="20000-50000">20k – 50k</option>
+              <option value="50000-100000">50k – 100k</option>
+            </select>
+          </div>
+
+          <div class="filtro-grupo">
+            <label class="filtro-label">Modalidad</label>
+            <select class="filtro-select" id="filtroModalidad">
+              <option value="">Todas</option>
+              <option value="virtual">Virtual</option>
+              <option value="presencial">Presencial</option>
+              <option value="hibrida">Híbrida</option>
+            </select>
+          </div>
+
+          <div class="filtro-grupo">
+            <label class="filtro-label">Ubicación</label>
+            <select class="filtro-select" id="filtroUbicacion">
+              <option value="">Todas</option>
+              <option value="bogota">Bogotá</option>
+              <option value="medellin">Medellín</option>
+              <option value="cali">Cali</option>
+              <option value="barranquilla">Barranquilla</option>
+              <option value="cartagena">Cartagena</option>
+            </select>
+          </div>
+
+        </div>
+        <!-- Botón buscar y botón mapa -->
+        <div class="filtros-acciones">
+          <button class="btn-buscar-filtro" id="btnBuscar" title="Buscar tutores">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+          <a href="mapa.html" class="btn-mapa">
+            <i class="fa-solid fa-map-location-dot"></i> MAPA
+          </a>
+        </div>
+      </div>
+
+      <!-- ── RESULTADOS y FAVORITOS ── -->
+      <div class="tutores-content-grid">
+
+        <!-- Lista de tutores (columna izquierda) -->
+        <div class="tutores-lista-col">
+          <div class="lista-header">
+            <span class="lista-titulo">Tutores disponibles</span>
+            <span class="lista-count" id="listaCount">6 tutores</span>
+          </div>
+          <!-- Mensaje cuando no hay resultados -->
+          <div class="no-resultados" id="noResultados" style="display:none;">
+            <i class="fa-solid fa-magnifying-glass" style="font-size:2rem;color:#d1d5db;"></i>
+            <p>No encontramos tutores con esos filtros.<br>Intenta con otras opciones.</p>
+          </div>
+          <!-- Lista dinámica de tutores -->
+          <div id="tutoresList"></div>
+        </div>
+
+        <!-- Panel lateral: Favoritos -->
+        <aside class="favoritos-sidebar">
+          <div class="fav-sidebar-header">
+            <span class="fav-sidebar-titulo"><i class="fa-solid fa-heart" style="color:#e53e3e;"></i> Tus tutores favoritos</span>
+            <a href="favoritos.html" class="fav-ver-todo">Ver todo <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+          <div id="favoritosSidebar"></div>
+        </aside>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="scripts/tutores_data.js"></script>
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/tutores.js"></script>
+</body>
+</html>

@@ -9,21 +9,20 @@
   <link rel="stylesheet" href="Style/blog_temas_dificiles.css" />
 </head>
 <body>
-
-  <!-- NAV -->
-  <nav>
+<nav id="main-nav">
     <a href="index.html">
-      <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
+      <img src="images/logowhite.png" alt="myTeacher" class="nav-logo">
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html">INICIO</a></li>
-      <li><span class="nav-separator">|</span></li>
-      <li><a href="#">BUSCAR TUTOR</a></li>
-      <li><span class="nav-separator">|</span></li>
-      <li><a href="#">PARA TUTORES</a></li>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="blog_temas_dificiles.html">Inicio</a></li>
+      <li><a href="index.html#tutors-section">Buscar Tutor</a></li>
+      <li><a href="index.html#become-section">Para Tutores</a></li>
     </ul>
-    <div class="nav-avatar">
-      <a href="login.html">
+    <div class="nav-actions">
+      <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="login.html" class="nav-avatar">
         <img src="images/icons8-usuario-32.png" alt="Iniciar sesión">
       </a>
     </div>
@@ -98,42 +97,41 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
+<!-- ── FOOTER ── -->
   <footer class="final-footer">
     <div class="final-footer-bg"></div>
     <div class="final-cta-content">
       <h2 class="final-cta-title">Aprende con pasión</h2>
       <div class="final-btns">
-        <a href="registro.html" class="btn-footer-green">Empezar ahora →</a>
-        <a href="#" class="btn-footer-blue">Como funciona →</a>
+        <a href="registro.html" class="btn-footer-green">Empezar ahora <i class="fa-solid fa-arrow-right"></i></a>
       </div>
-      <a href="login.html" class="final-login-link">Ya eres estudiante? Inicia sesión</a>
+      <a href="login.html" class="final-login-link">Ya eres estudiante? <span class="login-underline">Inicia sesión</span></a>
     </div>
     <div class="footer-links-grid">
       <div>
         <div class="footer-col-title">Acerca de</div>
-        <ul class="footer-links-list">
+        <ul class="footer-links">
           <li><a href="quienes_somos.html">Quiénes somos</a></li>
-          <li><a href="#">Cómo funciona</a></li>
+          <li><a href="index.html#how-section">Cómo funciona</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Recursos</div>
-        <ul class="footer-links-list">
+        <ul class="footer-links">
           <li><a href="blog.html">Blog del docente</a></li>
           <li><a href="faq.html">Preguntas frecuentes</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Empieza</div>
-        <ul class="footer-links-list">
+        <ul class="footer-links">
           <li><a href="registro.html">Registrarse</a></li>
-          <li><a href="registro.html?tipo=profesor">Conviértete en tutor</a></li>
+          <li><a href="conviertetetutor.html">Conviértete en tutor</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Otro</div>
-        <ul class="footer-links-list">
+        <ul class="footer-links">
           <li><a href="#">Terminos y condiciones</a></li>
         </ul>
       </div>

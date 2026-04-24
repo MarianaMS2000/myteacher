@@ -4,343 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Preguntas Frecuentes — myTeacher</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; color: #1a1a1a; background: #fff; overflow-x: hidden; }
-    a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
-
-    /* ─── NAV ─── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 32px;
-      background: rgba(255,255,255,.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0,0,0,.07);
-      box-shadow: 0 2px 16px rgba(0,0,0,.06);
-    }
-    .nav-logo {
-      font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800;
-      font-style: italic; color: #1a1a1a;
-    }
-    .nav-logo span { font-style: normal; }
-    .nav-center { display: flex; gap: 28px; list-style: none; align-items: center; }
-    .nav-center a { font-size: .84rem; font-weight: 600; color: #1a1a1a; letter-spacing: .4px; }
-    .nav-center a:hover { text-decoration: underline; }
-    .nav-avatar {
-      width: 36px; height: 36px; border-radius: 50%; background: #e5e7eb;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .9rem; cursor: pointer; border: none; overflow: hidden;
-    }
-    .nav-avatar img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* ─── FAQ HERO ─── */
-    .faq-hero {
-      margin-top: 62px;
-      display: grid; grid-template-columns: 1fr 1fr;
-      min-height: 280px;
-      background: linear-gradient(135deg, #e0eecc 0%, #cce0b0 50%, #b8d8a0 100%);
-      overflow: hidden; position: relative;
-    }
-    .faq-hero-left {
-      padding: 52px 56px;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .faq-hero-left h1 {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800;
-      color: #1a1a1a; line-height: 1.05; margin-bottom: 12px;
-    }
-    .faq-hero-left p { font-size: .9rem; color: #6b7280; margin-bottom: 22px; }
-    .faq-search-row { display: flex; gap: 12px; align-items: center; }
-    .faq-search-row input {
-      flex: 1; border: 1.5px solid #e5e7eb; border-radius: 100px;
-      padding: 12px 20px; font-size: .9rem; outline: none; font-family: inherit;
-      background: white; transition: border-color .2s;
-    }
-    .faq-search-row input:focus { border-color: #7a9848; }
-    .btn-preguntar {
-      background: #7a9848; color: white; border: none;
-      border-radius: 100px; padding: 12px 26px;
-      font-size: .9rem; font-weight: 700; cursor: pointer; white-space: nowrap;
-      font-family: inherit; transition: background .2s;
-    }
-    .btn-preguntar:hover { background: #5a7a2e; }
-
-    .faq-hero-right {
-      display: flex; align-items: flex-end; justify-content: center;
-      padding: 20px 20px 0;
-    }
-    .faq-hero-right img { max-width: 380px; width: 90%; }
-
-    /* ─── MAIN SECTION ─── */
-    .faq-main { padding: 60px 60px; }
-    .faq-section-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.6rem; font-weight: 800; margin-bottom: 28px;
-    }
-    .faq-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
-      margin-bottom: 64px;
-    }
-
-    /* Card */
-    .faq-card {
-      background: #fff; border: 1.5px solid #e5e7eb; border-radius: 16px;
-      padding: 24px; box-shadow: 0 2px 12px rgba(0,0,0,.04);
-    }
-    .faq-asker { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .faq-avatar {
-      width: 40px; height: 40px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .75rem; font-weight: 700; flex-shrink: 0;
-    }
-    .faq-asker-info { flex: 1; }
-    .faq-asker-name { font-weight: 700; font-size: .9rem; }
-    .faq-asker-label { font-size: .82rem; color: #6b7280; margin-left: 4px; }
-
-    .faq-question {
-      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
-      color: #1a1a1a; margin-bottom: 10px; line-height: 1.4;
-    }
-    .faq-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-    .faq-tag {
-      padding: 3px 12px; border-radius: 20px; font-size: .75rem; font-weight: 700;
-      background: #f1f5f9; color: #475569;
-    }
-    .faq-tag.green  { background: #d1fae5; color: #065f46; }
-    .faq-tag.blue   { background: #dbeafe; color: #1e40af; }
-    .faq-tag.pink   { background: #fce7f3; color: #9d174d; }
-    .faq-tag.orange { background: #ffedd5; color: #92400e; }
-
-    .btn-respond {
-      width: 100%; border: 1.5px solid #e5e7eb; border-radius: 8px;
-      padding: 9px; background: none; font-weight: 600; font-size: .84rem;
-      color: #6b7280; cursor: pointer; margin-bottom: 14px; font-family: inherit;
-      transition: border-color .2s, color .2s;
-    }
-    .btn-respond:hover { border-color: #7a9848; color: #7a9848; }
-
-    .answer-block { background: #f8fafc; border-radius: 12px; padding: 16px; }
-    .answer-label { font-size: .78rem; color: #6b7280; font-weight: 600; margin-bottom: 10px; }
-
-    .answerer { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .answer-avatar {
-      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .7rem; font-weight: 700; position: relative;
-    }
-    .v-dot {
-      position: absolute; bottom: -2px; right: -2px;
-      width: 13px; height: 13px; background: #22c55e;
-      border-radius: 50%; border: 2px solid white;
-    }
-    .answerer-info { flex: 1; }
-    .answerer-name { font-weight: 700; font-size: .85rem; }
-    .v-badge {
-      font-size: .7rem; font-weight: 700; color: #065f46;
-      background: #d1fae5; padding: 1px 7px; border-radius: 20px; margin-left: 4px;
-    }
-    .answerer-title { font-size: .75rem; color: #6b7280; margin-top: 2px; }
-    .btn-profile {
-      background: none; border: 1.5px solid #7a9848; color: #7a9848;
-      border-radius: 6px; padding: 4px 10px; font-size: .78rem; font-weight: 700;
-      cursor: pointer; white-space: nowrap; font-family: inherit;
-      transition: background .2s, color .2s;
-    }
-    .btn-profile:hover { background: #7a9848; color: white; }
-
-    .answer-text { font-size: .84rem; color: #6b7280; line-height: 1.65; margin-bottom: 12px; }
-    .card-footer { display: flex; align-items: center; justify-content: space-between; }
-    .faq-likes {
-      display: flex; align-items: center; gap: 5px;
-      font-size: .82rem; color: #6b7280; cursor: pointer;
-    }
-    .faq-more { font-size: .82rem; color: #6b7280; cursor: pointer; }
-    .faq-more:hover { color: #7a9848; }
-
-    /* ─── CTA BANNER ─── */
-    .cta-banner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      border-radius: 20px; overflow: hidden;
-      background: linear-gradient(135deg, #f9a8d4, #ec4899);
-      min-height: 280px; margin-bottom: 0;
-    }
-    .cta-left {
-      padding: 50px 48px; display: flex; flex-direction: column; justify-content: center;
-    }
-    .cta-left h2 {
-      font-family: 'Syne', sans-serif; font-size: clamp(1.4rem,2.5vw,2rem);
-      font-weight: 800; color: white; margin-bottom: 12px;
-    }
-    .cta-left p {
-      font-size: .88rem; color: rgba(255,255,255,.9); line-height: 1.6;
-      margin-bottom: 20px; max-width: 380px;
-    }
-    .cta-tutors-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
-    .cta-avatars { display: flex; }
-    .cta-av {
-      width: 38px; height: 38px; border-radius: 50%; border: 3px solid white;
-      margin-left: -10px; background: rgba(255,255,255,.3);
-      display: flex; align-items: center; justify-content: center;
-      font-size: .65rem; font-weight: 700; color: white; flex-shrink: 0;
-      overflow: hidden;
-    }
-    .cta-av:first-child { margin-left: 0; }
-    .cta-av img { width: 100%; height: 100%; object-fit: cover; }
-    .cta-count {
-      width: 38px; height: 38px; border-radius: 50%; border: 3px solid white;
-      background: rgba(255,255,255,.2); margin-left: -10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .72rem; font-weight: 800; color: white;
-    }
-    .cta-text strong { color: white; font-size: .88rem; display: block; }
-    .cta-text span { color: rgba(255,255,255,.8); font-size: .8rem; }
-    .btn-join {
-      background: #1a1a1a; color: white; border-radius: 10px;
-      padding: 14px 28px; font-weight: 700; font-size: .95rem;
-      border: none; cursor: pointer; font-family: inherit;
-      transition: background .2s; display: inline-block;
-    }
-    .btn-join:hover { background: #2a3a2e; }
-
-    .cta-right { overflow: hidden; }
-    .cta-right img { width: 100%; height: 100%; object-fit: cover; }
-    .cta-right-placeholder {
-      width: 100%; height: 100%; min-height: 280px;
-      background: rgba(255,255,255,.15);
-      display: flex; align-items: center; justify-content: center; font-size: 5rem;
-    }
-
-    /* ─── FINAL SECTION (mountains CTA) ─── */
-    .final-section {
-      position: relative; overflow: hidden;
-      padding: 80px 60px 0; text-align: center;
-    }
-    .final-bg {
-      position: absolute; inset: 0; z-index: 0;
-      background-color: #0d2016;
-      background-image:
-        linear-gradient(rgba(10,18,12,.5), rgba(10,18,12,.7)),
-        url('images/imagenCreditos.png');
-      background-size: cover; background-position: center;
-    }
-    .final-inner { position: relative; z-index: 1; margin-bottom: 64px; }
-    .final-title {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
-      color: white; margin-bottom: 28px;
-    }
-    .final-btns {
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
-      margin-bottom: 18px;
-    }
-    .btn-f-green {
-      background: #7a9848; color: white; border-radius: 100px;
-      padding: 16px 48px; font-size: 1rem; font-weight: 700;
-      border: none; cursor: pointer; font-family: inherit; width: 260px;
-      transition: background .2s;
-    }
-    .btn-f-green:hover { background: #5a7a2e; }
-    .btn-f-blue {
-      background: #2563eb; color: white; border-radius: 100px;
-      padding: 16px 48px; font-size: 1rem; font-weight: 700;
-      border: none; cursor: pointer; font-family: inherit; width: 260px;
-      transition: background .2s;
-    }
-    .btn-f-blue:hover { background: #1d4ed8; }
-    .final-link {
-      color: rgba(255,255,255,.6); font-size: .88rem;
-      text-decoration: underline; cursor: pointer;
-    }
-
-    /* Footer */
-    .site-footer { position: relative; z-index: 1; padding: 48px 60px 0; }
-    .footer-grid {
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 32px;
-      padding-bottom: 40px;
-      border-top: 1px solid rgba(255,255,255,.12);
-      padding-top: 40px;
-    }
-    .footer-col-title { font-weight: 700; font-size: .84rem; color: white; margin-bottom: 14px; }
-    .footer-links { list-style: none; }
-    .footer-links li { margin-bottom: 8px; }
-    .footer-links a { color: rgba(255,255,255,.55); font-size: .84rem; text-decoration: none; transition: color .2s; }
-    .footer-links a:hover { color: white; }
-    .footer-bottom {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 24px 0 32px; border-top: 1px solid rgba(255,255,255,.12);
-    }
-    .footer-logo { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: white; font-style: italic; }
-    .footer-logo span { font-style: normal; }
-    .footer-copy { font-size: .78rem; color: rgba(255,255,255,.35); }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      .nav-center { display: none; }
-      .faq-hero { grid-template-columns: 1fr; }
-      .faq-hero-right { display: none; }
-      .faq-main { padding: 48px 28px; }
-      .faq-grid { grid-template-columns: 1fr; }
-      .cta-banner { grid-template-columns: 1fr; }
-      .cta-right { display: none; }
-      .final-section { padding: 60px 28px 0; }
-      .site-footer { padding: 40px 28px 0; }
-      .footer-grid { grid-template-columns: repeat(2,1fr); }
-    }
-    @media (max-width: 600px) {
-      nav { padding: 12px 18px; }
-      .faq-hero-left { padding: 40px 20px; }
-      .faq-hero-left h1 { font-size: 1.8rem; }
-      .faq-search-row { flex-direction: column; align-items: stretch; }
-      .faq-main { padding: 40px 18px; }
-      .cta-left { padding: 32px 20px; }
-      .final-section { padding: 48px 18px 0; }
-      .site-footer { padding: 32px 18px 0; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
-    }
-
-    /* Botón hamburger para móvil */
-    .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 24px; height: 2.5px;
-      background: white;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-    .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="Style/faq.css" />
   <link rel="stylesheet" href="Style/mobile.css" />
 </head>
 <body>
 
   <!-- NAV -->
-  <nav>
-    <div class="nav-logo"><em>my</em><span>Teacher</span></div>
-    <ul class="nav-center">
-      <li><a href="index.html">INICIO</a></li>
-      <li><a href="#">BUSCAR TUTOR</a></li>
-      <li><a href="#">PARA TUTORES</a></li>
+  <nav id="main-nav">
+    <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
+    <ul class="nav-links" id="nav-links">
+      <li><a href="faq.html">Inicio</a></li>
+      <li><a href="index.html#tutors-section">Buscar Tutor</a></li>
+      <li><a href="index.html#become-section">Para Tutores</a></li>
     </ul>
-    <button class="nav-avatar">
-      <img src="images/icons8-usuario-32.png" alt="usuario" onerror="this.parentNode.textContent='👤'">
-    </button>
+    <div class="nav-actions">
+      <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+      <a href="login.html" class="nav-avatar">
+        <img src="images/icons8-usuario-32.png" alt="Iniciar sesión">
+      </a>
+    </div>
   </nav>
 
   <!-- HERO FAQ -->
@@ -463,7 +149,7 @@
             </div>
             <button class="btn-profile">Ver perfil</button>
           </div>
-          <p class="answer-text">¡Qué bueno que te interese este mundo! Mi mejor consejo es que no te obsesiones con la altura o las medidas; hoy en día la industria busca personalidad y seguridad. Empieza practicando frente al espejo para conocer tus mejores ángulos, y luego intenta repeti frases en voz alta. ¡Recuerda que la confianza es tu mejor accesorio en cualquier casting!</p>
+          <p class="answer-text">¡Qué bueno que te interese este mundo! Mi mejor consejo es que no te obsesiones con la altura o las medidas; hoy en día la industria busca personalidad y seguridad. Empieza practicando frente al espejo para conocer tus mejores ángulos, y luego intenta repetir frases en voz alta. ¡Recuerda que la confianza es tu mejor accesorio en cualquier casting!</p>
           <div class="card-footer">
             <div class="faq-likes"><span>❤️</span> 7</div>
             <div class="faq-more">Ver 1 respuesta más ∨</div>
@@ -513,12 +199,11 @@
       <div class="cta-left">
         <h2>¡Únete a nuestra comunidad!</h2>
         <p>Conéctate con otros estudiantes, accede a materiales exclusivos y participa en eventos en vivo. No solo aprendes, creces junto a una red de personas con tus mismos objetivos. ¡Te esperamos!</p>
-
         <div class="cta-tutors-row">
           <div class="cta-avatars">
-            <div class="cta-av">T1</div>
-            <div class="cta-av">T2</div>
-            <div class="cta-av">T3</div>
+            <div class="cta-av"><img src="images/profe1.png" alt="Tutor 1" onerror="this.style.display='none'"></div>
+            <div class="cta-av"><img src="images/profe2.png" alt="Tutor 2" onerror="this.style.display='none'"></div>
+            <div class="cta-av"><img src="images/profe3.png" alt="Tutor 3" onerror="this.style.display='none'"></div>
             <div class="cta-count">+53</div>
           </div>
           <div class="cta-text">
@@ -526,8 +211,7 @@
             <span>Más de 50 expertos listos</span>
           </div>
         </div>
-
-        <a href="registro.html" class="btn-join">Únete ahora →</a>
+        <a href="registro.html" class="btn-join">Únete ahora <i class="fa-solid fa-arrow-right"></i></a>
       </div>
       <div class="cta-right">
         <img src="images/personasrosas.png" alt="Comunidad" onerror="this.parentNode.innerHTML='<div class=cta-right-placeholder>👥</div>'">
@@ -537,53 +221,50 @@
   </section><!-- /.faq-main -->
 
   <!-- FINAL CTA + FOOTER -->
-  <section class="final-section">
-    <div class="final-bg"></div>
-    <div class="final-inner">
-      <h2 class="final-title">Aprende con pasión</h2>
+  <footer class="final-footer">
+    <div class="final-footer-bg"></div>
+    <div class="final-cta-content">
+      <h2 class="final-cta-title">Aprende con pasión</h2>
       <div class="final-btns">
-        <button class="btn-f-green" onclick="window.location.href='registro.html'">Empezar ahora →</button>
-        <button class="btn-f-blue">Como funciona →</button>
+        <a href="registro.html" class="btn-footer-green">Empezar ahora <i class="fa-solid fa-arrow-right"></i></a>
       </div>
-      <a class="final-link" href="login.html">Ya eres estudiante? Inicia sesión</a>
+      <a href="login.html" class="final-login-link">Ya eres estudiante? <span class="login-underline">Inicia sesión</span></a>
     </div>
+    <div class="footer-links-grid">
+      <div>
+        <div class="footer-col-title">Acerca de</div>
+        <ul class="footer-links">
+          <li><a href="quienes_somos.html">Quiénes somos</a></li>
+          <li><a href="index.html#how-section">Cómo funciona</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Recursos</div>
+        <ul class="footer-links">
+          <li><a href="blog.html">Blog del docente</a></li>
+          <li><a href="faq.html">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Empieza</div>
+        <ul class="footer-links">
+          <li><a href="registro.html">Registrarse</a></li>
+          <li><a href="conviertetetutor.html">Conviértete en tutor</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Otro</div>
+        <ul class="footer-links">
+          <li><a href="#">Términos y condiciones</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <img src="images/logowhite.png" alt="myTeacher" class="footer-logo">
+      <div class="footer-copy">© 2026 myTeacher. Todos los derechos reservados.</div>
+    </div>
+  </footer>
 
-    <div class="site-footer">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-col-title">Acerca de</div>
-          <ul class="footer-links">
-            <li><a href="#">Quiénes somos</a></li>
-            <li><a href="#">Cómo funciona</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-col-title">Recursos</div>
-          <ul class="footer-links">
-            <li><a href="#">Blog del docente</a></li>
-            <li><a href="faq.html">Preguntas frecuentes</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-col-title">Empieza</div>
-          <ul class="footer-links">
-            <li><a href="registro.html">Registrarse</a></li>
-            <li><a href="#">Conviértete en tutor</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="footer-col-title">Otro</div>
-          <ul class="footer-links">
-            <li><a href="#">Términos y condiciones</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <div class="footer-logo"><em>my</em><span>Teacher</span></div>
-        <div class="footer-copy">© 2026 myTeacher. Todos los derechos reservados.</div>
-      </div>
-    </div>
-  </section>
   <script src="scripts/faq.js"></script>
   <script src="scripts/index.js"></script>
 </body>

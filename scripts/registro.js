@@ -3,6 +3,66 @@
    de nuevos usuarios (estudiantes y profesores)
    ============================================= */
 
+/* Mostrar / ocultar contraseña */
+function togglePass(inputId, btn) {
+  var input = document.getElementById(inputId);
+  var icon  = btn.querySelector('i');
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.classList.replace('fa-eye', 'fa-eye-slash');
+  } else {
+    input.type = 'password';
+    icon.classList.replace('fa-eye-slash', 'fa-eye');
+  }
+}
+
+/* Validación en tiempo real de contraseñas */
+document.addEventListener('DOMContentLoaded', function () {
+  var inputPass  = document.getElementById('input-password');
+  var inputPass2 = document.getElementById('input-password2');
+  var errorPass  = document.getElementById('error-password');
+  var errorPass2 = document.getElementById('error-password2');
+
+  function validarLongitud() {
+    if (!inputPass.value) {
+      inputPass.classList.remove('input-error', 'input-ok');
+      errorPass.textContent = '';
+      return;
+    }
+    if (inputPass.value.length < 8) {
+      inputPass.classList.add('input-error');
+      inputPass.classList.remove('input-ok');
+      errorPass.textContent = 'La contraseña debe tener al menos 8 caracteres';
+    } else {
+      inputPass.classList.remove('input-error');
+      inputPass.classList.add('input-ok');
+      errorPass.textContent = '';
+    }
+    /* Si ya escribió algo en el segundo campo, revalidar coincidencia */
+    if (inputPass2.value) validarCoincidencia();
+  }
+
+  function validarCoincidencia() {
+    if (!inputPass2.value) {
+      inputPass2.classList.remove('input-error', 'input-ok');
+      errorPass2.textContent = '';
+      return;
+    }
+    if (inputPass.value !== inputPass2.value) {
+      inputPass2.classList.add('input-error');
+      inputPass2.classList.remove('input-ok');
+      errorPass2.textContent = 'Las contraseñas no coinciden';
+    } else {
+      inputPass2.classList.remove('input-error');
+      inputPass2.classList.add('input-ok');
+      errorPass2.textContent = '';
+    }
+  }
+
+  if (inputPass)  inputPass.addEventListener('input', validarLongitud);
+  if (inputPass2) inputPass2.addEventListener('input', validarCoincidencia);
+});
+
 /* Fotos que se muestran en el panel izquierdo según el rol elegido */
 var FOTOS = {
   estudiante: 'images/student.png',
@@ -75,8 +135,23 @@ document.getElementById('registro-form').addEventListener('submit', function (e)
     return;
   }
 
+  /* Validamos longitud mínima */
+  if (pass.length < 8) {
+    var ep = document.getElementById('error-password');
+    var ip = document.getElementById('input-password');
+    if (ep) ep.textContent = 'La contraseña debe tener al menos 8 caracteres';
+    if (ip) { ip.classList.add('input-error'); ip.classList.remove('input-ok'); }
+    form.classList.add('shake');
+    setTimeout(function () { form.classList.remove('shake'); }, 400);
+    return;
+  }
+
   /* Validamos que las contraseñas coincidan */
   if (pass !== pass2) {
+    var ep2 = document.getElementById('error-password2');
+    var ip2 = document.getElementById('input-password2');
+    if (ep2) ep2.textContent = 'Las contraseñas no coinciden';
+    if (ip2) { ip2.classList.add('input-error'); ip2.classList.remove('input-ok'); }
     form.classList.add('shake');
     setTimeout(function () { form.classList.remove('shake'); }, 400);
     return;

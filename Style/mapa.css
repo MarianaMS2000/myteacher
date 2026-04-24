@@ -1,0 +1,270 @@
+/* =============================================
+   mapa.css — Estilos de la vista de mapa
+   ============================================= */
+
+/* El layout del mapa ocupa toda la altura restante */
+.mapa-layout {
+  position: fixed;
+  top: var(--header-h);
+  left: var(--sidebar-w);
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  z-index: 1;
+}
+
+/* En móvil el sidebar desaparece */
+@media (max-width: 600px) {
+  .mapa-layout { left: 0; grid-template-columns: 1fr; }
+}
+
+/* ── PANEL IZQUIERDO ── */
+.mapa-panel-izq {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid #f3f4f6;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.06);
+  z-index: 10;
+}
+
+/* Zona de filtros */
+.mapa-filtros {
+  padding: 16px;
+  border-bottom: 1px solid #f3f4f6;
+  flex-shrink: 0;
+}
+.mapa-filtros-titulo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text);
+}
+.mapa-filtro-grupo {
+  margin-bottom: 8px;
+}
+.mapa-filtro-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 3px;
+}
+.mapa-filtro-select {
+  width: 100%;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 0.82rem;
+  font-family: var(--font);
+  color: var(--text);
+  background: white;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.18s;
+}
+.mapa-filtro-select:focus { border-color: var(--green); }
+
+.btn-mapa-filtrar {
+  width: 100%;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+  transition: background 0.18s;
+}
+.btn-mapa-filtrar:hover { background: #3a6025; }
+
+/* Header de la lista */
+.mapa-lista-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  border-bottom: 1px solid #f9fafb;
+  flex-shrink: 0;
+}
+.mapa-btn-volver {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.78rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.mapa-btn-volver:hover { text-decoration: underline; }
+
+/* Lista de tutores en el panel */
+.mapa-tutores-lista {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+/* Tarjeta de tutor en el panel del mapa */
+.mapa-tutor-item {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid #f9fafb;
+}
+.mapa-tutor-item:hover { background: #f0f7eb; }
+.mapa-tutor-item.activo { background: #e8f5e0; border-left: 3px solid var(--green); }
+
+.mapa-tutor-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e2e8f0;
+  flex-shrink: 0;
+}
+.mapa-tutor-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+.mapa-tutor-info {}
+.mapa-tutor-nombre {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.mapa-tutor-materia {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.mapa-tutor-distancia {
+  font-size: 0.68rem;
+  background: #f3f4f6;
+  border-radius: 100px;
+  padding: 2px 8px;
+  color: var(--muted);
+  display: inline-block;
+}
+
+.mapa-tutor-precio {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--green);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Sin resultados */
+.mapa-sin-resultados {
+  text-align: center;
+  padding: 40px 16px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.mapa-sin-resultados i { font-size: 2rem; color: #e5e7eb; display: block; margin-bottom: 10px; }
+
+/* ── CONTENEDOR DEL MAPA ── */
+.mapa-contenedor {
+  position: relative;
+  z-index: 1;
+}
+
+/* Tiles de Leaflet */
+.leaflet-tile-pane { filter: saturate(0.8) brightness(1.05); }
+
+/* ── POPUP FLOTANTE sobre el mapa ── */
+.mapa-popup-flotante {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  background: white;
+  border-radius: 20px;
+  padding: 24px 20px;
+  width: 220px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+  z-index: 500;
+  text-align: center;
+}
+.mapa-popup-cerrar {
+  position: absolute;
+  top: 10px; right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 2px 5px;
+}
+.popup-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e2e8f0;
+  margin: 0 auto 12px;
+  border: 3px solid #f0f7eb;
+}
+.popup-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.popup-nombre { font-family: var(--font-display); font-weight: 800; font-size: 0.95rem; margin-bottom: 4px; }
+.popup-especialidad { font-size: 0.75rem; color: var(--muted); margin-bottom: 8px; }
+.popup-precio { font-weight: 700; font-size: 0.88rem; color: var(--green); margin-bottom: 14px; }
+.popup-btn-perfil {
+  display: block;
+  background: var(--accent-blue);
+  color: white;
+  border-radius: 100px;
+  padding: 9px 18px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.18s;
+}
+.popup-btn-perfil:hover { background: #3449a3; }
+
+/* Personalizar marcadores de Leaflet */
+.marcador-tutor {
+  background: var(--green);
+  border: 3px solid white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 0.65rem;
+  font-family: var(--font-display);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  cursor: pointer;
+  transition: transform 0.18s;
+}
+.marcador-tutor:hover { transform: scale(1.15); }
+.marcador-tutor.activo {
+  background: var(--accent-blue);
+  transform: scale(1.2);
+  z-index: 999 !important;
+}
+
+@media (max-width: 760px) {
+  .mapa-layout { grid-template-columns: 1fr; }
+  .mapa-panel-izq { display: none; }
+  .mapa-popup-flotante { right: 12px; width: 180px; }
+}

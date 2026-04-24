@@ -1,0 +1,190 @@
+/* =============================================
+   favoritos.css — Estilos de la página de favoritos
+   ============================================= */
+
+/* Encabezado con título y botón explorar */
+.fav-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.fav-page-titulo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.heart-icon { font-size: 1.3rem; }
+
+.btn-explorar-tutores {
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 22px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-family: var(--font);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.18s;
+}
+.btn-explorar-tutores:hover { background: #3a6025; }
+
+/* Estado vacío */
+.fav-vacio-estado {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--muted);
+}
+.fav-vacio-estado i { font-size: 3.5rem; color: #fca5a5; margin-bottom: 16px; display: block; }
+.fav-vacio-estado h3 { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+.fav-vacio-estado p { font-size: 0.9rem; line-height: 1.7; margin-bottom: 24px; }
+.btn-ir-tutores {
+  background: var(--accent-blue);
+  color: white;
+  border-radius: 100px;
+  padding: 11px 28px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.18s;
+}
+.btn-ir-tutores:hover { background: #3449a3; }
+
+/* Cuadrícula de tarjetas de favoritos */
+.tutores-fav-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Tarjeta de favorito */
+.tutor-fav-card {
+  background: #fff5f5;
+  border-radius: 20px;
+  padding: 24px 20px 20px;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.tutor-fav-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+
+/* Rating badge encima de la foto */
+.tutor-fav-rating {
+  background: var(--green);
+  color: white;
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.tutor-fav-rating i { color: #fef3c7; font-size: 0.7rem; }
+
+/* Foto del tutor */
+.tutor-fav-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e2e8f0;
+  margin-bottom: 14px;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.tutor-fav-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+
+.tutor-fav-nombre {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.tutor-fav-especialidad {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.tutor-fav-ubicacion {
+  font-size: 0.78rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.tutor-fav-ubicacion i { color: var(--green); font-size: 0.7rem; }
+
+.tutor-fav-precio {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.btn-ver-perfil-fav {
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.18s;
+  font-family: var(--font);
+  display: inline-block;
+  margin-bottom: 4px;
+}
+.btn-ver-perfil-fav:hover { background: #3449a3; }
+
+/* Botón corazón para quitar de favoritos */
+.btn-quitar-fav {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #e53e3e;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: all 0.18s;
+}
+.btn-quitar-fav:hover { background: #fee2e2; transform: scale(1.15); }
+
+/* Badge de modalidad en la tarjeta favorito */
+.tutor-fav-modalidad {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 900px) { .tutores-fav-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .tutores-fav-grid { grid-template-columns: 1fr; } .fav-page-titulo { font-size: 1.3rem; } }

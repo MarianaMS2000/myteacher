@@ -8,80 +8,7 @@
   <link rel="stylesheet" href="Style/inicio.css" />
   <link rel="stylesheet" href="Style/mobile.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    /* ── BOTÓN HAMBURGER ──
-       Solo se ve en pantallas pequeñas (lo controla mobile.css) */
-    .nav-hamburger {
-      display: none; /* Oculto en escritorio */
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 24px; height: 2.5px;
-      background: white;
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-    /* Cuando está abierto, las tres líneas forman una X */
-    .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-    /* ── SECCIÓN "¿DESEAS REGISTRARTE COMO?" ──
-       Esta sección SOLO aparece en versión móvil.
-       En escritorio se oculta completamente. */
-    .mobile-register-section {
-      display: none; /* Oculta en escritorio */
-      background: linear-gradient(135deg, #1e4620, #3d8a40);
-      padding: 40px 24px;
-      text-align: center;
-    }
-    .mobile-register-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: white;
-      margin-bottom: 20px;
-    }
-    .mobile-register-btns {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      max-width: 300px;
-      margin: 0 auto;
-    }
-    .btn-register-mobile {
-      background: white;
-      color: #1e4620;
-      border: none;
-      border-radius: 100px;
-      padding: 14px 28px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s;
-      display: block;
-    }
-    .btn-register-mobile:hover { background: #f0f0f0; }
-    .btn-register-mobile.dark {
-      background: rgba(255,255,255,0.15);
-      color: white;
-      border: 2px solid rgba(255,255,255,0.5);
-    }
-    .btn-register-mobile.dark:hover { background: rgba(255,255,255,0.25); }
-
-    /* Mostramos la sección de registro en móvil */
-    @media (max-width: 768px) {
-      .mobile-register-section { display: block; }
-      .nav-hamburger { display: flex; }
-    }
-  </style>
 </head>
 <body>
 
@@ -89,11 +16,6 @@
   <!-- Barra de navegación superior -->
   <nav id="main-nav">
     <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
-
-    <!-- Botón hamburger (solo visible en móvil) -->
-    <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
-    </button>
 
     <!-- Links del menú (se ocultan en móvil y aparecen al hacer click en hamburger) -->
     <ul class="nav-links" id="nav-links">
@@ -103,6 +25,10 @@
     </ul>
 
     <div class="nav-actions">
+      <!-- Botón hamburger (solo visible en móvil), al lado del ícono -->
+      <button class="nav-hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
       <!-- Botón para ir al login -->
       <a href="login.html" class="nav-avatar">
         <img src="images/icons8-usuario-32.png" alt="Iniciar sesión">
@@ -161,7 +87,7 @@
   </div>
 
   <!-- ── CÓMO FUNCIONA ── -->
-  <section class="how-section">
+  <section class="how-section" id="how-section">
     <div style="text-align:center;">
       <h2 class="section-title">Cómo funciona myTeacher</h2>
       <p class="section-sub" style="text-align:center; margin: 0 auto;">Encuentra, agenda y aprende con facilidad.</p>
@@ -206,7 +132,7 @@
           <div class="tutor-subject">Literatura inglesa</div>
           <div class="tutor-exp">+4 años de experiencia</div>
           <!-- Botón que lleva al perfil del tutor -->
-          <a href="perfil_tutor.html" class="btn-ver-perfil">VER PERFIL</a>
+          <a href="login.html" class="btn-ver-perfil">VER PERFIL</a>
         </div>
       </div>
       <div class="tutor-card tutor-card-featured">
@@ -219,7 +145,7 @@
           <div class="tutor-name">Esteban Navarro</div>
           <div class="tutor-subject">Física</div>
           <div class="tutor-exp">+1 año de experiencia</div>
-          <a href="perfil_tutor.html" class="btn-ver-perfil">VER PERFIL</a>
+          <a href="login.html" class="btn-ver-perfil">VER PERFIL</a>
         </div>
       </div>
       <div class="tutor-card">
@@ -232,7 +158,7 @@
           <div class="tutor-name">Daniela Rojas</div>
           <div class="tutor-subject">Base de datos</div>
           <div class="tutor-exp">+2 años de experiencia</div>
-          <a href="perfil_tutor.html" class="btn-ver-perfil">VER PERFIL</a>
+          <a href="login.html" class="btn-ver-perfil">VER PERFIL</a>
         </div>
       </div>
     </div>
@@ -279,7 +205,7 @@
           </div>
           <div class="nearby-right">
             <div class="nearby-price">$12k/hora</div>
-            <a href="login.html" class="nearby-btn">Reservar clase</a>
+            <a class="nearby-btn">Reservar clase</a>
           </div>
         </div>
         <div class="nearby-tutor">
@@ -295,7 +221,7 @@
           </div>
           <div class="nearby-right">
             <div class="nearby-price">$16k/hora</div>
-            <a href="login.html" class="nearby-btn">Reservar clase</a>
+            <a class="nearby-btn">Reservar clase</a>
           </div>
         </div>
         <div class="nearby-tutor">
@@ -311,7 +237,7 @@
           </div>
           <div class="nearby-right">
             <div class="nearby-price">$8k/hora</div>
-            <a href="login.html" class="nearby-btn">Reservar clase</a>
+            <a class="nearby-btn">Reservar clase</a>
           </div>
         </div>
       </div>
@@ -355,7 +281,7 @@
         <div class="footer-col-title">Acerca de</div>
         <ul class="footer-links">
           <li><a href="quienes_somos.html">Quiénes somos</a></li>
-          <li><a href="#">Cómo funciona</a></li>
+          <li><a href="#how-section">Cómo funciona</a></li>
         </ul>
       </div>
       <div>
@@ -369,7 +295,7 @@
         <div class="footer-col-title">Empieza</div>
         <ul class="footer-links">
           <li><a href="registro.html">Registrarse</a></li>
-          <li><a href="registro.html?tipo=profesor">Conviértete en tutor</a></li>
+          <li><a href="conviertetetutor.html">Conviértete en tutor</a></li>
         </ul>
       </div>
       <div>
