@@ -407,7 +407,7 @@ function mostrarRespuestaIA(container, respuestaText) {
   container.innerHTML =
     '<div class="ai-answer-card">' +
       '<div class="ai-answer-header">' +
-        '<img src="../images/manzana.png" alt="IA" ' +
+        '<img src="images/manzana.png" alt="IA" ' +
           'style="width:28px;height:28px;border-radius:50%;object-fit:cover;" ' +
           'onerror="this.style.display=\'none\'">' +
         '<span class="ai-badge">' +

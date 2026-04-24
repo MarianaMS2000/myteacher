@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 /* Fotos que se muestran en el panel izquierdo según el rol elegido */
 var FOTOS = {
-  estudiante: '../images/student.png',
-  profesor: '../images/teacher.png'
+  estudiante: 'images/student.png',
+  profesor: 'images/teacher.png'
 };
 
 /* Función para cambiar entre tabs de Estudiante y Profesor */
