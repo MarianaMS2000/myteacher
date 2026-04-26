@@ -15,7 +15,7 @@
       background: linear-gradient( #5668BA 100%);
       border-radius: 20px; padding: 32px;
       display: flex; align-items: center; gap: 24px;
-      position: relative; overflow: hidden; margin-bottom: 20px;
+      position: relative; overflow: visible; margin-bottom: 20px;
     }
     .hero-banner::before {
       content: ''; position: absolute;
@@ -204,19 +204,18 @@
     .cal-day.cal-today .cal-dot { background: white; }
 
     /* Adaptaciones responsive */
-    @media (max-width: 900px) {
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .hero-illus-fallback { display: none; }
+   @media (max-width: 900px) {
+  .stats-row { grid-template-columns: repeat(2, 1fr); }
+  .hero-illus-fallback { display: none; }
       
     }
     @media (max-width: 600px) {
-      .stats-row { grid-template-columns: 1fr 1fr; }
-      .hero-banner { padding: 20px; }
-      .hero-text h2 { font-size: 1.4rem; }
-      .hero-banner { flex-direction: row; align-items: center; padding: 20px; gap: 12px; }
-.hero-text h2 { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
-.hero-text p { font-size: 0.82rem; line-height: 1.4; margin-bottom: 0; }
-.hero-banner img { width: 130px; margin-bottom: -20px; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .hero-banner { flex-direction: row; align-items: flex-end; padding: 20px 12px 0 20px; gap: 8px; overflow: visible; min-height: unset; }
+  .hero-text { padding-bottom: 20px; flex: 1; min-width: 0; }
+  .hero-text h2 { font-size: 1.2rem; font-weight: 600; margin-bottom: 6px; }
+  .hero-text p { font-size: 0.78rem; line-height: 1.4; margin-bottom: 10px; }
+  .hero-banner img { width: 110px !important; height: auto !important; margin-bottom: -1px !important; flex-shrink: 0; }
     }
   </style>
 </head>

@@ -164,7 +164,7 @@ function renderCalendar() {
           el.classList.add('cal-selected');
         } else {
           localStorage.setItem('mt_agenda_dia_sel', fechaStr);
-          window.location.href = 'agenda_profesor.html';
+         
         }
       });
     })(d);
