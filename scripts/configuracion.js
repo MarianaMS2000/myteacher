@@ -53,23 +53,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* Toggle contraseña */
-  var togglePass = document.getElementById('togglePassword');
-  if (togglePass) {
-    togglePass.addEventListener('click', function () {
-      var inp = document.getElementById('inputPassword');
-      if (!inp) return;
-      if (inp.type === 'password') {
-        inp.type = 'text';
-        togglePass.innerHTML = '<i class="fa-regular fa-eye-slash"></i>';
-      } else {
-        inp.type = 'password';
-        togglePass.innerHTML = '<i class="fa-regular fa-eye"></i>';
-      }
+  /* ── TABS ── */
+  document.querySelectorAll('.cfg-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.cfg-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.cfg-section').forEach(function(s) { s.classList.remove('active'); });
+      tab.classList.add('active');
+      var sec = document.getElementById('section-' + tab.dataset.section);
+      if (sec) sec.classList.add('active');
     });
-  }
+  });
 
-  /* Modal eliminar cuenta */
+  /* ── MODAL ELIMINAR CUENTA ── */
   var btnEl   = document.getElementById('btnEliminarCuenta');
   var modal   = document.getElementById('modalEliminar');
   var btnCan  = document.getElementById('btnCancelarEliminar');
@@ -85,6 +80,32 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+/* ── CAMBIAR CONTRASEÑA ── */
+function cambiarPassword() {
+  var actual    = (document.getElementById('passActual')    || {}).value || '';
+  var nueva     = (document.getElementById('passNueva')     || {}).value || '';
+  var confirmar = (document.getElementById('passConfirmar') || {}).value || '';
+
+  if (!actual)          { alert('Ingresa tu contraseña actual.'); return; }
+  if (nueva.length < 6) { alert('La nueva contraseña debe tener al menos 6 caracteres.'); return; }
+  if (nueva !== confirmar) { alert('Las contraseñas no coinciden.'); return; }
+
+  /* Aquí iría la llamada al backend; por ahora simulamos éxito */
+  var btn = document.querySelector('#section-cuenta .btn-cfg-save');
+  if (btn) {
+    var orig = btn.innerHTML;
+    btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> ¡Contraseña actualizada!';
+    btn.style.background = '#15803d';
+    setTimeout(function() {
+      btn.innerHTML = orig;
+      btn.style.background = '';
+      ['passActual','passNueva','passConfirmar'].forEach(function(id) {
+        var el = document.getElementById(id); if (el) el.value = '';
+      });
+    }, 2000);
+  }
+}
 
 function cargarDatos() {
   var u = {};

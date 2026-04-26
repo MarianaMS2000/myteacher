@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuración — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <link rel="stylesheet" href="Style/configuracion_profesor.css">
+</head>
+<body data-page="configuracion">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="mainSidebar">
+   <div class="sidebar-logo">
+  <img src="images/PROFEPAN.png" alt="myTeacher" style="width:48px;object-fit:contain;">
+</div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="panel_profesor.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="nav-item" href="agenda_profesor.html" data-page="agenda"><i class="fa-solid fa-calendar-days"></i> Mi agenda</a>
+      <a class="nav-item" href="estudiantes_profesor.html" data-page="estudiantes"><i class="fa-solid fa-users"></i> Mis estudiantes</a>
+      <a class="nav-item" href="solicitudes_profesor.html" data-page="solicitudes"><i class="fa-solid fa-inbox"></i> Solicitudes</a>
+      <a class="nav-item active" href="configuracion_profesor.html" data-page="configuracion" style="margin-top:auto;"><i class="fa-solid fa-gear"></i> Configuración</a>
+    </nav>
+  </aside>
+
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn"><i class="fa-solid fa-bars"></i></button>
+    <img src="images/LOGOTEACHER.png" alt="myTeacher" style="height:36px;object-fit:contain;">
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar estudiantes, sesiones...">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <div class="notif-wrapper"><button class="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></button></div>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar"><img src="images/prof_tabl.png" alt="Profesor" onerror="this.style.display='none';this.parentNode.textContent='PR'"></div>
+          <span id="userName">Profesor</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="configuracion_profesor.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-wrapper">
+    <main class="main-content">
+
+      <h2 class="cfg-page-title">Configuración</h2>
+      <p class="cfg-page-sub">Administra tu perfil, materias y preferencias de la cuenta.</p>
+
+      <!-- Tabs de secciones -->
+      <div class="cfg-tabs">
+        <button class="cfg-tab active" data-section="perfil"><i class="fa-regular fa-user"></i> Mi perfil</button>
+        <button class="cfg-tab" data-section="materias"><i class="fa-solid fa-book"></i> Materias</button>
+        <button class="cfg-tab" data-section="cuenta"><i class="fa-solid fa-shield-halved"></i> Cuenta</button>
+      </div>
+
+      <!-- ═══ SECCIÓN: PERFIL ═══ -->
+      <div class="cfg-section active" id="section-perfil">
+        <div class="cfg-card">
+          <!-- Foto de perfil -->
+          <div class="profile-photo-row">
+            <div class="profile-photo-wrap">
+              <div class="profile-photo" id="profilePhotoDisplay">
+                <img src="images/prof_tabl.png" alt="Foto de perfil" id="profilePhotoImg" onerror="this.style.display='none';document.getElementById('profilePhotoInitials').style.display='flex'">
+                <div class="profile-photo-initials" id="profilePhotoInitials" style="display:none;">GIO</div>
+              </div>
+              <button class="photo-edit-btn" onclick="document.getElementById('photoUpload').click()">
+                <i class="fa-solid fa-camera"></i>
+              </button>
+              <input type="file" id="photoUpload" accept="image/*" style="display:none" onchange="previewPhoto(this)">
+            </div>
+            <div class="profile-photo-info">
+              <div class="profile-photo-name" id="profileDisplayName">gio</div>
+              <div class="profile-photo-role">Docente en myTeacher</div>
+              <div class="profile-stars">⭐⭐⭐⭐⭐ <span style="font-weight:700;">4.9</span> <span style="color:var(--muted);font-size:.78rem;">(67 reseñas)</span></div>
+            </div>
+          </div>
+
+          <div class="cfg-divider"></div>
+
+          <!-- Datos personales -->
+          <div class="cfg-group-title">Información personal</div>
+          <div class="form-row-cfg">
+            <div class="form-group-cfg">
+              <label class="cfg-label">Nombre</label>
+              <input type="text" class="cfg-input" id="nombreInput" value="Gio">
+            </div>
+            <div class="form-group-cfg">
+              <label class="cfg-label">Apellido</label>
+              <input type="text" class="cfg-input" id="apellidoInput" value="Rodríguez">
+            </div>
+          </div>
+          <div class="form-group-cfg">
+            <label class="cfg-label">Correo electrónico</label>
+            <input type="email" class="cfg-input" value="gio.rodriguez@email.com">
+          </div>
+          <div class="form-group-cfg">
+            <label class="cfg-label">Teléfono</label>
+            <input type="tel" class="cfg-input" value="+57 314 555 0001" placeholder="+57 300 000 0000">
+          </div>
+          <div class="form-group-cfg">
+            <label class="cfg-label">Ciudad</label>
+            <input type="text" class="cfg-input" value="Bogotá, Colombia" placeholder="Tu ciudad">
+          </div>
+
+          <div class="cfg-divider"></div>
+
+          <!-- Presentación -->
+          <div class="cfg-group-title">Presentación pública</div>
+          <div class="form-group-cfg">
+            <label class="cfg-label">Descripción / Bio</label>
+            <textarea class="cfg-textarea" rows="4" placeholder="Cuéntales a los estudiantes sobre ti, tu experiencia y tu método de enseñanza...">Profesor de matemáticas con 8 años de experiencia en cálculo, álgebra y física. Egresado de la Universidad Nacional. Me especializo en explicar conceptos difíciles de forma sencilla y práctica.</textarea>
+          </div>
+          <div class="form-group-cfg">
+            <label class="cfg-label">Precio base por sesión (COP)</label>
+            <div class="price-input-wrap-cfg">
+              <span class="price-prefix-cfg">$</span>
+              <input type="number" class="cfg-input" style="border:none;outline:none;flex:1;padding:0;" value="35000" min="0">
+            </div>
+          </div>
+          <div class="form-group-cfg">
+            <label class="cfg-label"><i class="fa-solid fa-video" style="color:var(--green);margin-right:6px;"></i>Link de videoconferencia predeterminado</label>
+            <input type="url" class="cfg-input" id="videoLinkInput" placeholder="https://meet.google.com/ · zoom.us/ · skype.com/..." style="font-size:.88rem;">
+            <p style="font-size:.78rem;color:var(--muted);margin-top:5px;">Puede ser Meet, Zoom, Skype o el que prefieras. Se usará automáticamente en tus sesiones virtuales.</p>
+          </div>
+          <div class="form-group-cfg">
+            <label class="cfg-label"><i class="fa-brands fa-whatsapp" style="color:#25d366;margin-right:6px;font-size:1rem;"></i>Link de WhatsApp</label>
+            <input type="url" class="cfg-input" id="whatsappLinkInput" placeholder="https://wa.me/573XXXXXXXXX" style="font-size:.88rem;">
+            <p style="font-size:.78rem;color:var(--muted);margin-top:5px;">Ej: https://wa.me/573001234567 — tus estudiantes podrán contactarte directamente.</p>
+          </div>
+
+          <div class="cfg-divider"></div>
+
+          <!-- Datos del onboarding -->
+          <div class="cfg-group-title">Perfil profesional</div>
+          <p style="font-size:.83rem;color:var(--muted);margin-bottom:16px;">Información definida durante tu registro. Puedes actualizarla aquí.</p>
+
+          <div class="form-row-cfg">
+            <div class="form-group-cfg">
+              <label class="cfg-label">Nivel de formación</label>
+              <select class="cfg-input" id="nivelFormacionSelect">
+                <option value="">Seleccionar...</option>
+                <option value="Técnico / Tecnólogo">Técnico / Tecnólogo</option>
+                <option value="Universitario">Universitario</option>
+                <option value="Graduado">Graduado</option>
+                <option value="Máster">Máster</option>
+                <option value="Doctorado">Doctorado</option>
+              </select>
+            </div>
+            <div class="form-group-cfg">
+              <label class="cfg-label">Experiencia enseñando</label>
+              <select class="cfg-input" id="experienciaSelect">
+                <option value="">Seleccionar...</option>
+                <option value="Novato (menos de 1 año)">Novato (menos de 1 año)</option>
+                <option value="Intermedio (1 a 3 años)">Intermedio (1 a 3 años)</option>
+                <option value="Avanzado (4 a 7 años)">Avanzado (4 a 7 años)</option>
+                <option value="Senior / Experto (más de 8 años)">Senior / Experto (más de 8 años)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group-cfg">
+            <label class="cfg-label">Modalidad preferida</label>
+            <select class="cfg-input" id="modalidadSelect">
+              <option value="">Seleccionar...</option>
+              <option value="Virtual">Virtual</option>
+              <option value="Presencial">Presencial</option>
+              <option value="Virtual y presencial">Virtual y presencial</option>
+            </select>
+          </div>
+
+          <!-- Badges resumen del onboarding -->
+          <div id="onboardingBadges" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;"></div>
+
+          <div class="cfg-actions">
+            <button class="btn-cfg-save" onclick="guardarCambios()">
+              <i class="fa-solid fa-floppy-disk"></i> Guardar cambios
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ SECCIÓN: MATERIAS ═══ -->
+      <div class="cfg-section" id="section-materias">
+        <div class="cfg-card">
+          <div class="cfg-group-title">Mis materias</div>
+          <p style="font-size:.83rem;color:var(--muted);margin-bottom:18px;">Estas son las materias que ofreces a tus estudiantes.</p>
+
+          <div class="materias-list" id="materiasList">
+            <div class="materia-item">
+              <div class="materia-icon" style="background:#dbeafe;">📐</div>
+              <div class="materia-info">
+                <div class="materia-name">Cálculo Diferencial</div>
+                <div class="materia-nivel">Universitario · $35.000/sesión</div>
+              </div>
+              <button class="materia-del" onclick="eliminarMateria(this)"><i class="fa-solid fa-trash"></i></button>
+            </div>
+            <div class="materia-item">
+              <div class="materia-icon" style="background:#dcfce7;">∑</div>
+              <div class="materia-info">
+                <div class="materia-name">Álgebra Lineal</div>
+                <div class="materia-nivel">Universitario · $30.000/sesión</div>
+              </div>
+              <button class="materia-del" onclick="eliminarMateria(this)"><i class="fa-solid fa-trash"></i></button>
+            </div>
+            <div class="materia-item">
+              <div class="materia-icon" style="background:#fef3c7;">⚡</div>
+              <div class="materia-info">
+                <div class="materia-name">Física Mecánica</div>
+                <div class="materia-nivel">Universitario · $40.000/sesión</div>
+              </div>
+              <button class="materia-del" onclick="eliminarMateria(this)"><i class="fa-solid fa-trash"></i></button>
+            </div>
+          </div>
+
+          <button class="btn-add-materia" onclick="agregarMateria()">
+            <i class="fa-solid fa-plus"></i> Agregar materia
+          </button>
+        </div>
+      </div>
+
+      <!-- ═══ SECCIÓN: CUENTA ═══ -->
+      <div class="cfg-section" id="section-cuenta">
+        <div class="cfg-card">
+          <div class="cfg-group-title">Seguridad</div>
+          <div class="form-group-cfg">
+            <label class="cfg-label">Contraseña actual</label>
+            <input type="password" class="cfg-input" placeholder="••••••••">
+          </div>
+          <div class="form-row-cfg">
+            <div class="form-group-cfg">
+              <label class="cfg-label">Nueva contraseña</label>
+              <input type="password" class="cfg-input" placeholder="••••••••">
+            </div>
+            <div class="form-group-cfg">
+              <label class="cfg-label">Confirmar contraseña</label>
+              <input type="password" class="cfg-input" placeholder="••••••••">
+            </div>
+          </div>
+          <div class="cfg-actions">
+            <button class="btn-cfg-save" onclick="guardarCambios()"><i class="fa-solid fa-lock"></i> Cambiar contraseña</button>
+          </div>
+
+          <div class="cfg-divider"></div>
+          <div class="cfg-group-title" style="color:#ef4444;">Zona de peligro</div>
+          <p style="font-size:.83rem;color:var(--muted);margin-bottom:16px;">Estas acciones son irreversibles. Procede con cuidado.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="btn-cfg-danger-soft">Desactivar cuenta temporalmente</button>
+            <button class="btn-cfg-danger" onclick="if(confirm('¿Seguro que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')) window.location.href='login.html'">Eliminar cuenta permanentemente</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Panel derecho -->
+    <aside class="right-panel">
+      <div class="calendar-widget">
+        <div class="cal-header">
+          <button class="cal-nav-btn">&#8249;</button>
+          <div class="cal-month" id="calMonth">Abril 2026</div>
+          <button class="cal-nav-btn">&#8250;</button>
+        </div>
+        <div class="cal-days-header">
+          <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+      </div>
+
+      <!-- Resumen del perfil público -->
+      <div class="cfg-profile-preview">
+        <div class="cpp-title">Vista previa del perfil</div>
+        <div class="cpp-card">
+          <div class="cpp-avatar">GIO</div>
+          <div class="cpp-name" id="cppName">Gio Rodríguez</div>
+          <div class="cpp-role">Docente en myTeacher</div>
+          <div class="cpp-stars">⭐ 4.9 · 67 reseñas</div>
+          <div class="cpp-tags">
+            <span class="cpp-tag">Cálculo</span>
+            <span class="cpp-tag">Álgebra</span>
+            <span class="cpp-tag">Física</span>
+          </div>
+          <button class="btn-share-profile" onclick="compartirPerfil()">
+            <i class="fa-solid fa-share-nodes"></i> Compartir perfil
+          </button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Toast de confirmación -->
+  <div class="cfg-toast" id="cfgToast">
+    <i class="fa-solid fa-circle-check"></i> Cambios guardados correctamente
+  </div>
+
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/configuracion_profesor.js"></script>
+  <script src="scripts/notifications.js"></script>
+</body>
+</html>

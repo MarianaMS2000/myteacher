@@ -141,7 +141,7 @@
 }
 
 .btn-ver-perfil-fav {
-  background: var(--accent-blue);
+  background: #B5452C; 
   color: white;
   border: none;
   border-radius: 100px;

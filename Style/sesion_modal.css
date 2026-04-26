@@ -1,0 +1,215 @@
+/* =============================================
+   sesion_modal.css — Modal detalle de sesión
+   ============================================= */
+
+.sdm-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.sdm-overlay.open { display: flex; }
+
+.sdm-box {
+  background: var(--card-bg, #fff);
+  border-radius: 20px;
+  padding: 28px 28px 24px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+  position: relative;
+  animation: sdmIn 0.22s ease;
+}
+@keyframes sdmIn {
+  from { opacity:0; transform:translateY(12px) scale(0.97); }
+  to   { opacity:1; transform:translateY(0)    scale(1); }
+}
+
+/* ── CLOSE ── */
+.sdm-close {
+  position: absolute; top: 18px; right: 18px;
+  background: #f3f4f6; border: none; border-radius: 50%;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; color: #6b7280; font-size: .95rem;
+  transition: background 0.15s;
+}
+.sdm-close:hover { background: #e5e7eb; color: #1f2937; }
+
+/* ── HEADER ── */
+.sdm-header {
+  display: flex; align-items: center;
+  justify-content: space-between; margin-bottom: 16px;
+}
+.sdm-avatar-wrap { display: flex; align-items: center; gap: 12px; }
+.sdm-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.1rem; color: #fff; flex-shrink: 0;
+}
+.sdm-est-name {
+  font-family: var(--font-display,'Syne',sans-serif);
+  font-weight: 700; font-size: 1.05rem; color: var(--text,#1f2937);
+}
+.sdm-est-sub { font-size:.82rem; color:var(--primary,#4a7a30); font-weight:600; margin-top:2px; }
+
+/* ── CHIPS ── */
+.sdm-chips { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:14px; }
+.sdm-chip {
+  display:inline-flex; align-items:center; gap:5px;
+  background:#f3f4f6; border-radius:20px; padding:5px 11px;
+  font-size:.78rem; color:#374151; font-weight:500;
+}
+.sdm-chip-dur { background:#ede9fe; color:#5b21b6; }
+
+/* ── TOP ROW ── */
+.sdm-top-row {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:20px; padding-bottom:16px; border-bottom:1px solid #f3f4f6;
+}
+.sdm-badge-confirm {
+  display:inline-flex; align-items:center; gap:6px;
+  background:#dcfce7; color:#166534; border:1px solid #bbf7d0;
+  border-radius:20px; padding:5px 13px; font-size:.8rem; font-weight:700;
+}
+.sdm-badge-confirm i { color:#16a34a; }
+.sdm-price-block { text-align:right; }
+.sdm-price {
+  font-family:var(--font-display,'Syne',sans-serif);
+  font-size:1.4rem; font-weight:800; color:var(--text,#1f2937); line-height:1;
+}
+.sdm-price-label { font-size:.7rem; color:var(--muted,#6b7280); margin-top:2px; }
+
+/* ── SECTION LABEL ── */
+.sdm-section-label {
+  font-size:.75rem; font-weight:700; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--muted,#6b7280); margin-bottom:8px; margin-top:18px;
+}
+
+/* ── MESSAGE ── */
+.sdm-msg-wrap {
+  background:#f9fafb; border:1.5px solid #e5e7eb;
+  border-radius:12px; padding:12px 14px;
+}
+.sdm-msg-author { font-size:.75rem; font-weight:700; color:var(--primary,#4a7a30); margin-bottom:6px; }
+
+/* Modo solo lectura */
+.sdm-msg-readonly {
+  margin:0; padding:0;
+  font-family:var(--font-body,'DM Sans',sans-serif);
+  font-size:.88rem; color:var(--text,#1f2937); line-height:1.55;
+}
+
+/* Modo editable */
+.sdm-msg-textarea {
+  width:100%; border:none; background:transparent; resize:vertical;
+  font-family:var(--font-body,'DM Sans',sans-serif);
+  font-size:.88rem; color:var(--text,#1f2937); line-height:1.5;
+  outline:none; box-sizing:border-box; min-height:72px;
+}
+.sdm-msg-hint { font-size:.72rem; color:#9ca3af; margin-top:6px; }
+
+/* ── ZOOM LINK ── */
+.sdm-link-wrap {
+  background:#f9fafb; border:1.5px solid #e5e7eb;
+  border-radius:12px; padding:12px 14px;
+}
+.sdm-link-row { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.sdm-link-icon { color:#2563eb; font-size:1rem; flex-shrink:0; }
+
+/* Editable */
+.sdm-link-input {
+  flex:1; border:1.5px solid #e5e7eb; border-radius:8px; padding:7px 10px;
+  font-family:var(--font-body,'DM Sans',sans-serif); font-size:.82rem;
+  color:var(--text,#1f2937); background:#fff; outline:none; transition:border-color 0.2s;
+}
+.sdm-link-input:focus { border-color:var(--primary,#4a7a30); }
+
+/* Solo lectura */
+.sdm-link-readonly {
+  flex:1; font-size:.82rem; color:#374151; font-weight:500;
+  word-break:break-all; line-height:1.4;
+}
+
+.sdm-link-btns { display:flex; gap:8px; flex-wrap:wrap; }
+
+.sdm-btn-whatsapp {
+  display:inline-flex; align-items:center; gap:6px;
+  background:#22c55e; color:#fff; border:none; border-radius:10px;
+  padding:9px 16px; font-size:.82rem; font-weight:700; cursor:pointer;
+  transition:background 0.2s,transform 0.1s; flex:1; justify-content:center;
+}
+.sdm-btn-whatsapp:hover { background:#16a34a; transform:translateY(-1px); }
+
+.sdm-btn-zoom {
+  display:inline-flex; align-items:center; gap:6px;
+  background:#6366f1; color:#fff; border:none; border-radius:10px;
+  padding:9px 16px; font-size:.82rem; font-weight:700; cursor:pointer;
+  transition:background 0.2s,transform 0.1s; flex:1; justify-content:center;
+}
+.sdm-btn-zoom:hover { background:#4f46e5; transform:translateY(-1px); }
+
+/* ── PRESENCIAL ── */
+.sdm-presencial-note {
+  display:flex; align-items:center; gap:8px;
+  background:#fef3c7; border:1.5px solid #fde68a; border-radius:10px;
+  padding:10px 14px; font-size:.82rem; color:#92400e; font-weight:500; margin-top:8px;
+}
+
+/* ── BOTÓN GUARDAR (modo detalle) ── */
+.sdm-btn-save {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; margin-top:22px;
+  background:var(--primary,#4a7a30); color:#fff; border:none;
+  border-radius:12px; padding:13px;
+  font-family:var(--font-display,'Syne',sans-serif);
+  font-size:.9rem; font-weight:700; cursor:pointer;
+  transition:background 0.2s,transform 0.1s; letter-spacing:.03em;
+}
+.sdm-btn-save:hover { background:#3a6225; transform:translateY(-1px); }
+
+/* ── BOTÓN CONFIRMAR (modo confirmar) ── */
+.sdm-btn-confirmar {
+  background: #16a34a !important;
+}
+.sdm-btn-confirmar:hover { background: #15803d !important; }
+
+/* sdm-link-readonly ya no se usa, pero dejamos por compatibilidad */
+.sdm-link-readonly { display: none !important; }
+
+/* ── CLICKABLE CARDS ── */
+.sday-card { cursor: pointer; }
+.sday-card:hover {
+  box-shadow: 0 4px 18px rgba(74,122,48,0.13);
+  transform: translateY(-1px);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+/* Botón "Próx. sesión" en estudiantes */
+.est-prox-sesion-btn {
+  display:inline-flex; align-items:center; gap:5px;
+  background:#f0fdf4; border:1.5px solid #bbf7d0; border-radius:8px;
+  padding:4px 10px; font-size:.75rem; font-weight:600;
+  color:var(--primary,#4a7a30); cursor:pointer; transition:background 0.15s; white-space:nowrap;
+}
+.est-prox-sesion-btn:hover { background:#dcfce7; }
+
+/* Botón "Ver detalle" en solicitudes */
+.btn-ver-detalle {
+  background:#eff6ff; color:#1d4ed8; border:1.5px solid #bfdbfe;
+  font-weight:700; transition:background 0.2s,transform 0.1s;
+}
+.btn-ver-detalle:hover { background:#dbeafe; transform:translateY(-1px); }
+
+/* Botón "Detalle" en agenda */
+.sday-btn-detalle {
+  background:#eff6ff !important; color:#1d4ed8 !important;
+  border:1.5px solid #bfdbfe !important; font-weight:700;
+}
+.sday-btn-detalle:hover { background:#dbeafe !important; transform:translateY(-1px); }

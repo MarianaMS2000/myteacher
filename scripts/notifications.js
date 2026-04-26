@@ -1,106 +1,109 @@
 /* =============================================
    notifications.js — Sistema de notificaciones
    Datos simulados (mock) y comportamiento
-   dinámico del dropdown de la campana
+   dinamico del dropdown de la campana
    ============================================= */
 
-/* ── DATOS MOCK ──
-   Lista de notificaciones simuladas */
-var NOTIF_DATA = [
+/* -- DETECCION DE ROL --
+   Determina si la pagina pertenece al profesor o al estudiante */
+var _isProfesor = (function () {
+  var path = window.location.pathname || '';
+  var page = path.split('/').pop() || '';
+  var profesorPages = [
+    'panel_profesor', 'agenda_profesor', 'configuracion_profesor',
+    'estudiantes_profesor', 'solicitudes_profesor', 'nueva_sesion_profesor',
+    'mensajes_profesor', 'material_profesor', 'manzanita_profesor'
+  ];
+  for (var i = 0; i < profesorPages.length; i++) {
+    if (page.indexOf(profesorPages[i]) !== -1) return true;
+  }
+  return false;
+}());
+
+/* -- DATOS MOCK PROFESOR -- */
+var NOTIF_DATA_PROFESOR = [
   {
     id: 1,
-    icon: '📅',
+    icon: '\uD83D\uDCE9',
     iconClass: 'blue',
-    text: '<strong>Tutoría confirmada</strong> con Sergio Ramírez el sábado 26 de abril a las 4:00 PM.',
+    text: '<strong>Nueva solicitud</strong> de Valentina P\u00e9rez para C\u00e1lculo Integral el viernes 2 de mayo a las 3:00 PM.',
     time: 'Hace 5 minutos',
     unread: true
   },
   {
     id: 2,
-    icon: '⭐',
+    icon: '\u2B50',
     iconClass: 'yellow',
-    text: '<strong>Nueva reseña</strong>: Alfonso Duarte te dejó 5 estrellas en tu sesión de Cálculo.',
-    time: 'Hace 30 minutos',
+    text: '<strong>Nueva rese\u00f1a</strong>: Carlos Lizarazo te dej\u00f3 5 estrellas \u2014 "El mejor profe que he tenido, explica incre\u00edble".',
+    time: 'Hace 40 minutos',
     unread: true
+  }
+];
+
+/* -- DATOS MOCK ESTUDIANTE -- */
+var NOTIF_DATA_ESTUDIANTE = [
+  {
+    id: 1,
+    icon: '\u2705',
+    iconClass: 'green',
+    text: '<strong>Solicitud aceptada</strong>: El profesor Andr\u00e9s Mart\u00ednez confirm\u00f3 tu tutor\u00eda de F\u00edsica Mec\u00e1nica para el lunes 28 de abril a las 4:00 PM.',
+    time: 'Hace 3 minutos',
+    unread: true
+  },
+  {
+    id: 2,
+    icon: '\u2B50',
+    iconClass: 'yellow',
+    text: '\u00bfC\u00f3mo te fue con el prof. Hern\u00e1ndez? <strong>Deja tu rese\u00f1a</strong> y ayuda a otros estudiantes a elegir bien.',
+    time: 'Ayer',
+    unread: false
   },
   {
     id: 3,
-    icon: '💬',
-    iconClass: 'purple',
-    text: '<strong>Mensaje nuevo</strong> de Lucía Martínez: "¿Podemos reagendar para el jueves?"',
-    time: 'Hace 1 hora',
-    unread: true
-  },
-  {
-    id: 4,
-    icon: '🎉',
+    icon: '\uD83D\uDCA1',
     iconClass: 'green',
-    text: 'Completaste <strong>10 horas de estudio</strong> esta semana. ¡Sigue así!',
-    time: 'Hace 2 horas',
-    unread: false
-  },
-  {
-    id: 5,
-    icon: '🔔',
-    iconClass: 'red',
-    text: 'Tu próxima tutoría de <strong>Inglés avanzado</strong> comienza en 1 hora.',
-    time: 'Hace 3 horas',
-    unread: false
-  },
-  {
-    id: 6,
-    icon: '👤',
-    iconClass: 'blue',
-    text: '<strong>Eugenia Paredes</strong> aceptó tu solicitud de tutoría en Física.',
+    text: '<strong>Recomendaci\u00f3n</strong>: Basado en tus materias, la prof. Laura Torres podr\u00eda ser una excelente opci\u00f3n para Estad\u00edstica.',
     time: 'Ayer',
     unread: false
   }
 ];
 
-/* ── INICIALIZACIÓN ──
-   Se ejecuta cuando el DOM está listo */
+/* -- SELECCION DE DATOS SEGUN ROL -- */
+var NOTIF_DATA = _isProfesor ? NOTIF_DATA_PROFESOR : NOTIF_DATA_ESTUDIANTE;
+
+/* -- INICIALIZACION --
+   Se ejecuta cuando el DOM esta listo */
 document.addEventListener('DOMContentLoaded', function () {
   var notifBtn = document.querySelector('.notif-btn');
-  if (!notifBtn) return; /* No hay campana en esta página */
+  if (!notifBtn) return;
 
-  /* Construimos el dropdown e insertamos después del botón */
   var wrapper = notifBtn.parentElement;
   if (!wrapper) return;
 
-  /* El botón necesita position:relative para anclar el dropdown */
-  
-
-  /* Eliminamos el notif-dot original y lo reemplazamos por badge */
   var oldDot = notifBtn.querySelector('.notif-dot');
   if (oldDot) oldDot.remove();
 
-  /* Creamos el badge contador */
   var badge = document.createElement('span');
   badge.className = 'notif-badge';
   badge.id = 'notifBadge';
   notifBtn.appendChild(badge);
 
-  /* Creamos el dropdown */
   var dropdown = buildDropdown();
   wrapper.appendChild(dropdown);
 
-  /* Actualizamos el contador */
   updateBadge(badge);
 
-  /* ── TOGGLE DEL DROPDOWN ── */
   notifBtn.addEventListener('click', function (e) {
     e.stopPropagation();
     dropdown.classList.toggle('open');
   });
 
-  /* Cerrar al hacer click fuera */
   document.addEventListener('click', function (e) {
     if (!wrapper.contains(e.target)) {
       dropdown.classList.remove('open');
     }
   });
 
-  /* ── MARCAR TODAS COMO LEÍDAS ── */
   var markAllBtn = dropdown.querySelector('.notif-mark-all');
   if (markAllBtn) {
     markAllBtn.addEventListener('click', function (e) {
@@ -112,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-/* ── CONSTRUIR DROPDOWN ── */
+/* -- CONSTRUIR DROPDOWN -- */
 function buildDropdown() {
   var dropdown = document.createElement('div');
   dropdown.className = 'notif-dropdown';
@@ -121,7 +124,7 @@ function buildDropdown() {
   dropdown.innerHTML =
     '<div class="notif-dropdown-header">' +
       '<h4>Notificaciones</h4>' +
-      '<button class="notif-mark-all">Marcar todo como leído</button>' +
+      '<button class="notif-mark-all">Marcar todo como le\u00eddo</button>' +
     '</div>' +
     '<div class="notif-list" id="notifList"></div>' +
     '<div class="notif-dropdown-footer">' +
@@ -132,7 +135,7 @@ function buildDropdown() {
   return dropdown;
 }
 
-/* ── RENDERIZAR LISTA DE NOTIFICACIONES ── */
+/* -- RENDERIZAR LISTA -- */
 function refreshList(dropdown) {
   var list = dropdown.querySelector('.notif-list');
   list.innerHTML = '';
@@ -155,7 +158,6 @@ function refreshList(dropdown) {
       '</div>' +
       '<div class="notif-unread-dot"></div>';
 
-    /* Al hacer click en una notificación, se marca como leída */
     item.addEventListener('click', function (e) {
       e.stopPropagation();
       notif.unread = false;
@@ -170,7 +172,7 @@ function refreshList(dropdown) {
   });
 }
 
-/* ── ACTUALIZAR BADGE CONTADOR ── */
+/* -- ACTUALIZAR BADGE -- */
 function updateBadge(badge) {
   var unreadCount = NOTIF_DATA.filter(function (n) { return n.unread; }).length;
   if (unreadCount > 0) {

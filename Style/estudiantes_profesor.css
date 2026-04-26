@@ -1,0 +1,324 @@
+/* =============================================
+   estudiantes_profesor.css — Estilos de la
+   página "Mis estudiantes" del profesor
+   ============================================= */
+
+/* ── ENCABEZADO ── */
+.est-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.est-page-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.est-page-sub {
+  font-size: 0.83rem;
+  color: var(--muted);
+}
+.est-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── TABS DE FILTRO ── */
+.filter-tabs {
+  display: flex;
+  background: white;
+  border-radius: 100px;
+  padding: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.filter-tab {
+  border: none;
+  background: transparent;
+  border-radius: 100px;
+  padding: 7px 18px;
+  font-family: var(--font);
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+.filter-tab.active {
+  background: var(--green);
+  color: white;
+}
+
+/* ── GRID DE ESTUDIANTES ── */
+.estudiantes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* ── TARJETA DE ESTUDIANTE ── */
+.est-card {
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.est-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+.est-card-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.est-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.est-card-info { flex: 1; }
+.est-card-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+}
+.est-card-materia {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* Badge nuevo/activo */
+.est-badge {
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.est-badge.nuevo  { background: #dcfce7; color: #166534; }
+.est-badge.activo { background: #dbeafe; color: #1e40af; }
+
+/* Stats de la tarjeta */
+.est-card-stats {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 14px;
+  margin-bottom: 14px;
+}
+.est-stat {
+  flex: 1;
+  text-align: center;
+}
+.est-stat:not(:last-child) { border-right: 1px solid #f3f4f6; }
+.est-stat-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--green);
+}
+.est-stat-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* Botones de acción de la tarjeta */
+.est-card-actions {
+  display: flex;
+  gap: 8px;
+}
+.est-btn {
+  flex: 1;
+  border-radius: 8px;
+  padding: 8px;
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.est-btn.primary {
+  background: var(--green);
+  color: white;
+  border: none;
+}
+.est-btn.primary:hover { background: #3a6325; }
+.est-btn.secondary {
+  background: transparent;
+  border: 1.5px solid #e5e7eb;
+  color: var(--text);
+}
+.est-btn.secondary:hover { border-color: var(--green); color: var(--green); }
+
+/* ── PANEL DERECHO: STATS ── */
+.est-stats-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.es-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+.es-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.83rem;
+  padding: 7px 0;
+  border-bottom: 1px solid #f9fafb;
+}
+.es-row:last-child { border-bottom: none; }
+.es-row span { color: var(--muted); }
+.es-row strong { font-weight: 700; }
+.es-green { color: #22c55e !important; }
+
+/* ── PANEL DERECHO: TOP MATERIAS ── */
+.top-materias-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.tm-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+}
+.tm-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 0.78rem;
+}
+.tm-name {
+  min-width: 100px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+.tm-bar-wrap {
+  flex: 1;
+  height: 6px;
+  background: #f3f4f6;
+  border-radius: 100px;
+  overflow: hidden;
+}
+.tm-bar {
+  height: 100%;
+  background: var(--green);
+  border-radius: 100px;
+  transition: width 0.5s ease;
+}
+.tm-count {
+  font-weight: 700;
+  color: var(--green);
+  min-width: 20px;
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .estudiantes-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .estudiantes-grid { grid-template-columns: 1fr; }
+  .est-page-header { flex-direction: column; align-items: flex-start; }
+}
+
+/* ── CALIFICACIÓN DE ESTRELLAS ── */
+.est-card-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0 4px;
+  border-top: 1px solid #f3f4f6;
+  margin-top: 4px;
+}
+.est-rating-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.est-stars {
+  display: flex;
+  gap: 2px;
+  cursor: pointer;
+}
+.est-star {
+  font-size: 1.2rem;
+  color: #d1d5db;
+  transition: color 0.1s, transform 0.1s;
+  line-height: 1;
+  user-select: none;
+}
+.est-star.filled {
+  color: #f59e0b;
+}
+.est-star.hovered {
+  color: #fbbf24;
+  transform: scale(1.15);
+}
+.est-rating-saved {
+  font-size: 0.7rem;
+  color: var(--green);
+  font-weight: 600;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+/* ── BOTÓN DE RESEÑA EN TARJETA DE ESTUDIANTE ── */
+.est-btn-review {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 8px;
+  background: #fef9c3;
+  color: #854d0e;
+  border: 1.5px solid #fde68a;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.est-btn-review:hover {
+  background: #fde68a;
+  transform: translateY(-1px);
+}
+
+/* ── ESTRELLAS ESTÁTICAS (ya reseñado) ── */
+.est-stars-static .est-star {
+  cursor: default;
+  pointer-events: none;
+}

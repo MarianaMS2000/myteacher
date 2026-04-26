@@ -7,7 +7,7 @@
 
 /* ── BANNER PROMOCIONAL ── */
 .tutores-banner {
-  background: linear-gradient(135deg, #1e4620 0%, #2d6a30 50%, #3d8a40 100%);
+  background: linear-gradient(#66BFC7 100%);
   border-radius: 20px;
   padding: 32px 40px;
   display: flex;
@@ -54,7 +54,7 @@
 
 .btn-banner-reserva {
   background: white;
-  color: var(--green);
+  color: rgb(96, 96, 96);
   border: none;
   border-radius: 100px;
   padding: 11px 26px;
@@ -72,18 +72,19 @@
 
 /* Imagen a la derecha del banner */
 .banner-img {
-  width: 180px;
-  height: 160px;
+  height: 300px;
   flex-shrink: 0;
   display: flex;
   align-items: flex-end;
   justify-content: center;
+  margin-bottom: -32px;
 }
 .banner-img img {
   height: 100%;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  object-position: center bottom;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.25));
 }
 
 /* ── BARRA DE FILTROS ── */
@@ -268,9 +269,6 @@
   font-weight: 800; font-size: 1.4rem;
   color: white; background: var(--green);
 }
-
-/* Info central */
-.tutor-h-info {}
 
 .tutor-h-nombre {
   font-family: var(--font-display);

@@ -237,3 +237,66 @@
   .config-foto-fila { flex-wrap: wrap; }
   .btn-editar-config { margin-left: 0; }
 }
+
+/* ── TABS DE CONFIGURACIÓN (sección estudiante) ── */
+.cfg-tabs {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f3f4f6;
+  padding-bottom: 0;
+}
+.cfg-tab {
+  background: none; border: none; border-bottom: 2px solid transparent;
+  margin-bottom: -2px; padding: 10px 18px;
+  font-family: var(--font-display); font-size: 0.88rem; font-weight: 600;
+  color: var(--muted); cursor: pointer; display: flex; align-items: center;
+  gap: 7px; transition: color 0.2s, border-color 0.2s;
+}
+.cfg-tab:hover { color: var(--green); }
+.cfg-tab.active { color: var(--green); border-bottom-color: var(--green); }
+
+/* Secciones que se muestran/ocultan con los tabs */
+.cfg-section { display: none; }
+.cfg-section.active { display: block; }
+
+/* ── CARD ESTILO PROFESOR REUTILIZADA EN ESTUDIANTE ── */
+.cfg-card {
+  background: var(--card-bg, #fff); border-radius: 16px; padding: 28px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06); margin-bottom: 20px;
+}
+.cfg-group-title {
+  font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+  margin-bottom: 16px; color: var(--text, #111);
+}
+.cfg-divider { border: none; border-top: 1px solid #f3f4f6; margin: 24px 0; }
+.form-group-cfg { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.cfg-label { font-size: 0.82rem; font-weight: 600; color: var(--muted, #6b7280); }
+.cfg-input {
+  border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 10px 14px;
+  font-family: var(--font); font-size: 0.9rem; outline: none;
+  transition: border-color 0.2s; background: #fff; color: var(--text, #111);
+}
+.cfg-input:focus { border-color: var(--green, #2d6a30); }
+.cfg-actions { margin-top: 20px; }
+.btn-cfg-save {
+  background: var(--green, #2d6a30); color: white; border: none;
+  border-radius: 100px; padding: 12px 28px;
+  font-family: var(--font-display); font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+  transition: background 0.2s;
+}
+.btn-cfg-save:hover { background: #1e4620; }
+.btn-cfg-danger {
+  background: #fee2e2; color: #dc2626; border: 1.5px solid #fca5a5;
+  border-radius: 100px; padding: 10px 22px;
+  font-family: var(--font); font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+.btn-cfg-danger:hover { background: #fecaca; }
+.btn-cfg-danger-soft {
+  background: #f3f4f6; color: #374151; border: 1.5px solid #e5e7eb;
+  border-radius: 100px; padding: 10px 22px;
+  font-family: var(--font); font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+.btn-cfg-danger-soft:hover { background: #e5e7eb; }

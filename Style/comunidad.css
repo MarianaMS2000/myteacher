@@ -6,7 +6,7 @@
 /* ── HERO HEADER DE LA COMUNIDAD ──
    Fondo degradado verde → azul con el título principal */
 .community-hero {
-  background: linear-gradient(135deg, #1e4620 0%, #2d6a4f 35%, #1d4ed8 100%);
+  background: linear-gradient( #527fb7 50%);
   border-radius: 24px;
   padding: 40px 36px;
   margin-bottom: 28px;

@@ -161,6 +161,7 @@ function toggleFavorito(histId) {
   if (!btn) return;
 
   var esFavorito = btn.classList.toggle('active');
+  var tutorId = String(btn.dataset.tutorId || '');
 
   /* Actualizamos el texto del botón */
   if (esFavorito) {
@@ -169,10 +170,18 @@ function toggleFavorito(histId) {
     btn.innerHTML = '<i class="fa-solid fa-heart"></i> Favorito';
   }
 
-  /* Guardamos el estado en localStorage */
-  var favoritos = JSON.parse(localStorage.getItem('mt_favoritos') || '{}');
-  favoritos[histId] = esFavorito;
-  localStorage.setItem('mt_favoritos', JSON.stringify(favoritos));
+  /* Guardamos en formato array de IDs (compatible con favoritos.js) */
+  var ids = [];
+  try { ids = JSON.parse(localStorage.getItem('mt_favoritos') || '[]'); } catch(e) {}
+  /* Sanear: si venía en formato objeto legacy, resetear */
+  if (!Array.isArray(ids)) ids = [];
+
+  if (esFavorito && tutorId && ids.indexOf(tutorId) === -1) {
+    ids.push(tutorId);
+  } else if (!esFavorito && tutorId) {
+    ids = ids.filter(function(i) { return String(i) !== tutorId; });
+  }
+  try { localStorage.setItem('mt_favoritos', JSON.stringify(ids)); } catch(e) {}
 }
 
 /* ══════════════════════════════════════════════
@@ -387,14 +396,36 @@ document.addEventListener('DOMContentLoaded', function () {
  * botones de favorito según lo guardado en localStorage.
  */
 function restaurarFavoritos() {
-  var favoritos = JSON.parse(localStorage.getItem('mt_favoritos') || '{}');
-  Object.keys(favoritos).forEach(function (histId) {
-    if (favoritos[histId]) {
-      var btn = document.getElementById('fav-' + histId);
-      if (btn && !btn.classList.contains('active')) {
-        btn.classList.add('active');
-        btn.innerHTML = '<i class="fa-solid fa-heart"></i> Favorito ✓';
-      }
+  /* Sanear formato legacy (objeto → array) */
+  var raw = localStorage.getItem('mt_favoritos');
+  var ids = [];
+  try {
+    var parsed = JSON.parse(raw || '[]');
+    if (Array.isArray(parsed)) {
+      ids = parsed;
+    } else {
+      /* Formato viejo: objeto {histId: bool} — limpiar */
+      ids = [];
+    }
+  } catch(e) { ids = []; }
+
+  /* Si no había nada en localStorage, inicializar con Maira Torres (id 9)
+     porque el botón fav-hist-2 ya viene marcado como active en el HTML */
+  if (!raw) {
+    ids = ['9'];
+    try { localStorage.setItem('mt_favoritos', JSON.stringify(ids)); } catch(e) {}
+  }
+
+  /* Marcar visualmente cada botón según si su tutor-id está en el array */
+  document.querySelectorAll('.btn-favorite[data-tutor-id]').forEach(function(btn) {
+    var tid = String(btn.dataset.tutorId || '');
+    var enFav = tid && ids.indexOf(tid) !== -1;
+    if (enFav) {
+      btn.classList.add('active');
+      btn.innerHTML = '<i class="fa-solid fa-heart"></i> Favorito ✓';
+    } else {
+      btn.classList.remove('active');
+      btn.innerHTML = '<i class="fa-solid fa-heart"></i> Favorito';
     }
   });
 }

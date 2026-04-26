@@ -180,6 +180,23 @@ var TUTORES_DB = {
     ],
     totalResenas: 62, ratingPromedio: "4.8"
   }
+  ,
+  "9": {
+    id: "9",
+    nombre: "Maira Torres",
+    especialidad: "Estadística y Probabilidad",
+    ubicacion: "Bogotá, COL",
+    foto: "images/maira.png",
+    rating: "4.8",
+    precio: "18k - 50k COP",
+    modalidad: "virtual",
+    materias: ["Estadística", "Probabilidad", "Análisis de Datos"],
+    descripcion: "Estadística con más de 6 años de experiencia docente. Me especializo en hacer accesible el análisis de datos y la probabilidad para estudiantes de todas las carreras.",
+    resenas: [
+      { nombre: "Choi San", foto: "images/choi.png", estrellas: 5, fecha: "8/04/2025", materia: "Estadística", precio: "50.000 COP", texto: "Maira explica los conceptos de forma muy clara. ¡La recomiendo totalmente!" }
+    ],
+    totalResenas: 38, ratingPromedio: "4.8"
+  }
 };
 
 /* ── FUNCIONES DE ACCESO ── */

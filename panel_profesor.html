@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Panel Profesor — myTeacher</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="Style/panel.css">
   <style>
@@ -12,7 +12,7 @@
 
     /* Banner héroe en verde oscuro (diferente al del estudiante que era azul) */
     .hero-banner {
-      background: linear-gradient(135deg, #1e4620 0%, #2d6a30 50%, #3d8a40 100%);
+      background: linear-gradient( #5668BA 100%);
       border-radius: 20px; padding: 32px;
       display: flex; align-items: center; gap: 24px;
       position: relative; overflow: hidden; margin-bottom: 20px;
@@ -25,11 +25,11 @@
     }
     .hero-text { flex: 1; }
     .hero-text h2 {
-      font-family: var(--font-display);
-      font-size: 2rem; font-weight: 800; color: white;
-      line-height: 1.1; margin-bottom: 10px;
-    }
-    .hero-text p { color: rgba(255,255,255,0.82); font-size: 0.92rem; line-height: 1.5; margin-bottom: 20px; max-width: 360px; }
+  font-family: var(--font-display);
+  font-size: 2.6rem; font-weight: 600; color: white;
+  line-height: 1.2; margin-bottom: 14px;
+}
+.hero-text p { color: rgba(255,255,255,0.9); font-size: 1.05rem; line-height: 1.6; margin-bottom: 20px; max-width: 360px; }
     .btn-hero-panel {
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(255,255,255,0.2); backdrop-filter: blur(8px);
@@ -183,15 +183,40 @@
     }
     .q-arrow { margin-left: auto; color: var(--muted); font-size: 0.75rem; }
 
+    /* ── MINI-CALENDARIO ── */
+    .cal-days {
+      display: grid; grid-template-columns: repeat(7,1fr); gap: 2px;
+    }
+    .cal-day, .cal-day-empty {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; padding: 4px 2px; border-radius: 8px;
+      font-size: 0.78rem; cursor: pointer; min-height: 32px;
+      transition: background 0.15s; position: relative;
+    }
+    .cal-day:hover { background: var(--green-light); }
+    .cal-day.cal-today { background: var(--green); color: white; font-weight: 700; }
+    .cal-day.cal-today:hover { background: var(--green); }
+    .cal-day-empty { cursor: default; }
+    .cal-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--green); margin-top: 2px;
+    }
+    .cal-day.cal-today .cal-dot { background: white; }
+
     /* Adaptaciones responsive */
     @media (max-width: 900px) {
       .stats-row { grid-template-columns: repeat(2, 1fr); }
       .hero-illus-fallback { display: none; }
+      
     }
     @media (max-width: 600px) {
       .stats-row { grid-template-columns: 1fr 1fr; }
       .hero-banner { padding: 20px; }
       .hero-text h2 { font-size: 1.4rem; }
+      .hero-banner { flex-direction: row; align-items: center; padding: 20px; gap: 12px; }
+.hero-text h2 { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+.hero-text p { font-size: 0.82rem; line-height: 1.4; margin-bottom: 0; }
+.hero-banner img { width: 130px; margin-bottom: -20px; }
     }
   </style>
 </head>
@@ -203,23 +228,21 @@
        Nota: "Estadísticas" fue eliminado según lo pedido -->
   <aside class="sidebar" id="mainSidebar">
     <div class="sidebar-logo">
-      <i class="fa-solid fa-chalkboard-teacher"></i>
-    </div>
+  <img src="images/PROFEPAN.png" alt="myTeacher" style="width:48px;object-fit:contain;">
+</div>
     <nav class="sidebar-nav">
       <a class="nav-item active" href="panel_profesor.html" data-page="inicio">
         <i class="fa-solid fa-house"></i> Inicio
       </a>
-      <a class="nav-item" href="#" data-page="agenda">
+      <a class="nav-item" href="agenda_profesor.html" data-page="agenda">
         <i class="fa-solid fa-calendar-days"></i> Mi agenda
       </a>
-      <a class="nav-item" href="#" data-page="estudiantes">
+      <a class="nav-item" href="estudiantes_profesor.html" data-page="estudiantes">
         <i class="fa-solid fa-users"></i> Mis estudiantes
       </a>
-      <a class="nav-item" href="#" data-page="mensajes">
-        <i class="fa-solid fa-comments"></i> Mensajes
-      </a>
+      <a class="nav-item" href="solicitudes_profesor.html" data-page="solicitudes"><i class="fa-solid fa-inbox"></i> Solicitudes</a>
       <!-- "Estadísticas" fue quitado porque el usuario lo pidió -->
-      <a class="nav-item" href="#" data-page="configuracion" style="margin-top:auto;">
+      <a class="nav-item" href="configuracion_profesor.html" data-page="configuracion" style="margin-top:auto;">
         <i class="fa-solid fa-gear"></i> Configuracion
       </a>
     </nav>
@@ -231,9 +254,8 @@
       <i class="fa-solid fa-bars"></i>
     </button>
     <div class="header-brand">
-      <span>🌿</span>
-      <span><em>my</em>Teacher</span>
-    </div>
+  <img src="images/LOGOTEACHER.png" alt="myTeacher" style="height:36px;object-fit:contain;">
+</div>
     <div class="header-search">
       <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
       <input type="text" placeholder="Buscar estudiantes, sesiones...">
@@ -253,7 +275,7 @@
           <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
         </button>
         <div class="dropdown-menu" id="dropdownMenu">
-          <a class="dropdown-item" href="#"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <a class="dropdown-item" href="configuracion_profesor.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
           <hr class="dropdown-divider">
           <a class="dropdown-item danger" href="login.html" onclick="logout()">
             <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
@@ -271,13 +293,11 @@
       <div class="hero-banner">
         <div class="hero-text">
           <h2 id="heroGreeting">¡Buenas tardes, Profesor!</h2>
-          <p>Tienes 3 sesiones pendientes hoy. Revisa tu agenda y prepárate para inspirar a tus estudiantes.</p>
-          <a href="#" class="btn-hero-panel">
-            <i class="fa-solid fa-calendar-plus"></i> Crear nueva sesión
-          </a>
+          <p>Cada clase que das cambia una vida. Revisa tu agenda y sigue construyendo futuros increíbles.</p>
+      
         </div>
-        <div class="hero-illus-fallback">🧑‍🏫</div>
-      </div>
+        <img src="images/panelprofe.png" alt="Profesor" style="width:300px;object-fit:contain;margin-bottom:-32px;align-self:flex-end;flex-shrink:0;"></div>
+      
 
       <!-- Estadísticas del mes del profesor -->
       <div class="stats-row">
@@ -318,46 +338,9 @@
       <!-- Sesiones de hoy -->
       <div class="section-header">
         <h3 class="section-title">Sesiones de hoy</h3>
-        <a href="#" class="section-link">Ver agenda completa →</a>
+        <a href="agenda_profesor.html" class="section-link">Ver agenda completa →</a>
       </div>
-      <div class="sessions-list">
-        <div class="session-card">
-          <div class="session-avatar">CL</div>
-          <div class="session-info">
-            <div class="session-name">Carlos Lizarazo</div>
-            <div class="session-meta">Cálculo Diferencial · 90 min</div>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
-            <span class="session-badge badge-virtual">Virtual</span>
-            <div class="session-time">10:00 AM</div>
-            <div class="session-price">$35K</div>
-          </div>
-        </div>
-        <div class="session-card">
-          <div class="session-avatar" style="background:#7c3aed;">MS</div>
-          <div class="session-info">
-            <div class="session-name">María Suárez</div>
-            <div class="session-meta">Álgebra Lineal · 60 min</div>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
-            <span class="session-badge badge-presencial">Presencial</span>
-            <div class="session-time">2:30 PM</div>
-            <div class="session-price">$30K</div>
-          </div>
-        </div>
-        <div class="session-card">
-          <div class="session-avatar" style="background:#db2777;">JR</div>
-          <div class="session-info">
-            <div class="session-name">Julián Rodríguez</div>
-            <div class="session-meta">Física Mecánica · 90 min</div>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
-            <span class="session-badge badge-pending">Por confirmar</span>
-            <div class="session-time">5:00 PM</div>
-            <div class="session-price">$40K</div>
-          </div>
-        </div>
-      </div>
+      <div class="sessions-list" id="sessionsList"><!-- cargado por panel_profesor.js --></div>
 
       <!-- Gráfico de ganancias del mes -->
       <div class="earnings-card">
@@ -380,43 +363,7 @@
           <span style="font-size:0.68rem;color:var(--muted);">Sem 4</span>
         </div>
       </div>
-
-      <!-- Mensajes recientes de estudiantes -->
-      <div class="section-header">
-        <h3 class="section-title">Mensajes recientes</h3>
-        <a href="#" class="section-link">Ver todos →</a>
-      </div>
-      <div class="messages-card">
-        <div class="msg-item">
-          <div class="msg-avatar">👩‍🎓</div>
-          <div class="msg-info">
-            <div class="msg-name">Valentina Pérez</div>
-            <div class="msg-preview">¿Profe, podemos reagendar la clase del jueves?</div>
-          </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
-            <div class="msg-time">hace 5 min</div>
-            <div class="msg-unread"></div>
-          </div>
-        </div>
-        <div class="msg-item">
-          <div class="msg-avatar">👨‍🎓</div>
-          <div class="msg-info">
-            <div class="msg-name">Felipe Gómez</div>
-            <div class="msg-preview">Muchas gracias por la clase de hoy, me quedó todo claro</div>
-          </div>
-          <div class="msg-time">hace 1h</div>
-        </div>
-        <div class="msg-item">
-          <div class="msg-avatar">👩‍🎓</div>
-          <div class="msg-info">
-            <div class="msg-name">Isabella Torres</div>
-            <div class="msg-preview">¿Tiene disponibilidad para el sábado en la mañana?</div>
-          </div>
-          <div class="msg-time">ayer</div>
-        </div>
-      </div>
-
-    </main>
+</main>
 
     <!-- Panel lateral derecho del profesor -->
     <aside class="right-panel">
@@ -429,7 +376,6 @@
         </div>
         <div class="profile-name" id="profileName">Profesor</div>
         <div class="profile-role">Docente en myTeacher</div>
-        <div class="profile-stars">⭐⭐⭐⭐⭐ <span style="color:#6b7280;font-size:0.8rem;">(4.9)</span></div>
         <div class="profile-stats">
           <div class="profile-stat">
             <div class="ps-num">24</div>
@@ -438,10 +384,6 @@
           <div class="profile-stat">
             <div class="ps-num">128</div>
             <div class="ps-label">Clases</div>
-          </div>
-          <div class="profile-stat">
-            <div class="ps-num">3</div>
-            <div class="ps-label">Materias</div>
           </div>
         </div>
       </div>
@@ -462,21 +404,57 @@
       <!-- Botones de acciones rápidas -->
       <div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;margin-bottom:12px;">Acciones rápidas</div>
       <div class="quick-actions">
-        <button class="q-action-btn">
+        <button class="q-action-btn" onclick="window.location.href='agenda_profesor.html'">
           <div class="q-action-icon" style="background:#dbeafe;">📅</div>
           Agregar disponibilidad
           <i class="fa-solid fa-chevron-right q-arrow"></i>
         </button>
-        <button class="q-action-btn">
-          <div class="q-action-icon" style="background:#dcfce7;">📝</div>
-          Subir material
-          <i class="fa-solid fa-chevron-right q-arrow"></i>
-        </button>
-        <button class="q-action-btn">
+        <button class="q-action-btn" onclick="window.location.href='configuracion_profesor.html'">
           <div class="q-action-icon" style="background:#fef3c7;">🔗</div>
           Compartir perfil
           <i class="fa-solid fa-chevron-right q-arrow"></i>
         </button>
+      </div>
+
+      <!-- Chat con la mascota Manzanita (igual que en el panel de estudiante) -->
+      <div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-bottom:6px;">Tu IA de compañía</div>
+        <div class="chat-widget">
+          <div class="chat-header">
+            <div class="chat-apple-img">
+              <img src="images/manzanita.png" alt="Manzanita" onerror="this.textContent='🍎'">
+            </div>
+            <div class="chat-header-info">
+              <div class="chat-name">Chatea con Manzanita</div>
+              <div class="chat-subtitle">Online</div>
+            </div>
+            <div class="online-dot"></div>
+          </div>
+          <div class="chat-body" id="chatBody">
+            <div class="chat-bubble-row">
+              <div class="chat-bubble-apple">
+                <img src="images/manzanita.png" onerror="this.textContent='🍎'">
+              </div>
+              <div>
+                <div style="font-size:0.72rem;color:var(--muted);margin-bottom:4px;">Manzanita</div>
+                <div class="chat-bubble">
+                  Hola profe 😊 ¿en qué puedo ayudarte hoy?
+                </div>
+                <div class="chat-chips">
+                  <button class="chat-chip" onclick="sendChip(this)">Consejos para mis clases</button>
+                  <button class="chat-chip" onclick="sendChip(this)">Cómo atraer más estudiantes</button>
+                  <button class="chat-chip" onclick="sendChip(this)">Ver mis estadísticas</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chat-footer">
+            <input type="text" class="chat-input" placeholder="Escribe tu mensaje..." id="chatInput">
+            <button class="chat-send-btn" onclick="sendMessage()">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
       </div>
 
     </aside>
@@ -484,6 +462,7 @@
 
   <script src="scripts/panel_common.js"></script>
   <script src="scripts/panel_profesor.js"></script>
+  <script src="scripts/manzanita_profesor.js"></script>
   <script src="scripts/notifications.js"></script>
 </body>
 </html>

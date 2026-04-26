@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nueva Sesión — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <link rel="stylesheet" href="Style/nueva_sesion_profesor.css">
+</head>
+<body data-page="agenda">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo"><i class="fa-solid fa-chalkboard-teacher"></i></div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="panel_profesor.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="nav-item active" href="agenda_profesor.html" data-page="agenda"><i class="fa-solid fa-calendar-days"></i> Mi agenda</a>
+      <a class="nav-item" href="estudiantes_profesor.html" data-page="estudiantes"><i class="fa-solid fa-users"></i> Mis estudiantes</a>
+      <a class="nav-item" href="solicitudes_profesor.html" data-page="solicitudes"><i class="fa-solid fa-inbox"></i> Solicitudes</a>
+      <a class="nav-item" href="configuracion_profesor.html" data-page="configuracion" style="margin-top:auto;"><i class="fa-solid fa-gear"></i> Configuración</a>
+    </nav>
+  </aside>
+
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn"><i class="fa-solid fa-bars"></i></button>
+    <div class="header-brand"><span>🌿</span><span><em>my</em>Teacher</span></div>
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar estudiantes, sesiones...">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <div class="notif-wrapper"><button class="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></button></div>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar"><img src="images/prof_tabl.png" alt="Profesor" onerror="this.style.display='none';this.parentNode.textContent='PR'"></div>
+          <span id="userName">Profesor</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="configuracion_profesor.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-wrapper">
+    <main class="main-content">
+
+      <!-- Breadcrumb -->
+      <div class="ns-breadcrumb">
+        <a href="agenda_profesor.html" class="ns-back"><i class="fa-solid fa-arrow-left"></i> Mi agenda</a>
+        <span class="ns-sep">/</span>
+        <span class="ns-current">Nueva sesión</span>
+      </div>
+
+      <h2 class="ns-title">Crear nueva sesión</h2>
+      <p class="ns-subtitle">Programa una clase con un estudiante y define todos los detalles.</p>
+
+      <!-- Formulario -->
+      <div class="ns-form-card">
+
+        <!-- Selector de estudiante -->
+        <div class="form-group">
+          <label class="form-label"><i class="fa-solid fa-user-graduate"></i> Estudiante</label>
+          <div class="student-search-wrap">
+            <input type="text" class="form-input" id="studentSearch" placeholder="Buscar estudiante..." oninput="buscarEstudiante(this.value)" autocomplete="off">
+            <div class="student-dropdown" id="studentDropdown"></div>
+          </div>
+          <div class="selected-student" id="selectedStudent" style="display:none;"></div>
+        </div>
+
+        <!-- Materia -->
+        <div class="form-group">
+          <label class="form-label"><i class="fa-solid fa-book"></i> Materia</label>
+          <select class="form-select" id="materiaSelect">
+            <option value="">Selecciona una materia...</option>
+            <option value="calculo-diferencial">Cálculo Diferencial</option>
+            <option value="algebra-lineal">Álgebra Lineal</option>
+            <option value="fisica-mecanica">Física Mecánica</option>
+            <option value="calculo-integral">Cálculo Integral</option>
+            <option value="estadistica">Estadística</option>
+          </select>
+        </div>
+
+        <!-- Fecha y hora (en la misma fila) -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label"><i class="fa-solid fa-calendar"></i> Fecha</label>
+            <input type="date" class="form-input" id="fechaInput">
+          </div>
+          <div class="form-group">
+            <label class="form-label"><i class="fa-solid fa-clock"></i> Hora de inicio</label>
+            <input type="time" class="form-input" id="horaInput">
+          </div>
+        </div>
+
+        <!-- Duración y modalidad -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label"><i class="fa-solid fa-hourglass-half"></i> Duración</label>
+            <select class="form-select" id="duracionSelect">
+              <option value="30">30 minutos</option>
+              <option value="60" selected>60 minutos</option>
+              <option value="90">90 minutos</option>
+              <option value="120">2 horas</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><i class="fa-solid fa-location-dot"></i> Modalidad</label>
+            <select class="form-select" id="modalidadSelect">
+              <option value="virtual">Virtual</option>
+              <option value="presencial">Presencial</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Precio -->
+        <div class="form-group">
+          <label class="form-label"><i class="fa-solid fa-dollar-sign"></i> Precio (COP)</label>
+          <div class="price-input-wrap">
+            <span class="price-prefix">$</span>
+            <input type="number" class="form-input price-input" id="precioInput" placeholder="35000" min="0">
+            <span class="price-suffix">COP</span>
+          </div>
+          <div class="price-suggestions">
+            <span class="price-tag" onclick="setPrice(25000)">$25.000</span>
+            <span class="price-tag" onclick="setPrice(30000)">$30.000</span>
+            <span class="price-tag" onclick="setPrice(35000)">$35.000</span>
+            <span class="price-tag" onclick="setPrice(40000)">$40.000</span>
+          </div>
+        </div>
+
+        <!-- Notas adicionales -->
+        <div class="form-group">
+          <label class="form-label"><i class="fa-regular fa-note-sticky"></i> Notas para el estudiante <span class="form-optional">(opcional)</span></label>
+          <textarea class="form-textarea" id="notasInput" placeholder="Ej: Por favor trae los ejercicios del capítulo 5 resueltos..."></textarea>
+        </div>
+
+        <!-- Enlace de reunión (si es virtual) -->
+        <div class="form-group" id="linkGroup">
+          <label class="form-label"><i class="fa-solid fa-video"></i> Enlace de reunión <span class="form-optional">(opcional)</span></label>
+          <input type="url" class="form-input" id="linkInput" placeholder="https://meet.google.com/...">
+        </div>
+
+        <!-- Resumen y botones de acción -->
+        <div class="ns-summary" id="nsSummary">
+          <!-- Se llena con JS cuando hay datos suficientes -->
+        </div>
+
+        <div class="ns-form-actions">
+          <a href="agenda_profesor.html" class="btn-ns-cancel">Cancelar</a>
+          <button class="btn-ns-submit" onclick="crearSesion()">
+            <i class="fa-solid fa-calendar-check"></i> Crear sesión
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Modal de confirmación (oculto) -->
+      <div class="ns-modal-overlay" id="nsModalOverlay">
+        <div class="ns-modal">
+          <div class="ns-modal-icon">✅</div>
+          <h3 class="ns-modal-title">¡Sesión creada!</h3>
+          <p class="ns-modal-text" id="nsModalText">La sesión ha sido programada y se notificará al estudiante.</p>
+          <div class="ns-modal-actions">
+            <a href="agenda_profesor.html" class="btn-ns-modal-primary">Ver agenda</a>
+            <button class="btn-ns-modal-secondary" onclick="cerrarModal()">Crear otra</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Panel derecho: ayuda rápida -->
+    <aside class="right-panel">
+      <div class="calendar-widget">
+        <div class="cal-header">
+          <button class="cal-nav-btn">&#8249;</button>
+          <div class="cal-month" id="calMonth">Abril 2026</div>
+          <button class="cal-nav-btn">&#8250;</button>
+        </div>
+        <div class="cal-days-header">
+          <div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div>
+        </div>
+        <div class="cal-days" id="calDays"></div>
+      </div>
+
+      <!-- Tips rápidos -->
+      <div class="ns-tips-card">
+        <div class="ns-tips-title">💡 Consejos</div>
+        <ul class="ns-tips-list">
+          <li>Notifica al estudiante con al menos 24 h de anticipación.</li>
+          <li>Para clases virtuales, comparte el enlace con tiempo.</li>
+          <li>Las sesiones de 90 min tienen mejor reseña promedio.</li>
+          <li>Agrega notas para que el estudiante llegue preparado.</li>
+        </ul>
+      </div>
+
+      <!-- Sesiones próximas del día -->
+      <div class="ns-upcoming-card">
+        <div class="ns-up-title">Sesiones de hoy</div>
+        <div class="ns-up-item">
+          <div class="ns-up-dot virtual"></div>
+          <div>
+            <div class="ns-up-name">Carlos Lizarazo</div>
+            <div class="ns-up-meta">10:00 AM · Cálculo</div>
+          </div>
+        </div>
+        <div class="ns-up-item">
+          <div class="ns-up-dot presencial"></div>
+          <div>
+            <div class="ns-up-name">María Suárez</div>
+            <div class="ns-up-meta">2:30 PM · Álgebra</div>
+          </div>
+        </div>
+        <div class="ns-up-item">
+          <div class="ns-up-dot pendiente"></div>
+          <div>
+            <div class="ns-up-name">Julián Rodríguez</div>
+            <div class="ns-up-meta">5:00 PM · Física</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/nueva_sesion_profesor.js"></script>
+  <script src="scripts/notifications.js"></script>
+</body>
+</html>

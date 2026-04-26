@@ -1,22 +1,20 @@
 /* =============================================
    panel_common.js — Funciones compartidas que
-   usan todas las páginas del panel
+   usan todas las páginas del panel.
    ============================================= */
 
-/* Esta función se ejecuta cuando la página termina de cargarse */
+/* ── ESTADO DEL CALENDARIO COMPARTIDO ── */
+var calCurrentYear  = new Date().getFullYear();
+var calCurrentMonth = new Date().getMonth();
+
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ── NOMBRE DEL USUARIO ──
-     Busca si hay un usuario guardado en el navegador
-     y actualiza el nombre que se ve en el header */
+  /* ── NOMBRE DEL USUARIO ── */
   var stored = JSON.parse(localStorage.getItem('mt_user') || '{}');
   var userNameEl = document.getElementById('userName');
-  if (userNameEl && stored.nombre) {
-    userNameEl.textContent = stored.nombre;
-  }
+  if (userNameEl && stored.nombre) userNameEl.textContent = stored.nombre;
 
-  /* ── SALUDO DINÁMICO ──
-     Cambia el saludo según la hora del día */
+  /* ── SALUDO DINÁMICO ── */
   var heroGreeting = document.getElementById('heroBuenos') || document.getElementById('heroGreeting');
   if (heroGreeting && stored.nombre) {
     var h = new Date().getHours();
@@ -24,43 +22,32 @@ document.addEventListener('DOMContentLoaded', function () {
     heroGreeting.textContent = greeting + ', ' + stored.nombre.split(' ')[0] + '!';
   }
 
-  /* ── DROPDOWN DEL USUARIO ──
-     Al hacer click en el nombre/foto del usuario
-     aparece o desaparece el menú desplegable */
-  var userBtn = document.getElementById('userBtn');
+  /* ── DROPDOWN DEL USUARIO ── */
+  var userBtn      = document.getElementById('userBtn');
   var dropdownMenu = document.getElementById('dropdownMenu');
   if (userBtn && dropdownMenu) {
     userBtn.addEventListener('click', function (e) {
-      e.stopPropagation(); /* Evita que el click se propague y cierre el menú */
+      e.stopPropagation();
       dropdownMenu.classList.toggle('open');
     });
-    /* Al hacer click en cualquier otra parte, el menú se cierra */
-    document.addEventListener('click', function () {
-      dropdownMenu.classList.remove('open');
-    });
+    document.addEventListener('click', function () { dropdownMenu.classList.remove('open'); });
   }
 
-  /* ── MENÚ HAMBURGER (MÓVIL) ──
-     En pantallas pequeñas, el botón hamburger abre/cierra el sidebar */
+  /* ── MENÚ HAMBURGER (MÓVIL) ── */
   var hamburger = document.getElementById('hamburgerBtn');
-  var sidebar = document.querySelector('.sidebar');
-  var overlay = document.getElementById('sidebarOverlay');
-
+  var sidebar   = document.querySelector('.sidebar');
+  var overlay   = document.getElementById('sidebarOverlay');
   if (hamburger && sidebar) {
     hamburger.addEventListener('click', function () {
       sidebar.classList.toggle('open');
       if (overlay) overlay.classList.toggle('visible');
     });
-
-    /* Al hacer click en el fondo oscuro, el sidebar se cierra */
     if (overlay) {
       overlay.addEventListener('click', function () {
         sidebar.classList.remove('open');
         overlay.classList.remove('visible');
       });
     }
-
-    /* Al seleccionar un item del sidebar en móvil, el sidebar se cierra */
     document.querySelectorAll('.nav-item').forEach(function (item) {
       item.addEventListener('click', function () {
         sidebar.classList.remove('open');
@@ -69,69 +56,122 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ── MARCAR ITEM ACTIVO EN EL NAV ──
-     Resalta el item del sidebar según la página actual */
-  var navItems = document.querySelectorAll('.nav-item[data-page]');
+  /* ── MARCAR ITEM ACTIVO EN EL NAV ── */
+  var navItems    = document.querySelectorAll('.nav-item[data-page]');
   var currentPage = document.body.dataset.page;
   navItems.forEach(function (item) {
-    if (item.dataset.page === currentPage) {
-      item.classList.add('active');
-    }
-    /* Al hacer click en un item, lo marca como activo */
+    if (item.dataset.page === currentPage) item.classList.add('active');
     item.addEventListener('click', function () {
       navItems.forEach(function (n) { n.classList.remove('active'); });
       item.classList.add('active');
     });
   });
 
-  /* ── CALENDARIO ──
-     Dibuja el calendario del mes actual en el panel derecho */
+  /* ── CALENDARIO DEL PANEL DERECHO ── */
   var calGrid = document.getElementById('calDays');
   if (calGrid) {
-    renderCalendar(calGrid);
+    renderCalendar();
+    var calNavBtns = document.querySelectorAll('.cal-nav-btn');
+    if (calNavBtns.length >= 2) {
+      calNavBtns[0].addEventListener('click', function () {
+        calCurrentMonth--;
+        if (calCurrentMonth < 0) { calCurrentMonth = 11; calCurrentYear--; }
+        renderCalendar();
+      });
+      calNavBtns[1].addEventListener('click', function () {
+        calCurrentMonth++;
+        if (calCurrentMonth > 11) { calCurrentMonth = 0; calCurrentYear++; }
+        renderCalendar();
+      });
+    }
   }
 });
 
-/* Función que construye el calendario del mes */
-function renderCalendar(grid) {
-  var today = new Date();
-  var year = today.getFullYear();
-  var month = today.getMonth();
+/* ══════════════════════════════════════════════
+   CALENDARIO — renderiza el mini-mes
+   con puntos verdes en días con sesiones
+   ══════════════════════════════════════════════ */
+function renderCalendar() {
+  var grid = document.getElementById('calDays');
+  if (!grid) return;
 
-  /* Actualizamos el título del mes */
-  var monthEl = document.getElementById('calMonth');
+  var today      = new Date();
+  var year       = calCurrentYear;
+  var month      = calCurrentMonth;
   var monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
                     'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  if (monthEl) {
-    monthEl.textContent = monthNames[month] + ' ' + year;
-  }
 
-  /* Calculamos en qué día de la semana cae el primer día del mes */
-  var firstDay = new Date(year, month, 1).getDay();
+  var monthEl = document.getElementById('calMonth');
+  if (monthEl) monthEl.textContent = monthNames[month] + ' ' + year;
+
+  var firstDay    = new Date(year, month, 1).getDay();
   var daysInMonth = new Date(year, month + 1, 0).getDate();
+  var offset      = firstDay === 0 ? 6 : firstDay - 1;
 
-  grid.innerHTML = ''; /* Limpiamos el grid antes de dibujarlo */
+  /* Días con sesiones guardadas (para puntos verdes) */
+  var sesionesGuardadas = JSON.parse(localStorage.getItem('mt_sesiones_prof') || '[]');
+  var diasConSesion = {};
+  sesionesGuardadas.forEach(function (s) {
+    if (!s.fecha) return;
+    var d = new Date(s.fecha + 'T00:00:00');
+    if (d.getFullYear() === year && d.getMonth() === month) {
+      diasConSesion[d.getDate()] = true;
+    }
+  });
 
-  /* Ajustamos para que la semana empiece en lunes (0=lunes) */
-  var offset = firstDay === 0 ? 6 : firstDay - 1;
+  grid.innerHTML = '';
+
   for (var i = 0; i < offset; i++) {
     var empty = document.createElement('div');
     empty.className = 'cal-day empty';
     grid.appendChild(empty);
   }
 
-  /* Dibujamos cada día del mes */
   for (var d = 1; d <= daysInMonth; d++) {
     var el = document.createElement('div');
     el.className = 'cal-day';
-    el.textContent = d;
-    /* El día de hoy se resalta */
-    if (d === today.getDate()) el.classList.add('today');
+    var num = document.createElement('span');
+    num.textContent = d;
+    el.appendChild(num);
+    if (d === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+      el.classList.add('today');
+    }
+    if (diasConSesion[d]) {
+      var dot = document.createElement('span');
+      dot.className = 'cal-session-dot';
+      el.appendChild(dot);
+    }
+
+    /* Click: si estamos en agenda_profesor, navegar al día directamente;
+       si estamos en otro panel, guardar el día y redirigir a agenda */
+    (function(dayNum) {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', function () {
+        var mm = String(month + 1).padStart(2, '0');
+        var dd = String(dayNum).padStart(2, '0');
+        var fechaStr = year + '-' + mm + '-' + dd;
+
+        if (typeof diaSeleccionado !== 'undefined' && typeof renderSessionsList === 'function') {
+          /* Estamos en agenda_profesor — actualizar directamente */
+          diaSeleccionado = fechaStr;
+          document.querySelectorAll('.week-day-col').forEach(function (c) { c.classList.remove('selected'); });
+          document.querySelectorAll('.month-cell').forEach(function (c) { c.classList.remove('mc-selected'); });
+          var col = document.querySelector('.week-day-col[data-fecha="' + fechaStr + '"]');
+          if (col) col.classList.add('selected');
+          renderSessionsList(fechaStr);
+          /* Actualizar resalte en mini-cal */
+          document.querySelectorAll('.cal-day.cal-selected').forEach(function(c){ c.classList.remove('cal-selected'); });
+          el.classList.add('cal-selected');
+        } else {
+          localStorage.setItem('mt_agenda_dia_sel', fechaStr);
+          window.location.href = 'agenda_profesor.html';
+        }
+      });
+    })(d);
+
     grid.appendChild(el);
   }
 }
 
-/* Función para cerrar sesión - borra los datos guardados del usuario */
-function logout() {
-  localStorage.removeItem('mt_user');
-}
+/* ── CERRAR SESIÓN ── */
+function logout() { localStorage.removeItem('mt_user'); }
