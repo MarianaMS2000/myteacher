@@ -1,0 +1,232 @@
+/* =============================================
+   solicitudes_profesor.css — Estilos para la
+   página de solicitudes del profesor.
+   Reutiliza la estructura visual de mis_tutorias
+   y añade estilos propios de aceptar/rechazar.
+   ============================================= */
+
+/* ── NOTA DEL ESTUDIANTE ── */
+.sol-nota {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: #f8fafc;
+  border-left: 3px solid var(--primary, #4a7a30);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  margin-top: 12px;
+  font-size: 0.84rem;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.sol-nota i {
+  color: var(--primary, #4a7a30);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* ── BOTONES ACEPTAR / RECHAZAR ── */
+.btn-accept {
+  background: #dcfce7;
+  color: #166534;
+  border: 1.5px solid #bbf7d0;
+  font-weight: 700;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-accept:hover {
+  background: #bbf7d0;
+  transform: translateY(-1px);
+}
+
+.btn-reject {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1.5px solid #fecaca;
+  font-weight: 700;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-reject:hover {
+  background: #fecaca;
+  transform: translateY(-1px);
+}
+
+/* ── BADGE ACEPTADA ── */
+.badge-aceptada {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+/* ── RESUMEN LATERAL ── */
+.est-stats-card {
+  background: var(--card-bg, #fff);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  margin-top: 16px;
+}
+
+.es-title {
+  font-family: var(--font-display, 'Poppins', sans-serif);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+  color: var(--text, #1f2937);
+}
+
+.es-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 0.84rem;
+  color: var(--muted, #6b7280);
+}
+
+.es-row:last-child { border-bottom: none; }
+.es-row strong { color: var(--text, #1f2937); font-weight: 700; }
+.es-row strong.es-green { color: #16a34a; }
+
+/* ── BOTÓN VER DETALLE ── */
+.btn-ver-detalle {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1.5px solid #bfdbfe;
+  font-weight: 700;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-ver-detalle:hover {
+  background: #dbeafe;
+  transform: translateY(-1px);
+}
+
+/* ── CARDS RESPONDIDAS (Aceptadas / Rechazadas) ── */
+.card-respondida {
+  padding: 16px 20px;
+}
+
+.badge-resp {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 100px;
+  padding: 5px 12px;
+  font-size: .78rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badge-resp-aceptada {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-resp-rechazada {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* ── BOTONES ACEPTAR / RECHAZAR — corrección nombres de clase ── */
+.btn-aceptar {
+  background: #dcfce7;
+  color: #166534;
+  border: 1.5px solid #bbf7d0;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: .88rem;
+  transition: background 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-aceptar:hover:not(:disabled) {
+  background: #bbf7d0;
+  transform: translateY(-1px);
+}
+
+.btn-rechazar {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1.5px solid #fecaca;
+  font-weight: 700;
+  padding: 8px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: .88rem;
+  transition: background 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-rechazar:hover:not(:disabled) {
+  background: #fecaca;
+  transform: translateY(-1px);
+}
+
+.btn-aceptar:disabled,
+.btn-rechazar:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── META chips para cards del profesor ── */
+.sol-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.sol-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .8rem;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+
+/* ── MENSAJE DEL ESTUDIANTE ── */
+.sol-mensaje {
+  margin-top: 10px;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-left: 3px solid #4a7a30;
+  border-radius: 0 8px 8px 0;
+  font-size: .83rem;
+  color: #6b7280;
+}
+
+/* ── NOMBRE y MATERIA ── */
+.sol-nombre {
+  font-weight: 700;
+  font-size: .97rem;
+  color: #1f2937;
+}
+
+.sol-materia {
+  font-size: .82rem;
+  color: #4a7a30;
+  margin: 2px 0 4px;
+}

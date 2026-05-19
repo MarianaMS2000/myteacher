@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrarse — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/styles.css" />
+  <link rel="stylesheet" href="Style/registro.css" />
+</head>
+
+<body style="background-image: url('images/nubesR.jpg');">
+
+  <div id="step-form">
+
+    <!-- NAV FLOTANTE -->
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="quienes_somos.html">Sobre Nosotros</a></li>
+      </ul>
+      <img src="images/LOGOTEACHER.png" alt="myTeacher" class="nav-logo">
+    </nav>
+
+    <div class="form-page-inner">
+      <div class="registro-split">
+
+        <!-- Foto + botones de rol (escritorio) -->
+        <div class="foto-side" id="foto-side">
+          <img id="foto-img-desktop" src="images/student.png" alt="Rol" onerror="this.style.opacity='0'">
+          <div class="role-tabs">
+            <button class="role-tab-btn active" id="tab-estudiante"  onclick="cambiarRol('estudiante')">Estudiante</button>
+            <button class="role-tab-btn"        id="tab-profesor"    onclick="cambiarRol('profesor')">Profesor</button>
+          </div>
+        </div>
+
+        <!-- Foto pequeña arriba (móvil) -->
+        <div class="mobile-foto-top" id="mobile-foto-top">
+          <img id="foto-img-mobile" src="images/student.png" alt="Rol" onerror="this.style.opacity='0'">
+        </div>
+
+        <!-- Formulario -->
+        <div class="form-panel">
+
+          <div class="form-heading">
+            Hola! <strong>Es un gusto verte</strong>
+          </div>
+
+          <!-- Botones de rol (móvil) -->
+          <div class="role-tabs-mobile">
+            <button class="role-tab-mobile-btn active" id="tab-mobile-estudiante" onclick="cambiarRol('estudiante')">Estudiante</button>
+            <button class="role-tab-mobile-btn"        id="tab-mobile-profesor"   onclick="cambiarRol('profesor')">Profesor</button>
+          </div>
+
+          <!-- Mensaje de error general — se llena desde registro.js -->
+          <p id="errorGeneral" style="color:#e53e3e;font-size:.85rem;margin-bottom:8px;min-height:20px;text-align:center;"></p>
+
+          <form id="registro-form" data-destino="panel_estudiante" novalidate>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" name="nombre">
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email">
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label>Contraseña</label>
+                <div class="input-eye-wrap">
+                  <input type="password" name="password" id="input-password" placeholder="••••••••">
+                  <button type="button" class="btn-eye" onclick="togglePass('input-password', this)" tabindex="-1">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+                <span class="pass-hint">Mínimo 8 caracteres</span>
+                <span class="field-error" id="error-password"></span>
+              </div>
+              <div class="form-group">
+                <label>Repita contraseña</label>
+                <div class="input-eye-wrap">
+                  <input type="password" name="password2" id="input-password2" placeholder="••••••••">
+                  <button type="button" class="btn-eye" onclick="togglePass('input-password2', this)" tabindex="-1">
+                    <i class="fa-regular fa-eye"></i>
+                  </button>
+                </div>
+                <span class="field-error" id="error-password2"></span>
+              </div>
+            </div>
+            <button type="submit" class="btn-submit-registro">REGISTRARSE</button>
+          </form>
+
+          <div class="form-footer">
+            <span>¿Ya tienes una cuenta?</span>
+            <a href="login.html" class="btn-ingresa">INGRESA</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/registro.js"></script>
+</body>
+</html>

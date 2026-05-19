@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Favoritos — myTeacher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="Style/panel.css">
+  <link rel="stylesheet" href="Style/favoritos.css">
+</head>
+<body data-page="favoritos">
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="mainSidebar">
+    <div class="sidebar-logo"><img src="images/ESTUDIANTEPAN.png" alt="myTeacher" style="width:48px;object-fit:contain;">
+</div></i></div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="panel_estudiante.html" data-page="inicio"><i class="fa-solid fa-house"></i> Inicio</a>
+      <a class="nav-item" href="tutores.html" data-page="tutores"><i class="fa-solid fa-chalkboard-user"></i> Tutores</a>
+      <a class="nav-item" href="mis_tutorias.html" data-page="mis-tutorias"><i class="fa-solid fa-calendar-check"></i> Mis tutorias</a>
+      <a class="nav-item" href="comunidad.html" data-page="comunidad"><i class="fa-solid fa-users"></i> Comunidad</a>
+      <a class="nav-item active" href="favoritos.html" data-page="favoritos"><i class="fa-solid fa-heart"></i> Favoritos</a>
+      <a class="nav-item" href="configuracion.html" data-page="configuracion" style="margin-top:auto;"><i class="fa-solid fa-gear"></i> Configuracion</a>
+    </nav>
+  </aside>
+
+  <header class="header">
+    <button class="hamburger-btn" id="hamburgerBtn"><i class="fa-solid fa-bars"></i></button>
+    <img src="images/LOGOTEACHER.png" alt="myTeacher" style="height:36px;object-fit:contain;">
+    <div class="header-search">
+      <i class="fa-solid fa-magnifying-glass" style="color:#9ca3af;font-size:.85rem;"></i>
+      <input type="text" placeholder="Buscar....">
+      <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+    <div class="header-right">
+      <div class="notif-wrapper"><button class="notif-btn"><i class="fa-regular fa-bell"></i><span class="notif-dot"></span></button></div>
+      <div style="position:relative;">
+        <button class="user-btn" id="userBtn">
+          <div class="user-avatar"><img src="" alt="User" onerror="this.style.display='none';this.parentNode.textContent='CS'"></div>
+          <span id="userName">Choi san</span>
+          <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#9ca3af;"></i>
+        </button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a class="dropdown-item" href="perfil_estudiante.html"><i class="fa-regular fa-user"></i> Mi perfil</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item danger" href="login.html" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-wrapper">
+    <main class="main-content">
+
+      <div class="fav-page-header">
+        <h2 class="fav-page-titulo">Mis Tutores favoritos <span class="heart-icon">❤️</span></h2>
+        <a href="tutores.html" class="btn-explorar-tutores">
+          <i class="fa-solid fa-chalkboard-user"></i> Explorar tutores
+        </a>
+      </div>
+
+      <!-- Estado vacío (se muestra cuando no hay favoritos) -->
+      <div class="fav-vacio-estado" id="favVacio" style="display:none;">
+        <i class="fa-regular fa-heart"></i>
+        <h3>No tienes favoritos aún</h3>
+        <p>Explora los tutores y haz clic en el corazón ❤ para guardarlos aquí.</p>
+        <a href="tutores.html" class="btn-ir-tutores">Ver tutores disponibles</a>
+      </div>
+
+      <!-- Cuadrícula de favoritos (se llena dinámicamente) -->
+      <div class="tutores-fav-grid" id="tutoresFavGrid"></div>
+
+    </main>
+  </div>
+
+  <script src="scripts/panel_common.js"></script>
+  <script src="scripts/favoritos.js"></script>
+  <script src="scripts/notifications.js"></script>
+</body>
+</html>

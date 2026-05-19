@@ -1,0 +1,291 @@
+/* =============================================
+   perfil_tutor.css — Estilos del perfil del tutor
+   ============================================= */
+
+/* Breadcrumb de navegación */
+.breadcrumb {
+  margin-bottom: 20px;
+}
+.breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+.breadcrumb a:hover { color: var(--green); }
+
+/* Tarjeta blanca que contiene toda la info del tutor */
+.perfil-card {
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 220px 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Columna izquierda */
+.perfil-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Foto circular del tutor */
+.perfil-avatar {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #e2e8f0;
+  margin-bottom: 16px;
+}
+.perfil-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top;
+}
+
+/* Calificación con estrella */
+.perfil-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green);
+  color: white;
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin-bottom: 12px;
+}
+.perfil-rating i { color: #fef3c7; }
+
+/* Precio */
+.perfil-price {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* Botón solicitar tutoría */
+.btn-solicitar {
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 100px;
+  padding: 12px 28px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+  display: inline-block;
+}
+.btn-solicitar:hover { background: #3449a3; }
+
+/* Nombre del tutor */
+.perfil-nombre {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.verificado-badge {
+  color: #22c55e;
+  font-size: 1.1rem;
+}
+
+.perfil-especialidad {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.perfil-ubicacion {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.perfil-ubicacion i { color: var(--green); }
+
+.materias-label {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.materias-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.materia-chip {
+  background: #f3f4f6;
+  border-radius: 100px;
+  padding: 5px 14px;
+  font-size: 0.8rem;
+  color: var(--text);
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.info-item {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+.info-item strong { color: var(--text); }
+
+.desc-label {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.desc-texto {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: #374151;
+}
+
+/* ── SECCIÓN DE RESEÑAS ── */
+.resenas-section {
+  background: white;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.resenas-titulo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.resenas-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid #f3f4f6;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+
+.resena-stat-box {
+  padding: 24px;
+  text-align: center;
+}
+.resena-stat-box:first-child {
+  border-right: 1px solid #f3f4f6;
+}
+.resena-stat-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.resena-stat-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+
+.resena-calificacion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.resena-calificacion .num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+.estrellas { color: #f59e0b; font-size: 1.4rem; }
+
+.resena-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px 24px;
+  padding: 28px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+.resena-item:last-child { border-bottom: none; }
+
+.resena-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #374151;
+  flex-shrink: 0;
+}
+.resena-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.resena-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+.resena-nombre {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.resena-meta-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.resena-stars { color: #f59e0b; }
+
+.resena-datos {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.resena-datos strong { color: var(--text); }
+
+.resena-texto {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #374151;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .perfil-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .perfil-left { margin: 0 auto; }
+  .perfil-ubicacion { justify-content: center; }
+  .materias-chips { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+  .resenas-stats { grid-template-columns: 1fr; }
+  .resena-stat-box:first-child { border-right: none; border-bottom: 1px solid #f3f4f6; }
+  .resena-item { grid-template-columns: 1fr; }
+  .resena-header { flex-direction: column; gap: 6px; }
+  .perfil-card { padding: 20px 16px; }
+}
