@@ -87,6 +87,10 @@ async function cargarDatosBackend() {
     setVal('bioProfInput',     u.descripcion  || '');
     setVal('precioProfInput',  u.precio_min_cop ? String(u.precio_min_cop) : '');
 
+    /* Links desde la BD (tienen prioridad sobre localStorage) */
+    if (u.link_video)    { setVal('videoLinkInput',    u.link_video);    localStorage.setItem('mt_prof_video_link',    u.link_video); }
+    if (u.whatsapp_link) { setVal('whatsappLinkInput', u.whatsapp_link); localStorage.setItem('mt_prof_whatsapp_link', u.whatsapp_link); }
+
     /* Foto de perfil */
     var imgEl     = document.getElementById('profilePhotoImg');
     var initials  = document.getElementById('profilePhotoInitials');
@@ -140,11 +144,14 @@ async function guardarCambios() {
                     : undefined
   };
 
-  /* Guardar links en localStorage (no van a la BD por ahora) */
   var zoomInput = document.getElementById('videoLinkInput');
-  if (zoomInput) localStorage.setItem('mt_prof_video_link', zoomInput.value.trim());
-  var waInput = document.getElementById('whatsappLinkInput');
-  if (waInput) localStorage.setItem('mt_prof_whatsapp_link', waInput.value.trim());
+  var waInput   = document.getElementById('whatsappLinkInput');
+  /* Guardar links también en localStorage como caché local */
+  if (zoomInput) localStorage.setItem('mt_prof_video_link',    zoomInput.value.trim());
+  if (waInput)   localStorage.setItem('mt_prof_whatsapp_link', waInput.value.trim());
+  /* Incluir en los datos que van a la BD */
+  if (zoomInput && zoomInput.value.trim()) datos.link_video    = zoomInput.value.trim();
+  if (waInput   && waInput.value.trim())   datos.whatsapp_link = waInput.value.trim();
 
   if (token) {
     try {

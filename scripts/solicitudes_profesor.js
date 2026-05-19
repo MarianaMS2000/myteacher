@@ -170,6 +170,22 @@ function crearCardRespondida(s) {
     ? '<span class="badge-resp badge-resp-aceptada"><i class="fa-solid fa-circle-check"></i> Aceptada</span>'
     : '<span class="badge-resp badge-resp-rechazada"><i class="fa-solid fa-circle-xmark"></i> Rechazada</span>';
 
+  /* Botones de contacto para las aceptadas */
+  var botonesHtml = '';
+  if (esAceptada) {
+    var linkVideo = s.link_virtual || s.profesor_link_video || '';
+    var linkWa    = s.profesor_whatsapp || s.profesor_tel || '';
+    botonesHtml =
+      '<div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">' +
+        (linkWa
+          ? '<button onclick="window.open(\'https://wa.me/\' + \'' + esc(linkWa.replace(/\\D/g,'')) + '\',\'_blank\')" style="background:#25d366;color:white;border:none;border-radius:10px;padding:10px 18px;font-size:.85rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;"><i class=\'fa-brands fa-whatsapp\'></i> WhatsApp</button>'
+          : '') +
+        (linkVideo
+          ? '<button onclick="window.open(\'' + esc(linkVideo) + '\',\'_blank\')" style="background:#7c3aed;color:white;border:none;border-radius:10px;padding:10px 18px;font-size:.85rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;"><i class=\'fa-solid fa-video\'></i> Link de videollamada</button>'
+          : '<span style="font-size:.8rem;color:#9ca3af;"><i class="fa-solid fa-circle-info"></i> Agrega tu link de videollamada en Configuración</span>') +
+      '</div>';
+  }
+
   div.innerHTML =
     '<div style="display:flex;align-items:flex-start;gap:14px;">' +
       '<div style="background:' + color + ';color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;width:50px;height:50px;border-radius:50%;overflow:hidden;flex-shrink:0;">' + avatarHtml + '</div>' +
@@ -187,7 +203,8 @@ function crearCardRespondida(s) {
         badgeHtml +
         (precio ? '<div style="text-align:right;"><div style="font-weight:800;font-size:1rem;color:' + (esAceptada ? '#4a7a30' : '#9ca3af') + ';">' + precio + '</div><div style="font-size:.7rem;color:#9ca3af;">COP / sesión</div></div>' : '') +
       '</div>' +
-    '</div>';
+    '</div>' +
+    botonesHtml;
 
   return div;
 }

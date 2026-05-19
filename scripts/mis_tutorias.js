@@ -101,8 +101,8 @@ async function cargarTodoDesdeAPI() {
       _tutorias.proximas.push({
         profesor_nombre:     s.profesor_nombre || 'Tutor',
         profesor_foto:       s.profesor_foto   || '',
-        profesor_tel:        s.profesor_tel    || s.telefono || '',
-        link_virtual:        s.link_virtual    || '',
+        profesor_tel:        s.profesor_whatsapp || s.profesor_tel || s.telefono || '',
+        link_virtual:        s.link_virtual || s.profesor_link_video || '',
         profesor_id:         s.profesor_id,
         materia:             s.materia || s.materia_nombre || 'Materia',
         fecha:               s.fecha_prop || s.fecha || '',
@@ -246,13 +246,14 @@ function crearCardTutoria(t, tipo, histId) {
 
   var acciones = '';
   if (tipo === 'proxima') {
-    /* Siempre mostrar botones de contacto; si no hay datos reales, se ocultan solos */
+    var linkVideo = t.link_virtual || t.profesor_link_video || '';
+    var linkWa    = t.profesor_tel || t.profesor_whatsapp || '';
     var botonesContacto =
-      (t.profesor_tel
-        ? '<button class="btn-action btn-whatsapp" onclick="openWhatsApp(\'' + esc(t.profesor_tel) + '\')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>'
+      (linkWa
+        ? '<button class="btn-action btn-whatsapp" onclick="openWhatsApp(\'' + esc(linkWa) + '\')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>'
         : '<button class="btn-action btn-whatsapp" onclick="mostrarToast(\'El tutor aún no ha compartido su WhatsApp.\',\'error\')"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>') +
-      (t.link_virtual
-        ? '<button class="btn-action btn-link" onclick="openLink(\'' + esc(t.link_virtual) + '\')"><i class="fa-solid fa-video"></i> Link de videollamada</button>'
+      (linkVideo
+        ? '<button class="btn-action btn-link" onclick="openLink(\'' + esc(linkVideo) + '\')"><i class="fa-solid fa-video"></i> Link de videollamada</button>'
         : '<button class="btn-action btn-link" onclick="mostrarToast(\'El tutor aún no ha compartido el link.\',\'error\')"><i class="fa-solid fa-video"></i> Link de videollamada</button>');
     acciones = '<div class="tutoria-actions">' + botonesContacto + '</div>';
   } else if (histId) {
