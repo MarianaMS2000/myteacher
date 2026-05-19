@@ -86,10 +86,13 @@ async function cargarTodoDesdeAPI() {
 
     /* Las ACEPTADAS pasan al tab "Próximos" con la card completa.
        Solo las pendientes/rechazadas quedan en "Solicitudes". */
+    var canceladasLocal = getCanceladasLocal();
     var solicitudesAceptadas = todasSolicitudes.filter(function(s){
       return s.estado === 'aceptada';
     });
     _tutorias.solicitudes = todasSolicitudes.filter(function(s){
+      /* Excluir las que el usuario ya canceló localmente aunque el backend las siga como "enviada" */
+      if (canceladasLocal.indexOf(String(s.id)) !== -1) return false;
       return s.estado === 'enviada' || s.estado === 'rechazada' || s.estado === 'cancelada';
     });
 
@@ -400,7 +403,20 @@ async function cancelarSolicitudAPI(solicitudId, btn) {
     }, 100);
   }
 
+  /* Guardar en localStorage para que persista al recargar */
+  guardarCanceladaLocal(solicitudId);
+
   mostrarToast('Solicitud cancelada.', 'success');
+}
+
+/* ── Helpers para persistir cancelaciones localmente ── */
+function getCanceladasLocal() {
+  try { return JSON.parse(localStorage.getItem('mt_solicitudes_canceladas') || '[]'); } catch(e) { return []; }
+}
+function guardarCanceladaLocal(id) {
+  var lista = getCanceladasLocal();
+  if (lista.indexOf(String(id)) === -1) lista.push(String(id));
+  try { localStorage.setItem('mt_solicitudes_canceladas', JSON.stringify(lista)); } catch(e) {}
 }
 
 /* Eliminar card de solicitud rechazada del DOM (solo visual) */
