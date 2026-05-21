@@ -56,6 +56,7 @@ async function cargarSolicitudesAPI() {
 
     var pendientes = sols.filter(function(s){ return s.estado === 'enviada' || s.estado === 'pendiente'; });
     var aceptadas  = sols.filter(function(s){ return s.estado === 'aceptada'; });
+    var rechazadas = sols.filter(function(s){ return s.estado === 'rechazada'; });
 
     if (containerPend) {
       var realDiv = containerPend.querySelector('.real-list');
@@ -68,10 +69,22 @@ async function cargarSolicitudesAPI() {
       }
     }
 
+    if (containerAcep) {
+      var realDivA = containerAcep.querySelector('.real-list');
+      if (!realDivA) { realDivA = document.createElement('div'); realDivA.className = 'real-list'; containerAcep.prepend(realDivA); }
+      realDivA.innerHTML = '';
+      var respondidas = aceptadas.concat(rechazadas);
+      if (respondidas.length === 0) {
+        realDivA.innerHTML = '<p style="color:#9ca3af;padding:20px 0;font-size:.9rem;">Aún no has respondido ninguna solicitud.</p>';
+      } else {
+        respondidas.forEach(function(s) { realDivA.appendChild(crearCardRespondida(s)); });
+      }
+    }
+
     /* Actualizar contadores en tabs */
     var badgePend = document.getElementById('badge-pendientes');
     if (badgePend) badgePend.textContent = pendientes.length;
-    var badgeAcep = document.getElementById('badge-proximas') || document.getElementById('badge-aceptadas');
+    var badgeAcep = document.getElementById('badge-aceptadas');
     if (badgeAcep) badgeAcep.textContent = aceptadas.length;
 
   } catch(e) {
@@ -283,231 +296,49 @@ function mostrarToast(mensaje, color) {
   }, 3500);
 }
 
-/* ── Cargar tutorías del profesor — llena tab-proximas y tab-historial ── */
+/* ── Cargar tutorías del profesor ── */
 async function cargarTutoriasProfesor() {
   var token = typeof getToken === 'function' ? getToken() : null;
   if (!token) return;
+
+  var container = document.getElementById('listaTutorias') || document.querySelector('#tab-tutorias .tutorias-list');
+  if (!container) return;
 
   try {
     var res  = await fetch('/api/tutorias', { headers: { 'Authorization': 'Bearer ' + token } });
     var data = await res.json();
     var tuts = data.tutorias || [];
 
-    var hoy = new Date().toISOString().split('T')[0];
-    var proximas  = tuts.filter(function(t){ var f=(t.fecha||'').toString().slice(0,10); return t.estado==='confirmada' && f>=hoy; });
-    var historial = tuts.filter(function(t){ var f=(t.fecha||'').toString().slice(0,10); return t.estado==='completada'||t.estado==='cancelada'||(t.estado==='confirmada'&&f<hoy); });
+    var realDiv = container.querySelector('.real-list');
+    if (!realDiv) { realDiv = document.createElement('div'); realDiv.className = 'real-list'; container.prepend(realDiv); }
+    realDiv.innerHTML = '';
 
-    /* ─ Tab: Próximas (sesiones confirmadas con botón "Marcar terminada") ─ */
-    var containerProx = document.getElementById('tab-proximas');
-    if (containerProx) {
-      var realDivP = containerProx.querySelector('.real-list-tut');
-      if (!realDivP) {
-        realDivP = document.createElement('div');
-        realDivP.className = 'real-list-tut';
-        containerProx.appendChild(realDivP);
-      }
-      realDivP.innerHTML = '';
-      if (!proximas.length) {
-        realDivP.innerHTML = '<p style="color:#9ca3af;padding:20px 0;font-size:.9rem;text-align:center;">No tienes sesiones próximas confirmadas.</p>';
-      } else {
-        proximas.forEach(function(t) { realDivP.appendChild(crearCardTutoriaProfesor(t, false)); });
-      }
+    if (!tuts.length) {
+      realDiv.innerHTML = '<p style="color:#9ca3af;padding:20px 0;font-size:.9rem;">No tienes tutorías registradas aún.</p>';
+      return;
     }
 
-    /* ─ Tab: Historial (sesiones completadas/canceladas con botón "Reseñar") ─ */
-    var containerHist = document.getElementById('tab-historial');
-    if (containerHist) {
-      var realDivH = containerHist.querySelector('.real-list-tut');
-      if (!realDivH) {
-        realDivH = document.createElement('div');
-        realDivH.className = 'real-list-tut';
-        containerHist.appendChild(realDivH);
-      }
-      realDivH.innerHTML = '';
-      if (!historial.length) {
-        realDivH.innerHTML = '<p style="color:#9ca3af;padding:20px 0;font-size:.9rem;text-align:center;">No tienes sesiones en el historial aún.</p>';
-      } else {
-        historial.forEach(function(t) { realDivH.appendChild(crearCardTutoriaProfesor(t, true)); });
-      }
-    }
-
+    tuts.forEach(function(t) {
+      var div = document.createElement('div');
+      div.className = 'solicitud-card';
+      var nombre = t.estudiante_nombre || 'Estudiante';
+      var iniciales = nombre.split(' ').map(function(x){ return x[0]; }).join('').toUpperCase().slice(0,2);
+      var estadoBadge = t.estado === 'confirmada'
+        ? '<span style="background:#dcfce7;color:#166534;border-radius:100px;padding:4px 12px;font-size:.78rem;font-weight:700;border:1px solid #bbf7d0;white-space:nowrap;">✓ Confirmada</span>'
+        : '<span style="background:#f3f4f6;color:#6b7280;border-radius:100px;padding:4px 12px;font-size:.78rem;font-weight:700;white-space:nowrap;">' + esc(t.estado || 'Completada') + '</span>';
+      div.innerHTML =
+        '<div style="display:flex;align-items:center;gap:14px;">' +
+          '<div style="width:46px;height:46px;border-radius:50%;background:#4a7a30;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">' + iniciales + '</div>' +
+          '<div style="flex:1;min-width:0;">' +
+            '<div style="font-weight:700;">' + esc(nombre) + '</div>' +
+            '<div style="font-size:.82rem;color:#9ca3af;">' + esc(t.materia || '') + ' · ' + formatFecha(t.fecha || '') + ' · ' + formatHora(t.hora_inicio || '') + '</div>' +
+          '</div>' +
+          estadoBadge +
+          (t.precio_cop ? '<div style="font-weight:700;color:#4a7a30;white-space:nowrap;">$' + Number(t.precio_cop).toLocaleString('es-CO') + '</div>' : '') +
+        '</div>';
+      realDiv.appendChild(div);
+    });
   } catch(e) { console.error('Error cargando tutorías del profesor:', e); }
-}
-
-function crearCardTutoriaProfesor(t, esHistorial) {
-  var div = document.createElement('div');
-  div.className = 'solicitud-card';
-  var nombre = t.estudiante_nombre || 'Estudiante';
-  var iniciales = nombre.split(' ').map(function(x){ return x[0]; }).join('').toUpperCase().slice(0,2);
-  var foto = t.estudiante_foto || '';
-  var avatarHtml = foto
-    ? '<img src="' + esc(foto) + '" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display=\'none\'">'
-    : iniciales;
-
-  var estadoBadge;
-  if (t.estado === 'completada') {
-    estadoBadge = '<span style="background:#dcfce7;color:#166534;border-radius:100px;padding:4px 12px;font-size:.78rem;font-weight:700;border:1px solid #bbf7d0;white-space:nowrap;">✅ Completada</span>';
-  } else if (t.estado === 'cancelada') {
-    estadoBadge = '<span style="background:#fee2e2;color:#991b1b;border-radius:100px;padding:4px 12px;font-size:.78rem;font-weight:700;border:1px solid #fca5a5;white-space:nowrap;">❌ Cancelada</span>';
-  } else {
-    estadoBadge = '<span style="background:#dcfce7;color:#166534;border-radius:100px;padding:4px 12px;font-size:.78rem;font-weight:700;border:1px solid #bbf7d0;white-space:nowrap;">✓ Confirmada</span>';
-  }
-
-  var botones = '';
-  if (t.estado === 'confirmada') {
-    /* Confirmada (futura O pasada sin marcar): siempre mostrar "Marcar terminada" */
-    botones =
-      '<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">' +
-        '<button onclick="completarTutoriaProfesor(' + t.id + ', this)" style="background:#4a7a30;color:white;border:none;border-radius:10px;padding:9px 16px;font-size:.83rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">' +
-          '<i class="fa-solid fa-flag-checkered"></i> Marcar como terminada' +
-        '</button>' +
-        '<button onclick="cancelarTutoriaProfesor(' + t.id + ', this)" style="background:#f3f4f6;color:#6b7280;border:1px solid #e5e7eb;border-radius:10px;padding:9px 16px;font-size:.83rem;font-weight:600;cursor:pointer;">' +
-          '<i class="fa-solid fa-xmark"></i> Cancelar sesión' +
-        '</button>' +
-      '</div>';
-  } else if (t.estado === 'completada') {
-    botones =
-      '<div style="margin-top:10px;">' +
-        '<button onclick="abrirModalReseñaProfesor(' + t.id + ', \'' + esc(t.estudiante_nombre || 'Estudiante') + '\')" style="background:#7c3aed;color:white;border:none;border-radius:10px;padding:9px 16px;font-size:.83rem;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;">' +
-          '<i class="fa-solid fa-star"></i> Reseñar al estudiante' +
-        '</button>' +
-      '</div>';
-  }
-
-  div.innerHTML =
-    '<div style="display:flex;align-items:center;gap:14px;">' +
-      '<div style="width:46px;height:46px;border-radius:50%;background:#4a7a30;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;overflow:hidden;">' + avatarHtml + '</div>' +
-      '<div style="flex:1;min-width:0;">' +
-        '<div style="font-weight:700;">' + esc(nombre) + '</div>' +
-        '<div style="font-size:.82rem;color:#9ca3af;">' + esc(t.materia || '') + ' · ' + formatFecha(t.fecha || '') + ' · ' + formatHora(t.hora_inicio || '') + '</div>' +
-      '</div>' +
-      estadoBadge +
-      (t.precio_cop ? '<div style="font-weight:700;color:#4a7a30;white-space:nowrap;">$' + Number(t.precio_cop).toLocaleString('es-CO') + '</div>' : '') +
-    '</div>' +
-    botones;
-  return div;
-}
-
-/* ── Completar tutoria (profesor) ── */
-async function completarTutoriaProfesor(tutoriaId, btn) {
-  if (!confirm('¿Confirmas que la sesión con el estudiante terminó exitosamente?')) return;
-  var token = typeof getToken === 'function' ? getToken() : null;
-  if (!token) return;
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
-  try {
-    var res = await fetch('/api/tutorias/' + tutoriaId + '/completar', {
-      method: 'PATCH',
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
-    if (res.ok) {
-      mostrarToast('✅ Sesión completada. Recuerda reseñar al estudiante.', '#22c55e');
-      setTimeout(cargarTutoriasProfesor, 800);
-    } else {
-      var err = {}; try { err = await res.json(); } catch(e) {}
-      mostrarToast('❌ ' + (err.error || 'Error'), '#ef4444');
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> Marcar como terminada';
-    }
-  } catch(e) {
-    mostrarToast('❌ Error de conexión', '#ef4444');
-    btn.disabled = false;
-    btn.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> Marcar como terminada';
-  }
-}
-
-/* ── Cancelar tutoría (profesor) ── */
-async function cancelarTutoriaProfesor(tutoriaId, btn) {
-  if (!confirm('¿Seguro que deseas cancelar esta sesión confirmada? Se notificará al estudiante.')) return;
-  var token = typeof getToken === 'function' ? getToken() : null;
-  if (!token) return;
-  btn.disabled = true;
-  try {
-    var res = await fetch('/api/tutorias/' + tutoriaId + '/cancelar', {
-      method: 'PATCH',
-      headers: { 'Authorization': 'Bearer ' + token }
-    });
-    if (res.ok) {
-      mostrarToast('Sesión cancelada. El estudiante ha sido notificado.', '#6b7280');
-      setTimeout(cargarTutoriasProfesor, 800);
-    } else {
-      btn.disabled = false;
-    }
-  } catch(e) { btn.disabled = false; }
-}
-
-/* ── Modal de reseña PARA EL PROFESOR (reseña al estudiante) ── */
-var reseñaProfesorActual = { tutoriaId: null, estrellas: 0 };
-
-function abrirModalReseñaProfesor(tutoriaId, nombreEstudiante) {
-  reseñaProfesorActual.tutoriaId  = tutoriaId;
-  reseñaProfesorActual.estrellas  = 0;
-
-  /* Reutilizar el mismo modal si existe, sino crear uno dinámico */
-  var modal = document.getElementById('ratingModalProf');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'ratingModalProf';
-    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:9000;';
-    modal.innerHTML =
-      '<div style="background:white;border-radius:20px;padding:32px 28px;max-width:420px;width:90%;position:relative;">' +
-        '<button onclick="cerrarModalReseñaProfesor()" style="position:absolute;top:16px;right:16px;background:none;border:none;font-size:1.2rem;cursor:pointer;color:#9ca3af;">✕</button>' +
-        '<h3 id="rmpTitulo" style="margin:0 0 6px;font-size:1.1rem;font-weight:800;color:#1f2937;">Reseñar al estudiante</h3>' +
-        '<p id="rmpSubtitulo" style="margin:0 0 20px;font-size:.85rem;color:#6b7280;"></p>' +
-        '<div id="rmpStars" style="display:flex;gap:8px;margin-bottom:18px;">' +
-          [1,2,3,4,5].map(function(n){
-            return '<button data-val="' + n + '" onclick="seleccionarEstrellaProf(' + n + ')" style="font-size:2rem;background:none;border:none;cursor:pointer;color:#d1d5db;transition:color .15s;">★</button>';
-          }).join('') +
-        '</div>' +
-        '<textarea id="rmpComentario" rows="3" placeholder="Comentario sobre el estudiante (opcional)..." style="width:100%;border:1.5px solid #e5e7eb;border-radius:10px;padding:10px 12px;font-size:.88rem;resize:none;box-sizing:border-box;"></textarea>' +
-        '<button onclick="enviarReseñaProfesor()" style="margin-top:16px;width:100%;background:#7c3aed;color:white;border:none;border-radius:10px;padding:12px;font-size:.95rem;font-weight:700;cursor:pointer;">Enviar reseña</button>' +
-      '</div>';
-    document.body.appendChild(modal);
-  }
-
-  var subtitulo = modal.querySelector('#rmpSubtitulo');
-  if (subtitulo) subtitulo.textContent = 'Califica tu experiencia con ' + (nombreEstudiante || 'el estudiante');
-  seleccionarEstrellaProf(0);
-  var ta = modal.querySelector('#rmpComentario');
-  if (ta) ta.value = '';
-  modal.style.display = 'flex';
-}
-
-function seleccionarEstrellaProf(val) {
-  reseñaProfesorActual.estrellas = val;
-  var modal = document.getElementById('ratingModalProf');
-  if (!modal) return;
-  modal.querySelectorAll('#rmpStars button').forEach(function(btn, i) {
-    btn.style.color = i < val ? '#f59e0b' : '#d1d5db';
-  });
-}
-
-function cerrarModalReseñaProfesor() {
-  var modal = document.getElementById('ratingModalProf');
-  if (modal) modal.style.display = 'none';
-}
-
-async function enviarReseñaProfesor() {
-  if (!reseñaProfesorActual.estrellas) { alert('Selecciona una calificación'); return; }
-  var token = typeof getToken === 'function' ? getToken() : null;
-  if (!token) return;
-  var modal = document.getElementById('ratingModalProf');
-  var comentario = modal ? (modal.querySelector('#rmpComentario') || {}).value || '' : '';
-  try {
-    var res = await fetch('/api/resenas-profesor', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-      body: JSON.stringify({ tutoria_id: reseñaProfesorActual.tutoriaId, calificacion: reseñaProfesorActual.estrellas, comentario: comentario })
-    });
-    if (res.ok) {
-      cerrarModalReseñaProfesor();
-      mostrarToast('⭐ ¡Reseña enviada con éxito!', '#22c55e');
-      /* Deshabilitar el botón de reseñar para esa card */
-      setTimeout(cargarTutoriasProfesor, 600);
-    } else {
-      mostrarToast('Error al enviar la reseña', '#ef4444');
-    }
-  } catch(e) { mostrarToast('Error de conexión', '#ef4444'); }
 }
 
 /* ── Tabs ── */

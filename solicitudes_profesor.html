@@ -91,7 +91,100 @@
         </div>
 
         <div class="tab-content" id="tab-historial">
-          <!-- Historial dinámico desde API -->
+
+          <!-- Card completada sin reseña -->
+          <div class="tutoria-card" id="card-hist-1">
+            <div class="tutoria-card-top">
+              <div class="tutor-avatar" style="background:#db2777;color:#fff;font-weight:700;font-size:1rem;display:flex;align-items:center;justify-content:center;">JR</div>
+              <div class="tutoria-info">
+                <div class="tutor-name">Julián Rodríguez</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Física Mecánica
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip"><i class="fa-regular fa-calendar"></i> Lun 14 Abr</span>
+                  <span class="meta-chip"><i class="fa-regular fa-clock"></i> 5:00 PM</span>
+                  <span class="meta-chip"><i class="fa-solid fa-video"></i> Virtual</span>
+                </div>
+                <span class="duration-badge"><i class="fa-solid fa-hourglass-half"></i> 90 min</span>
+              </div>
+              <div class="tutoria-card-right">
+                <span class="badge badge-completado" id="badge-hist-1"><i class="fa-solid fa-check"></i> Completado</span>
+                <div>
+                  <div class="tutoria-price">$60,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+            <div class="tutoria-actions" id="actions-hist-1">
+              <button class="btn-action btn-review"
+                      onclick="abrirModalReseña('Julián Rodríguez', 'JR', 'hist-1')">
+                <i class="fa-solid fa-star"></i> Dejar reseña del estudiante
+              </button>
+            </div>
+          </div>
+
+          <!-- Card completada ya reseñada -->
+          <div class="tutoria-card" id="card-hist-2">
+            <div class="tutoria-card-top">
+              <div class="tutor-avatar" style="background:#7c3aed;color:#fff;font-weight:700;font-size:1rem;display:flex;align-items:center;justify-content:center;">IT</div>
+              <div class="tutoria-info">
+                <div class="tutor-name">Isabella Torres</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Álgebra Lineal
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip"><i class="fa-regular fa-calendar"></i> Mar 8 Abr</span>
+                  <span class="meta-chip"><i class="fa-regular fa-clock"></i> 4:00 PM</span>
+                  <span class="meta-chip"><i class="fa-solid fa-video"></i> Virtual</span>
+                </div>
+                <span class="duration-badge"><i class="fa-solid fa-hourglass-half"></i> 60 min</span>
+              </div>
+              <div class="tutoria-card-right">
+                <span class="badge badge-reseñado" id="badge-hist-2"><span class="reseñado-star">⭐</span> Reseñado</span>
+                <div>
+                  <div class="tutoria-price">$45,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+            <div class="tutoria-actions" id="actions-hist-2">
+              <!-- Ya reseñado, sin botones -->
+            </div>
+          </div>
+
+          <!-- Card rechazada en historial -->
+          <div class="tutoria-card" id="card-hist-3">
+            <div class="tutoria-card-top">
+              <div class="tutor-avatar" style="background:#d97706;color:#fff;font-weight:700;font-size:1rem;display:flex;align-items:center;justify-content:center;">FG</div>
+              <div class="tutoria-info">
+                <div class="tutor-name">Felipe Gómez</div>
+                <div class="tutoria-subject">
+                  <i class="fa-solid fa-circle" style="font-size:.5rem;"></i> Estadística
+                </div>
+                <div class="tutoria-meta">
+                  <span class="meta-chip"><i class="fa-regular fa-calendar"></i> Mié 9 Abr</span>
+                  <span class="meta-chip"><i class="fa-regular fa-clock"></i> 11:00 AM</span>
+                  <span class="meta-chip"><i class="fa-solid fa-video"></i> Virtual</span>
+                </div>
+                <span class="duration-badge"><i class="fa-solid fa-hourglass-half"></i> 60 min</span>
+              </div>
+              <div class="tutoria-card-right">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span class="badge badge-rechazada"><i class="fa-solid fa-xmark-circle"></i> Rechazada</span>
+                  <button class="card-close-btn" onclick="eliminarCard('card-hist-3')" title="Eliminar">
+                    <i class="fa-solid fa-xmark"></i>
+                  </button>
+                </div>
+                <div>
+                  <div class="tutoria-price">$45,000</div>
+                  <div class="tutoria-price-label">COP / sesión</div>
+                </div>
+              </div>
+            </div>
+            <div class="tutoria-actions" id="actions-hist-3"></div>
+          </div>
+
         </div>
         <!-- FIN TAB HISTORIAL -->
 
